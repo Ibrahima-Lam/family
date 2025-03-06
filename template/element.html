@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eléments</title>
+    <link rel="stylesheet" href="css/style1.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script0.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <h3>Famille Lammbe Dialade</h3>
+        <div class="slider">
+            <span>&#9776;</span>
+        </div>
+        <div class="nav-link">
+
+            <ul>
+                <li><a href="index.html"> Accueil </a></li>
+                <li><a href="element.html"> Eléments</a></li>
+                <li><a href="liste.html"> Liste </a></li>
+                <li><a href="arbre.html"> Arbre </a></li>
+                <li><a href="livre.html"> détails </a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content" id="content">
+            <div class="sub-nav">
+                <input type="search" name="" id="search" placeholder="Recherche...">
+                <button id="history" class="">Historique</button>
+                <button id="favory" class="">Favories</button>
+            </div>
+
+            <div id="matches">
+                <h3 id="titre"></h3>
+                <table class="table">
+                    <thead>
+
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <template id="tablehead">
+                    <tr>
+                        <th><button id="cache">Masquer</button></th>
+                        <th><button id="supprime">Supprimer</button></th>
+                    </tr>
+                </template>
+            </div>
+            <template id="temp">
+                <div class="pseudo-element">
+                    <div class="pseudo-element-head flex">
+                        <div class="profile ">
+                            <img src="icon/person.svg" alt="profile">
+                            <span class="element-name"><strong class="name">
+
+                                </strong></span>
+                        </div>
+                        <div class="pseudo-menu">
+                            <img src="icon/three-dots-vertical.svg" alt="profile">
+                            <div class="menu-container">
+                                <div class="menus">
+                                    <ul>
+                                        <li><span class="copy-link">Copier le lien</span></li>
+                                        <li><span class="share-link">Partager le lien</span></li>
+                                        <li><span class="favorie-link">Ajouter aux favories</span></li>
+                                        <li><span class="details-link">details</span></li>
+                                        <li><span class="masque-link">Masquer</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pseudo-element-body">
+                        <div class="personnal-infos">
+                            <dd><strong>ID : </strong>
+                                <span class="id"></span>
+                            </dd>
+                            <dd><strong>Genre : </strong>
+                                <span class="genre"></span>
+                            </dd>
+                            <dd><strong>Génération : </strong>
+                                <span class="gene"></span>
+                            </dd>
+                        </div>
+                        <div class="partie packparents">
+                            <h4 class="sub-header">La lignée</h4>
+                            <div class="data">
+                                <p class="lignee"> ... <span class="lignee-content"></span>
+                                    &lt;=<span class="lignee-name"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="partie siblings">
+                            <h4 class="sub-header">Le(s) Frére(s) et Soeur(s)</h4>
+
+                        </div>
+
+                        <div class="partie children">
+                            <h4 class="sub-header">Les Enfants</h4>
+
+                        </div>
+
+                        <div class="partie parents">
+                            <h4 class="sub-header">Le(s) Parent(s)</h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pseudo-element-foot ">
+                        <div class="bookmark" title="bookmark">
+                            <img src="icon/bookmark.svg" alt="profile">
+                        </div>
+                        <div class="copy" title="Copier">
+                            <img src="icon/clipboard.svg" alt="profile">
+                        </div>
+                        <div class="share" title="partager">
+                            <img src="icon/share.svg" alt="profile">
+                        </div>
+                    </div>
+                </div>
+
+            </template>
+
+            <div class="scroller" id="scrollTop">
+                <img src="icon/caret-up-fill.svg" alt="profile">
+            </div>
+
+
+
+        </div>
+    </div>
+    <script>
+        let res = null
+        let elements = []
+        const matches = document.getElementById('matches');
+        const tbody = matches.querySelector('tbody')
+        const thead = matches.querySelector('thead')
+        const titre = document.getElementById('titre')
+
+        /* ------------Récuperation des donnees depuis l'API-------- */
+
+        async function getData() {
+
+            const data = await fetch("data/liste.json")
+            res = await data.json()
+            for (const key in res) {
+                if (Object.hasOwnProperty.call(res, key)) {
+                    const element = res[key];
+                    elements.push(element)
+                }
+            }
+        }
+
+
+        /* ----------Récuperation  des données depuis localstorage------ */
+
+        function getStorageData(key) {
+            let data = localStorage.getItem(key)
+            return JSON.parse(data ?? "[]")
+        }
+
+        /* -----------Affichage de l'historique-------------- */
+
+        const historique = document.getElementById('history');
+        let showfavorie = true
+        let showhistorique = true
+
+        historique.addEventListener('click', function (e) {
+            showfavorie = true
+            remove()
+            if (showhistorique) {
+                const elmts = getStorageData("historique");
+                if (elmts.length === 0) {
+                    alert("l'historique est vide")
+                    return false
+                }
+                showhistorique = false
+                tbodyConstruct(elmts, "Historique")
+            } else {
+                showhistorique = true
+            }
+            listenTbodyElementsClick()
+            hideAndDeleteList()
+
+        })
+
+
+        /*------------Affichage des favories----------------- */
+
+        const favory = document.getElementById('favory');
+        favory.addEventListener('click', function (e) {
+            showhistorique = true
+            remove()
+            if (showfavorie) {
+                const elmts = getStorageData("favorie");
+                if (elmts.length === 0) {
+                    alert("liste des favories est vide")
+                    return false
+                }
+                showfavorie = false
+                tbodyConstruct(elmts, "Favorie")
+            } else {
+                showfavorie = true
+            }
+            listenTbodyElementsClick()
+            hideAndDeleteList()
+        })
+
+        /* ----------Affichage de la Recherche------------ */
+
+        const search = document.getElementById('search');
+        search.addEventListener('input', async function (e) {
+            remove()
+            const value = this.value
+            if (!value) return false
+            if (elements.length === 0) await getData();
+
+            elmnts = elements.filter(element => {
+                const { id, nom, parent } = element
+                return nom.toUpperCase().includes(value.toUpperCase())
+                    || id.toString().includes(value.toString())
+            })
+            tbodyConstruct(elmnts, "Correspondance de la Recherche")
+
+            listenTbodyElementsClick()
+            hideAndDeleteList()
+        })
+
+        /* --------function de  reinitialisation du tableau et le titre-------- */
+
+        function remove() {
+            tbody.innerHTML = ""
+            thead.innerHTML = ""
+            titre.innerHTML = ""
+
+        }
+
+        /* ---------------------Supprimer les favories et l'historique------- */
+        function hideAndDeleteList() {
+            const supprime = document.getElementById("supprime")
+            supprime?.addEventListener('click', function (e) {
+                showfavorie = true
+                showhistorique = true
+                const title = titre.innerHTML
+                if (title === "Historique") {
+                    if (confirm("Voulez vous supprimer l'historique")) {
+                        localStorage.setItem("historique", "[]")
+                        remove()
+
+                    }
+                } else if (title === "Favorie") {
+                    if (confirm("Voulez vous supprimer le favorie")) {
+                        localStorage.setItem("favorie", "[]")
+                        remove()
+                    }
+                } else {
+                    alert("impossible de supprimer,\n soit la liste vide ou vous êtes sur la recherche")
+                }
+            })
+
+            /* -------masquer la liste------------- */
+
+            const cache = document.getElementById("cache")
+            cache?.addEventListener('click', function (e) {
+                showfavorie = true
+                showhistorique = true
+                remove()
+            })
+        }
+
+        /* --------------function ecouteur de click sur les de tbody------  */
+
+        function listenTbodyElementsClick() {
+            const anchors = tbody.querySelectorAll('a')
+            anchorsListener(anchors)
+
+        }
+
+        /* -------------function constructeur du tableau----------- */
+
+        function tbodyConstruct(elements, title) {
+
+            thead.append(document.getElementById("tablehead").content.cloneNode(true))
+            if (elements.length !== 0) {
+
+                elements.forEach(data => {
+
+                    const { id, nom } = data;
+                    const tr = document.createElement("tr")
+
+                    const ids = tdElement(id)
+                    tr.append(ids)
+
+                    const name = tdAndAnchorElement(nom, `#${id}`)
+                    tr.append(name)
+
+                    tbody.append(tr)
+
+                })
+                titre.innerHTML = title
+
+            } else {
+                const text = "Pas de correspondance"
+                titre.innerHTML = text
+            }
+        }
+
+        /* -------functions Createur td et a pour le tableau------- */
+
+        function tdElement(text) {
+            const td = document.createElement("td")
+            td.innerHTML = text
+            return td
+        }
+
+        function tdAndAnchorElement(text, link) {
+            const a = document.createElement("a")
+            a.append(text)
+            a.href = link
+            const td = document.createElement("td")
+            td.append(a)
+            return td
+        }
+
+        /* ------Construction de tous les elements ------ */
+
+        window.addEventListener("load", async function (e) {
+            const content = document.getElementById('content');
+            const temp = document.getElementById('temp');
+            if (!res) await getData()
+            for (const key in res) {
+                if (Object.hasOwnProperty.call(res, key)) {
+                    const { id, nom, generation, sexe, children, siblings, parents, backparents } = res[key];
+                    const element = temp.content.cloneNode(true);
+                    element.querySelector(".pseudo-element").dataset.id = id
+
+                    element.querySelector('.name').innerHTML = nom
+                    element.querySelector('.lignee-name').innerHTML = nom
+                    element.querySelector('.element-name').id = id
+                    element.querySelector('.id').innerHTML = id
+                    element.querySelector('.gene').innerHTML = generation
+                    element.querySelector('.genre').innerHTML = sexe
+                    const enfants = element.querySelector(".children")
+                    const prnts = element.querySelector(".parents")
+                    const freres = element.querySelector(".siblings")
+                    const backprnts = element.querySelector(".packparents")
+                    const lignee = element.querySelector(".lignee-content")
+
+                    if (children.length !== 0) {
+                        children.forEach(child => {
+                            enfants.append(constructElement(child.id, child.nom))
+                        });
+                    } else enfants.remove()
+
+                    if (parents !== null) {
+                        parents.forEach(parent => {
+                            prnts.append(constructElement(parent.id, parent.nom))
+                        });
+                    } else prnts.remove()
+
+                    if (siblings.length !== 0) {
+                        siblings.forEach(sibling => {
+                            freres.append(constructElement(sibling.id, sibling.nom))
+                        });
+                    } else freres.remove()
+
+                    if (backparents !== null) {
+                        lignee.innerHTML = backparents
+                    } else backprnts.remove()
+
+                    content.append(element)
+
+
+                }
+            }
+
+            /* ------------function Constructeur des liste d'elements d'un element-------- */
+
+            function constructElement(id, nom) {
+                const dd = document.createElement("dd")
+                const a = document.createElement("a")
+                a.href = `#${id}`
+                a.innerHTML = nom
+                dd.append(a)
+                return dd
+            }
+
+            /* -------Aller à un element aprés le chargement---------- */
+
+            let host = window.location.href
+
+            if (host.match(/#\d+/)) {
+                const path = host.substring(host.indexOf("#"))
+                let a = document.createElement("a")
+                a.href = path
+                a.click()
+            }
+            load()
+
+        })
+
+    </script>
+</body>
+
+</html>

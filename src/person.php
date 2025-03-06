@@ -1,11 +1,11 @@
 <?php
 
+namespace src;
 
 class Person
 {
-    public function __construct() {
-    
-    }
+    private $data = [];
+    public function __construct() {}
 
     public function getDl(array $tab, $dt = null): string
     {
@@ -33,6 +33,4 @@ class Person
         $detail .= "</details>";
         return $detail;
     }
-
-
 }

@@ -1,71 +1,31 @@
 <?php
+
+namespace src;
+
+use App\Modele\Personne;
+
+use stdClass;
+
 class Altoperson extends Person
 {
-    private $db;
-    private $id;
+    private $model;
 
 
-    public function __construct(Connexion $db, ?string $id = null)
+
+    public function __construct(?string $id = null)
     {
-
-        $this->db = $db;
-        $this->id = $id;
-    }
-
-    public function getElement(string $id): ?array
-    {
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,idGeneration as idg,nomGeneration,p.sexe,d.nomPersonne as parent,e.idParent as idParent";
-        $element = $this->db->pdo->query("SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-         left join personne d on(e.idParent=d.idPersonne) where p.idPersonne='$id'")->fetch(PDO::FETCH_ASSOC);
-        return $element;
-    }
-
-    public function getAllElements(): ?array
-    {
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,idGeneration as idg,nomGeneration as generation,p.sexe,d.nomPersonne as parent,e.idParent as idParent";
-        $element = $this->db->select("SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-         left join personne d on(e.idParent=d.idPersonne)", Personne::class);
-        return $element;
-    }
-
-    public function getChildren(string $id): mixed
-    {
-
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,nomGeneration,p.sexe as sexe,d.nomPersonne as parent, d.idPersonne as idParent ,g.idGeneration as idg";
-        $req = "SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-        left join personne d on(e.idParent=d.idPersonne) where d.idPersonne='$id' ";
-        $children = $this->db->pdo->query($req)->fetchAll(PDO::FETCH_ASSOC);
-        return $children;
+        $this->model = new Personne();
     }
 
 
-    public function getSiblings(?string $idp): ?array
-    {
-        $id = $this->id;
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,nomGeneration,p.sexe as sexe,d.nomPersonne as parent, d.idPersonne as idParent ,g.idGeneration as idg";
-        $req = "SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-        left join personne d on(e.idParent=d.idPersonne) where d.idPersonne='$idp' and p.idPersonne!='$id' ";
-        $siblings = $this->db->pdo->query($req)->fetchAll(PDO::FETCH_ASSOC);
-        return $siblings;
-    }
-
-    public function getParents(?string $idp, $one = false): ?array
-    {
-        if (!$idp) return null;
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,nomGeneration,p.sexe as sexe,d.nomPersonne as parent, d.idPersonne as idParent ,g.idGeneration as idg";
-        $req = "SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-        left join personne d on(e.idParent=d.idPersonne) where p.idPersonne='$idp' ";
-        $parents = $one ? $this->db->pdo->query($req)->fetch(PDO::FETCH_ASSOC) : $this->db->pdo->query($req)->fetchAll(PDO::FETCH_ASSOC);
-        return $parents;
-    }
 
 
     public function getBackParents($idp): ?string
     {
         if (!$idp) return null;
-        $parent = $this->getParents($idp, true);
+        $parent = $this->model->findParent($idp);
         if ($parent) {
-            return $this->getBackParents($parent["idParent"]) . " <=" . "<a href='#{$parent["id"]}'> {$parent["nom"]}</a>";
+            return $this->getBackParents($parent->idParent) . " <=" . "<a href='#{$parent->idPersonne}'> {$parent["nom"]}</a>";
         } else {
             return null;
         }
@@ -75,11 +35,11 @@ class Altoperson extends Person
     private function getBackParentArray(array &$tab, ?string $idp, ?string $stop = null): ?array
     {
         if (!$idp) return null;
-        $parent = $this->getParents($idp, true);
+        $parent = $this->model->findParent($idp);
 
         if ($parent) {
-            $idp = $parent["idParent"];
-            $id = $parent["id"];
+            $idp = $parent->idParent;
+            $id = $parent->idPersonne;
             $tab[] = $parent;
             if ($idp == $stop) return $tab;
             $this->getBackParentArray($tab, $idp, $stop);
@@ -102,15 +62,15 @@ class Altoperson extends Person
 
     public function getDescent(string  $id): ?string
     {
-        $element = $this->getElement($id);
-        $children = $this->getChildren($id);
+        $element = $this->model->findOne($id);
+        $children = $this->model->findChildren($id);
         $open = ($children) ? "open" : "";
         $nbr = count($children);
         $content =  "<dd><details $open><summary>{$element["nom"]} ({$nbr})</summary>";
         if ($children) {
             $content .= "<dl class='{$children[0]["nomGeneration"]}'><dt>{$children[0]["nomGeneration"]}</dt>";
             foreach ($children as  $value) {
-                $content .=  $this->getDescent($value["id"]);
+                $content .=  $this->getDescent($value->idPersonne);
             }
             $content .= "</dl>";
         }
@@ -120,17 +80,15 @@ class Altoperson extends Person
     private function getDescentArray(string $id, array &$tab): ?array
     {
 
-        $children = $this->getChildren($id);
+        $children = $this->model->findChildren($id);
         if ($children) {
             foreach ($children as $item) {
                 $tab[] = $item;
-                $this->getDescentArray($item["id"], $tab);
+                $this->getDescentArray($item->idPersonne, $tab);
             }
         }
         return $tab;
     }
-
-
     private function checkedDirect(string $id1, string $id2, string &$p): bool
     {
         $t1 = [];
@@ -150,13 +108,15 @@ class Altoperson extends Person
         } else return false;
     }
 
-    private function getLinkedParent(string $id1, string $id2): ?array
+    private function getLinkedParent(string $id1, string $id2): ?stdClass
     {
-        $element1 = $this->getElement($id1);
-        $element2 = $this->getElement($id2);
+        $element1 = $this->model->findOne($id1);
+        $element2 = $this->model->findOne($id2);
 
-        $idp1 = $element1["idParent"];
-        $idp2 = $element2["idParent"];
+
+
+        $idp1 = $element1->idParent;
+        $idp2 = $element2->idParent;
 
         $t1 = [];
         $t2 = [];
@@ -164,17 +124,16 @@ class Altoperson extends Person
         $this->getBackParentArray($t2, $idp2);
         foreach ($t1 as $item) {
             foreach ($t2 as $val) {
-                if ($item["id"] == $val["id"]) return $item;
+                if ($item->idPersonne == $val->idPersonne) return $item;
             }
         }
         return null;
     }
-
     public function getLink(string $id1, string $id2): Link
     {
 
-        $element1 = $this->getElement($id1);
-        $element2 = $this->getElement($id2);
+        $element1 = $this->model->findOne($id1);
+        $element2 = $this->model->findOne($id2);
 
         $linked = [];
         $linked1 = [];
@@ -183,8 +142,8 @@ class Altoperson extends Person
         $p = "";
         if ($this->checkedDirect($id1, $id2, $p)) {
 
-            $idp = ($p == $id1) ? $element2["idParent"] : $element1["idParent"];
-            $stop = ($p == $id1) ? $element1["idParent"] : $element2["idParent"];
+            $idp = ($p == $id1) ? $element2->idParent : $element1->idParent;
+            $stop = ($p == $id1) ? $element1->idParent : $element2->idParent;
             $parent = ($p == $id1) ? $element1 : $element2;
             $child = ($p != $id1) ? $element1 : $element2;
 
@@ -194,10 +153,10 @@ class Altoperson extends Person
 
         $parentlinked = $this->getLinkedParent($id1, $id2);
 
-        $idp1 = $element1["idParent"];
-        $idp2 = $element2["idParent"];
-        $idpLinked = $parentlinked["idParent"];
-        if ($element1["idg"] > $element2["idg"]) {
+        $idp1 = $element1->idParent;
+        $idp2 = $element2->idParent;
+        $idpLinked = $parentlinked->idParent ?? null;
+        if ($element1->generation > $element2->generation) {
             $parent = $element2;
             $child = $element1;
         } else {

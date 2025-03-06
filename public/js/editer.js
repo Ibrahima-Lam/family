@@ -1,114 +1,110 @@
-function ajaxAction(url, callback, async = true) {
-    const xhr = new XMLHttpRequest()
-    xhr.onload = function () {
 
-        callback(this.responseText)
-    }
-    xhr.open("GET", url, async)
-    xhr.send()
-}
-function alerter(val) {
-    alert(val)
+
+async function deleteData(id) {
+    let req = await fetch('?p=api/delete/' + id)
+    return await req.json()
 }
 
 
 function editer(el) {
-    const nom = el.parentNode.innerText
-    getForm(el.id, nom)
+    showDialog(el.dataset.i, el.dataset.p)
 }
 
-function supprimer(el) {
+async function supprimer(el) {
     if (confirm("Voulez vous Supprimer cet Element")) {
-        ajaxAction("ajaxdelete.php?id=" + el.id, alerter)
+        let res = await deleteData(el.id)
+        if (res.status == 1) alert(res.message)
         const tr = el.parentNode
         tr.style.backgroundColor = "red"
         setTimeout(function () {
             tr.remove()
         }, 1000)
 
+
     }
 
 }
-function getForm(id, nom) {
-
-    const edition = document.getElementById("edition").content.cloneNode(true)
-    const fixed = document.querySelector(".fixeur")
-    edition.querySelector("#num").value = id
-    edition.querySelector("#demo").innerHTML = nom
-    fixed.append(edition)
-
-    envoyer()
-    fermer(fixed)
-    echanger()
+async function getOptions(selected) {
+    let req = await fetch('?p=api/options&selected=' + selected)
+    let data = await req.text()
+    return data
 }
-const donnee = {
+async function sendData(data) {
 
-    construit: function (idpers, type, valeur) {
-        this.idPersonne = idpers
-        this.idSupplement = type
-        this.valeur = valeur
-    },
-    getUrl: function () {
-        return "traiteposseder.php?idPersonne=" + this.idPersonne + "&idSupplement=" + this.idSupplement + "&valeur=" + this.valeur
+    let req = await fetch('?p=api/edit&' + data,)
+    return await req.json()
+}
+async function showDialog(i, p) {
+    if (globalData.length == 0) {
+        globalData = await fetchData()
     }
-
-}
-function envoyer() {
-    const frm = document.getElementById("sup")
-    frm.addEventListener("submit", function (e) {
+    let element = globalData.find(element => element.idPersonne == + i && element.idParent == +p)
+    const dialog = document.getElementById("dialog")
+    dialog.querySelector('.dialog-body').innerHTML = formulaire({ ...element, options: await getOptions(p) })
+    const form = dialog.querySelector('form')
+    dialog.showModal()
+    form.addEventListener("submit", async function (e) {
         e.preventDefault()
-        const id = frm.querySelector("input[name='id']").value
-        const content = frm.querySelector("input[name='content']").value
-        const type = frm.querySelector("select[name='type']").value
-        donnee.construit(id, type, content)
-        ajaxAction(donnee.getUrl(), alerter)
+        const data = new FormData(form)
+        let dt = 'id=' + i + '&'
+        data.forEach(function (value, key) {
+            dt += key + '=' + value + '&'
+        })
+
+        let req = await sendData(dt)
+        alert(req.message)
+        if (req.status) {
+            dialog.close()
+            window.location.reload()
+        }
+
+
     })
-}
-function fermer(fixed) {
+
+
     const close = document.getElementById("close")
     close.addEventListener("click", function () {
-        fixed.lastChild.remove()
-    })
-}
-function echanger() {
-    const toggler = document.getElementById("toggler")
-    const frm = document.getElementById("sup")
-    const frms = document.querySelector(".containes")
+        dialog.close()
 
-    toggler.addEventListener("click", function () {
-        if (frms.contains(frm)) {
-            const id = frm.querySelector("input[name='id']").value
-            ajaxAction("updatepersonne.php?id=" + id, Coller)
-            toggler.innerHTML = "Ajouter"
-
-        } else {
-            frms.innerHTML = ""
-            frms.append(frm)
-            toggler.innerHTML = "Modifier"
-        }
-        modifier()
     })
 
 }
-function Coller(val) {
-    const frms = document.querySelector(".containes")
-    frms.innerHTML = val
+
+
+
+function formulaire({ nomPersonne, sexe, options }) {
+    return `<form action="" method="" class="form" id="frm">
+            <div class="form-block">
+                <label for="">Le nom de la personne:</label>
+                <div>
+                    <input type="text" id="texte" name='nom' class='field champ' value='${nomPersonne ?? ''}' placeholder='Entrer le nom et Le prenom' autocomplete="off" required>
+                    <div class="listes">
+                    </div>
+                </div>
+            </div>
+            <div class="form-block">
+                <label for="">Le parent:</label>
+                <div>
+                    <select name="parent" id="parent" class='champ field' step="5">
+                       ${options}
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-block">
+                <label for=" ">le sexe:</label>
+                <div class="radio field">
+                    <span>masculin:</span>
+                    <input type="radio" name='sexe' value='M'  ${sexe == 'M' ? 'checked' : ''} class="champ">
+                    <span> feminin:</span>
+                    <input type="radio" name='sexe'value='F'  ${sexe == 'F' ? 'checked' : ''} class="champ">
+                </div>
+            </div>
+
+            <div class="action">
+               <button type="reset" id="annule" name='annule'  class='btn btn-default champ'>Annuler</button>
+                <button type="submit" id="envoi" name='envoi'  class='btn btn-success champ'>Envoyer</button>
+
+            </div>
+        </form>`
 }
-
-function modifier() {
-    const frm = document.getElementById("updating")
-    frm.addEventListener("submit", function (e) {
-        e.preventDefault()
-        alert("modifié")
-    })
-}
-
-
-
-const fix = document.querySelector(".fixeur")
-fix.addEventListener("drag", function () {
-    alert("ok")
-    document.addEventListener("drop", function (e) {
-        alert(e.target)
-    })
-})

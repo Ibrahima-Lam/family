@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="css/style1.css">
     <script src="../script0.js" defer></script>
 </head>
 
@@ -38,13 +38,17 @@
         $db = new Connexion();
         $person = new Altoperson($db);
         $elements = $person->getAllElements();
-        /*  $tab = [];
-    foreach ($elements as $key => $value) {
-        $id = $value->id;
-        $tab[$id] = $value;
-        $tab[$id]->children = $person->getChildren($id);
-    }
-    file_put_contents("liste.json", json_encode($tab)); */
+        $tab = [];
+        foreach ($elements as $key => $value) {
+            $id = $value->id;
+            $idp = $value->idParent;
+            $tab[$id] = $value;
+            $tab[$id]->children = $person->getChildren($id);
+            $tab[$id]->siblings = $person->getSiblings($idp);
+            $tab[$id]->parents = $person->getParents($idp);
+            $tab[$id]->backparents = $person->getBackParents($idp);
+        }
+        file_put_contents("data/liste.json", json_encode($tab));
 
         ?>
         <table class="table">
@@ -109,7 +113,7 @@
 
                 e.preventDefault()
                 const id = parseInt(this.dataset.id)
-                const elements = await fetch("liste.json")
+                const elements = await fetch("data/liste.json")
                 const res = await elements.json()
                 const elemnt = res[id]
                 const result = elemnt.children

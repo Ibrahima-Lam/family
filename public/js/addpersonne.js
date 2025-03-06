@@ -1,11 +1,7 @@
 function addforms() {
-
-
     const groupe = document.querySelector(".groupe")
-
     const frm = document.getElementById("frm")
     const grpe = frm.cloneNode(true)
-
     const add = document.getElementById("add")
     add.addEventListener("input", function (e) {
         const nbr = this.value
@@ -16,41 +12,7 @@ function addforms() {
         let grp = grpe.cloneNode(true)
         groupe.append(grp)
         verifier(this.value)
-
         checkParent(v)
-
-        const forms = document.querySelectorAll(".form")
-        forms.forEach(element => {
-
-            element.addEventListener("submit", function (e) {
-                e.preventDefault()
-
-                e.stopImmediatePropagation()
-                forms.forEach(el => {
-
-                    const texte = el.querySelector(".field")
-                    if (texte.checkValidity()) {
-                        const tabs = {
-
-                        }
-
-                        const input = el.querySelectorAll(".champ")
-
-                        for (let i = 0; i < input.length; i++) {
-                            const lmt = input[i];
-                            if (lmt.name === "sexe" && !lmt.checked || lmt.name === "annule") {
-                                continue
-
-                            }
-                            tabs[lmt.getAttribute("name")] = lmt.value
-                        }
-
-
-                        poste(tabs)
-                    }
-                });
-            })
-        });
 
         const frms = document.querySelectorAll("form")
         frms.forEach(elmte => {
@@ -74,7 +36,7 @@ function addforms() {
 
 // -------------------out addforms----------------------
 addforms()
-function poste($tab) {
+/* function poste($tab) {
     let url = ""
     for (const key in $tab) {
         if (Object.hasOwnProperty.call($tab, key)) {
@@ -83,18 +45,17 @@ function poste($tab) {
 
         }
     }
-    url = "traitepersonne.php?" + url + "token=" + true
+    url = "?p=api/add" + url + "token=" + true
     ajaxPoster(url)
 }
 function ajaxPoster(url, async = false) {
     const xhr = new XMLHttpRequest()
     xhr.onload = function () {
-
         window.location.assign("sommaire.php")
     }
     xhr.open("POST", url, async)
     xhr.send()
-}
+} */
 const fr = document.querySelector("form")
 autocomplete(fr)
 

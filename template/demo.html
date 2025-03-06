@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <h2>Classement</h2>
+            <table class="table striped">
+                <thead>
+                    <tr style="background-color: #333;color: white;">
+                        <th>Num</th>
+                        <th>Nom</th>
+                        <th>Match</th>
+                        <th>Points</th>
+                        <th>Diff</th>
+                        <th>BM</th>
+                        <th>BE</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <template id="temp">
+                <tr>
+                    <td class="num"></td>
+                    <td class="nom"></td>
+                    <td class="match"></td>
+                    <td class="points"></td>
+                    <td class="diff"></td>
+                    <td class="bm"></td>
+                    <td class="be"></td>
+                </tr>
+            </template>
+        </div>
+    </div>
+    <script>
+        const homme = {
+            nom: "ba",
+            prenom: "Amadou",
+            age: 26,
+        }
+        const person = {
+            nom: "lam",
+            prenom: "Ibrahima",
+            age: 28,
+
+            coordonnee: function () {
+                return `${this.prenom} ${this.nom}`
+            },
+            get speed() {
+                return this.speeds
+            },
+
+            set speed(value) {
+                this.speeds = value
+            }
+        }
+        const eleve = function (nom, prenom, age, classe) {
+            this.nom = nom
+            this.prenom = prenom
+            this.age = age
+            this.classe = classe
+
+        }
+
+        const tab = [
+            {
+                id: 1,
+                nom: "Thialgou",
+                match: 3,
+                points: 9,
+                diff: 9,
+                bm: 10,
+                be: 1
+            }, {
+                id: 2,
+                nom: "Doubango",
+                match: 3,
+                points: 3,
+                diff: 3,
+                bm: 5,
+                be: 2
+            }, {
+                id: 3,
+                nom: "Thidé",
+                match: 3,
+                points: 3,
+                diff: 3,
+                bm: 6,
+                be: 2
+            }, {
+                id: 4,
+                nom: "Boghé Dow",
+                match: 3,
+                points: 3,
+                diff: -9,
+                bm: 1,
+                be: 12
+            },
+        ]
+    </script>
+    <script>
+        let data = tab.sort((a, b) => {
+            return classer(a, b, ["point", "diff", "bm"])
+        })
+
+        function classer(a, b, tab = []) {
+            if (tab.length === 0) return -1
+            const key = tab[0]
+            if (a[key] === b[key]) {
+                const tab2 = tab.shift()
+                return classer(a, b, tab)
+            }
+            return a[key] > b[key] ? -1 : 1
+        }
+
+        const tbody = document.querySelector("tbody")
+        data.forEach((element, index) => {
+            const { id, nom, match, points, bm, diff, be } = element
+
+            const temp = document.getElementById('temp').content.cloneNode(true);
+            const tr = temp.querySelector('tr')
+
+            tr.querySelector(".num").innerHTML = index + 1
+            tr.querySelector(".nom").innerHTML = nom
+            tr.querySelector(".match").innerHTML = match
+            tr.querySelector(".points").innerHTML = points
+            tr.querySelector(".diff").innerHTML = diff
+            tr.querySelector(".bm").innerHTML = bm
+            tr.querySelector(".be").innerHTML = be
+            tbody.append(tr)
+        });
+
+
+    </script>
+</body>
+
+</html>

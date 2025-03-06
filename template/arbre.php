@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arbre</title>
 
-    <link rel="stylesheet" href="style1.css">
-    <script src="script0.js" defer></script>
+    <link rel="stylesheet" href="css/style1.css">
+    <script src="js/script0.js" defer></script>
 </head>
 
 <body>
@@ -21,6 +21,7 @@
 
             <ul>
                 <li><a href="index.html"> Accueil </a></li>
+                <li><a href="element.html"> Eléments</a></li>
                 <li><a href="liste.html"> Liste </a></li>
                 <li><a href="arbre.html"> Arbre </a></li>
                 <li><a href="livre.html"> Détails </a></li>

@@ -217,6 +217,12 @@ td a {
 
 }
 
+.form-block .field {
+    width: 250px;
+    margin: 2px;
+
+}
+
 .radio {
     display: flex;
     align-items: center;
@@ -225,22 +231,35 @@ td a {
 }
 
 .control input[type=text],
-.control select {
+.control select,
+.form-block input[type=text],
+.form-block select {
     padding: 5px;
     border-radius: 6px;
     background-color: rgb(252, 250, 248);
 }
 
 .control input[type=text]:focus,
-.control select:focus {
+.control select:focus,
+.form-block input[type=text]:focus,
+.form-block select:focus {
     transform: scale(105%);
 }
 
-label {
+.form-block {
+    display: block;
+    justify-content: space-between;
+    align-items: flex-start;
+    justify-items: baseline;
+    min-height: 50px;
+    width: 95%;
+    padding: 5px;
 
-    text-transform: capitalize;
+    border-radius: 6px;
+}
+
+label {
     font-size: 16px;
-   
 }
 
 .action {
@@ -252,11 +271,12 @@ label {
 }
 
 .btn {
-    padding: 5px;
+    padding: 7px;
     margin: 5px;
     border-radius: 6px;
     min-height: 20px;
     border: none;
+    cursor: pointer;
     box-shadow: 1px 1px 1px 1px gray;
 }
 
@@ -309,4 +329,80 @@ label {
 .matched {
     background-color: aqua;
     color: black;
+}
+
+.dialog {
+    border: none;
+    box-shadow: 1px 1px 1px 1px grey;
+    min-width: 300px;
+    min-height: 300px;
+    background-color: ghostwhite;
+    position: relative;
+    transition: top 0.5s 0.5s;
+    justify-content: space-between;
+}
+
+.dialog-head {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    background-color: whitesmoke;
+    box-shadow: 0 0 2px gray;
+}
+
+.dialog-body {
+    width: 95%;
+    min-height: 200px;
+    max-height: 80vh;
+    max-width: 80vw;
+    display: block;
+    padding: 5px;
+    overflow: auto;
+}
+
+.dialog-body ul {
+    display: block;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.dialog-body ul li {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px;
+    list-style: none;
+    border-bottom: 1px solid grey;
+}
+
+.dialog-body ul li a {
+    width: fit-content;
+    text-decoration: none;
+    flex-wrap: nowrap;
+    transition: all 0.5s;
+}
+
+.dialog-body ul li a:visited {
+    color: blue;
+}
+
+.dialog-body ul li a:hover {
+    text-decoration: underline;
+}
+
+.dialog-body ul li:last-child {
+    border-bottom: none;
+}
+
+.dialog-foot {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+
 }

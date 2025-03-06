@@ -1,71 +1,34 @@
 <?php
+
+namespace src;
+
+use App\Modele\Personne;
+
+
 class Personnage
-{  
-     private $pdo;
-    private $id;
+{
+
+    private Personne $model;
+
+
     public $parent;
-    public $freres;
-    public $enfants;
-    public $possession;
+    public $freres = [];
+    public $enfants = [];
+
+    public $element;
 
 
-    public function __construct(Connexion $pdo,$id) {
-        $this->pdo = $pdo->pdo;
-        $this->id = $id;
-        $this->element=$this->getData($id,true);
-        
-        $idParent=$this->element->idParent;
-        $this->parent=$this->getParent($idParent,true);
-        $this->freres=$this->getFreres($idParent);
-        $this->enfants=$this->getEnfants($id);
-        $this->possession=$this->getPossession($id);
+    public function __construct($id)
+    {
 
+        $this->model = new Personne();
 
-    }
-    private function getReq($prop,$val): string
-    {
-        $req="SELECT * FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) WHERE  $prop='$val'";
-        return $req;
-    }
-    private function getData($id)
-    {
-        $req=$this->getReq("idPersonne",$id);
-        // var_dump($req);
-        $res=$this->pdo->query($req);
-        $res->setFetchMode(PDO::FETCH_CLASS,"Personne");
-        $tab=$res->fetch();
-        return $tab?? null;
-    }
-    private function getParent($idParent)
-    {
-        $req=$this->getReq("idPersonne",$idParent);
-        $res=$this->pdo->query($req);
-        $res->setFetchMode(PDO::FETCH_CLASS,"Personne");
-        $tab=$res->fetchAll();
-        return $tab?? null;
-    }
-    private function getFreres($idParent)
-    {
-        $req=$this->getReq("idParent",$idParent);
-        $res=$this->pdo->query($req);
-        $res->setFetchMode(PDO::FETCH_CLASS,"Personne");
-        $tab=$res->fetchAll();
-        return $tab?? null;
-    }
-    private function getEnfants($id)
-    {
-        $req=$this->getReq("idParent",$id);
-        $res=$this->pdo->query($req);
-        $res->setFetchMode(PDO::FETCH_CLASS,"Personne");
-        $tab=$res->fetchAll();
-                return $tab?? null;
-    }
-    private function getPossession($id)
-    {
-        $req="select * from posseder join personne using(idPersonne) join supplement using(idSupplement) where idPersonne='$id' ";
-        $res=$this->pdo->query($req);
-        $res->setFetchMode(PDO::FETCH_CLASS,"Personne");
-        $tab=$res->fetchAll();
-                return $tab?? null;
+        $this->element = $this->model->findOne($id);
+        $idParent = $this->element->idParent;
+        if ($idParent) {
+            $this->parent = $this->model->findOne($idParent);
+            $this->freres = $this->model->findSiblings($idParent);
+        }
+        $this->enfants = $this->model->findChildren($id);
     }
 }

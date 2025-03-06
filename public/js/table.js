@@ -1,13 +1,15 @@
-const data = {
+const srch2 = document.getElementById('search');
+let globalData = [];
+const Paramettre = {
     param: "",
-    ordrd: "id",
+    ordrd: "idPersonne",
     ord: "asc",
     url: "",
 
 
     envoyer: function () {
         this.setUrl()
-        ajaxGet(this.url, true)
+        affichage()
     },
     setOrder: function (ordrd) {
         this.ordrd = ordrd
@@ -23,9 +25,24 @@ const data = {
     }
 }
 
+window.addEventListener('load', function (e) {
 
-function ajaxGet(url, async = false) {
-    const srch = document.getElementById('srch');
+    th.forEach(el => {
+        const value = el.querySelector("data").value
+        if (Paramettre.ord === "desc") {
+            icon.classList.add("desc")
+        }
+        if (value === Paramettre.ordrd) {
+            el.append(icon)
+            el.classList.add("active")
+        }
+    });
+    Paramettre.envoyer()
+})
+
+
+/* function ajaxGet(url, async = false) {
+
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {
@@ -39,18 +56,68 @@ function ajaxGet(url, async = false) {
     }
     xhr.open("GET", url, async)
     xhr.send()
+} */
+
+async function fetchData() {
+    const url = '?p=api/personnes'
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
 }
 
-function affichage(params, id) {
-    const parent = document.getElementById(id);
-    parent.innerHTML = params
+const HtmlTable2 = {
+    thead: ` <thead>
+                <tr>
+                    <th class="sorters"><data value='idPersonne'> ID</data></th>
+                    <th class="sorters"><data value='nomPersonne'> NOM</data></th>
+                    <th class="sorters"><data value='nomGeneration'> GENERATION</data></th>
+                    <th class="sorters"><data value='sexe'> SEXE</data></th>
+                    <th class="sorters"><data value='parent'> PARENT</data></th>
+                    <th><data value='id'> Editer</data></th>
+                    <th><data value='id'>Supprimer</data></th>
+                </tr>
+            </thead>`,
+    table: (data) => `<table id="table" class="table striped ">${HtmlTable2.thead} ${data}</table>`,
+    tbody: (data) => `<tbody id="contains">${data.map(value => `<tr>
+        <td>${value.idPersonne}</td>
+        <td><a href="?p=personne/details/${value.idPersonne}">${value.nomPersonne}</a></td>
+        <td>${value.nomGeneration}</td><td>${value.sexe}</td>
+        <td><a href="?p=personne/details/${value.idParent}">${value.parent ?? ''}</a></td>
+                    ${value.idParent ? `<td id="${value.idPersonne}"data-i="${value.idPersonne}"data-p="${value.idParent}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/icons/pencil.svg" width="15px"></a></td>` : `<td></td>`}
+                        <td id="${value.idPersonne}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/icons/basket.svg" width="15px"></a></td>
+        </tr>`).join('')}
+        </tbody>`,
+
+}
+
+async function affichage() {
+    if (globalData.length == 0) {
+        globalData = await fetchData()
+    }
+    let elements = globalData
+
+
+    if (srch2.value != "") {
+        elements = globalData.filter(value => value.nomPersonne.toLowerCase().includes(srch2.value.toLowerCase()))
+    }
+    if (Paramettre.ord == "asc") {
+        elements = elements.sort((a, b) => {
+            return a[Paramettre.ordrd] < b[Paramettre.ordrd] ? -1 : a[Paramettre.ordrd] > b[Paramettre.ordrd] ? 1 : 0
+        })
+    } else {
+        elements = elements.sort((a, b) => {
+            return a[Paramettre.ordrd] > b[Paramettre.ordrd] ? -1 : a[Paramettre.ordrd] < b[Paramettre.ordrd] ? 1 : 0
+        })
+    }
+    const parent = document.getElementById("contains");
+    parent.innerHTML = HtmlTable2.tbody(elements)
     Matcher()
 
 
 }
 function Matcher() {
-    const srch = document.getElementById('srch');
-    const val = srch.value
+
+    const val = srch2.value
     const td = document.querySelectorAll("td")
     for (let i = 0; i < td.length; i++) {
         let element = td[i];
@@ -72,11 +139,12 @@ function Matcher() {
     }
 }
 
-const srch = document.getElementById('srch');
-srch.addEventListener("input", function () {
+
+srch2.addEventListener("input", function (e) {
+
     let val = this.value
-    data.param = val
-    data.envoyer()
+    Paramettre.param = val
+    Paramettre.envoyer()
 
 })
 
@@ -96,28 +164,14 @@ th.forEach(element => {
                 elmt.removeChild(img)
             }
         });
-        if (value === data.ordrd) {
-            data.ord = (data.ord === "asc") ? "desc" : "asc"
+        if (value === Paramettre.ordrd) {
+            Paramettre.ord = (Paramettre.ord === "asc") ? "desc" : "asc"
             icon.classList.toggle("desc")
         }
         this.classList.add("active")
         this.append(icon)
-        data.setOrder(value)
-        data.envoyer()
+        Paramettre.setOrder(value)
+        Paramettre.envoyer()
     })
 
 });
-document.addEventListener('loaded', function (e) {
-
-    th.forEach(el => {
-        const value = el.querySelector("data").value
-        if (data.ord === "desc") {
-            icon.classList.add("desc")
-        }
-        if (value === data.ordrd) {
-            el.append(icon)
-            el.classList.add("active")
-        }
-        data.envoyer()
-    });
-})

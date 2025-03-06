@@ -1,15 +1,34 @@
 <?php
-class arbre
-{
-    private $db;
-    private $data = [];
-    private $children = [];
 
-    public function __construct(Connexion $db, $id)
+namespace src;
+
+
+use App\Modele\Personne;
+
+
+
+
+class Arbre
+{
+    private Personne $model;
+    private $data = [];
+    private $result = [];
+
+
+
+    public function __construct($id)
     {
-        $this->db = $db;
-        $this->id = $id;
+        $this->model = new Personne();
+
         $this->getData($id);
+    }
+    private function getData($id)
+    {
+
+        $data = $this->model->getAllByGeneration($id);
+        $this->result = $this->model->getAll();
+        $cles = array_column($data, "id");
+        $this->data = array_combine($cles, array_column($data, "nom"));
     }
 
     public function getDl(array $tab, $dt = null): string
@@ -41,37 +60,23 @@ class arbre
 
 
 
-    private function getData($id)
+
+
+    private function getChildren($id): array
     {
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,nomGeneration,p.sexe as sexe,d.nomPersonne as parent, d.idPersonne as idParent ,g.idGeneration as idg";
-        $req = "SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-        left join personne d on(e.idParent=d.idPersonne) where g.idGeneration='$id' ";
-        $data = $this->db->pdo->query($req)->fetchAll(PDO::FETCH_ASSOC);
-        $cles = array_column($data, "id");
-        $this->data = array_combine($cles, array_column($data, "nom"));
-
-        return $this->data;
-    }
-
-
-    private function getChildren($id)
-    {
-        $prop = "p.idPersonne as id,p.nomPersonne as nom ,nomGeneration,p.sexe as sexe,d.nomPersonne as parent, d.idPersonne as idParent ,g.idGeneration as idg";
-        $req = "SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-        left join personne d on(e.idParent=d.idPersonne) where d.idPersonne='$id' ";
-        $children = $this->db->pdo->query($req)->fetchAll(PDO::FETCH_ASSOC);
+        $children = array_filter($this->result, function ($value) use ($id) {
+            return $value["idParent"] == $id;
+        });
         $cles = array_column($children, "id");
-        $this->children = array_combine($cles, array_column($children, "nom"));
-
-        return $this->children;
+        return   array_combine($cles, array_column($children, "nom"));
     }
 
 
     public function makeChildren($id): string
     {
-        $this->getChildren($id);
-        $children = $this->children;
-        return !empty($children) ? $this->makeDetail($this->children) : "<span class='empty'> pas d'enfant  </span>";
+
+        $children = $this->getChildren($id);
+        return !empty($children) ? $this->makeDetail($children) : "<span class='empty'> pas d'enfant  </span>";
     }
 
 

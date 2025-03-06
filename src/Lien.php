@@ -1,5 +1,7 @@
 <?php
 
+namespace src;
+
 class Lien
 {
     const PERE = "père";

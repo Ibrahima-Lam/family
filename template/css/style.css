@@ -1,0 +1,511 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.pseudo-element {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 2px;
+    padding: 0px;
+    box-shadow: 0 0 1px;
+    background-color: ghostwhite;
+    width: 98%;
+    border: 1px solid grey;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.pseudo-element-head {
+    border-bottom: 1px solid grey;
+    background-color: whitesmoke;
+    height: 60px;
+    width: 100%;
+    padding: 0;
+}
+
+.pseudo-element-head .profile {
+    border-right: 1px solid grey;
+    padding: 0 10px;
+    width: 90%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+}
+
+.pseudo-element-head .profile * {
+    cursor: pointer;
+
+}
+
+.pseudo-element-head .profile .element-name {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    margin: 10px 0;
+
+    overflow: auto;
+}
+
+.pseudo-element-body {
+    padding: 10px 0;
+    min-height: 300px;
+    text-align: center;
+
+}
+
+.pseudo-element-body * {
+    padding: auto 10px;
+}
+
+.pseudo-element-body .lignee {
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.pseudo-element-body dd,
+.data {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: lighter;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.pseudo-element-foot {
+    border-top: 1px solid grey;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+}
+
+.pseudo-element-foot * {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.pseudo-menu {
+    padding: 10px;
+    position: relative;
+    width: 5%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    overflow: visible;
+
+
+}
+
+.pseudo-menu img {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.menu-container {
+    position: relative;
+    display: none;
+}
+
+.pseudo-menu .menus {
+    position: absolute;
+    z-index: 5;
+    background-color: gainsboro;
+    min-width: 150px;
+    height: 200px;
+    top: 20px;
+    right: -30px;
+    box-shadow: 1px 2px grey;
+    transition: 0.5s;
+
+}
+
+.pseudo-menu .menus ul {
+    display: block;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.pseudo-menu .menus ul li {
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+    border-bottom: 1px dotted grey;
+}
+
+.pseudo-menu .menus ul li:last-child {
+    border: none;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.profile img {
+    margin: 0 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    padding: 5px;
+
+}
+
+.sub-header {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: rgb(243, 237, 237);
+    box-shadow: 0 2px 2px lightgray;
+    font-weight: bolder;
+    font-size: 20px;
+    font-variant: small-caps;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.partie {
+    box-shadow: inset;
+}
+
+.scroller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 3;
+    background-color: darkolivegreen;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: right 0.5s;
+    box-shadow: 1px 1px 5px #333;
+
+}
+
+.scroller img {
+    width: 25px;
+    height: 30px;
+}
+
+.hid-scroll {
+    right: -500px;
+}
+
+.show-menu {
+    display: inline-block;
+}
+
+.sub-nav {
+    background-color: gainsboro;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px;
+    box-shadow: 1px 2px 5px whitesmoke;
+}
+
+.sub-nav input {
+    width: 100px;
+    padding: 5px;
+    outline: none;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 1px 2px gray;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sub-nav input:focus {
+    width: 200px;
+}
+
+.sub-nav button {
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px;
+    border: none;
+    box-shadow: 1px 1px 2px gray;
+}
+
+/* ------------liste------------------------------------- */
+.paramettre {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    max-width: 95%;
+    overflow: hidden;
+    background-color: gainsboro;
+
+}
+
+.paramettre input[type="search"] {
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    margin: 5px 0;
+    width: 35%;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 1px 5px darkgray;
+    padding: 5px;
+    border-bottom: 1px solid;
+    background-color: white;
+}
+
+.paramettre input[type="search"]:focus {
+    width: 40%;
+}
+
+.paramettre select {
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    width: 100px;
+    border-radius: 4px;
+    border: none;
+    border-bottom: 1px solid;
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 5px 0;
+    flex-basis: 40%;
+    box-shadow: 1px 1px 5px darkgray;
+    border-radius: 6px;
+    height: 20px;
+    background-color: white;
+
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.index-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    max-width: 99%;
+}
+
+.index-list ul {
+    display: block;
+    padding: 0;
+    margin: 5px;
+    flex-basis: 50%;
+}
+
+.index-list ul li {
+    padding: 2px;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: whitesmoke;
+}
+
+.index-list ul li .element-id {
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.index-list ul li .element-fragment {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    width: 80% !important;
+    padding: 5px 10px 5px 5px;
+
+    cursor: pointer;
+}
+
+.index-list ul li .element-fragment:last-child {
+    border-bottom: none;
+}
+
+.index-list ul li .element-fragment a {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.index-list ul li .element-fragment .sub-text {
+    font-size: 9px;
+    font-weight: 100;
+    opacity: 0.7;
+    font-style: italic;
+    padding: 2px 5px;
+
+}
+
+.index-list ul li .element-index-menu {
+    position: relative;
+    display: block;
+    cursor: pointer;
+
+}
+
+.index-list ul li .element-index-menu img {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    z-index: 5;
+    padding: 5px;
+}
+
+.element-index-menu .listes-menus {
+    position: relative;
+    display: block;
+
+}
+
+.element-index-menu .listes-menus .list-content {
+    position: absolute;
+    padding: 5px;
+    display: none;
+    top: 0;
+    right: 0;
+    z-index: 8;
+    box-shadow: 1px 1px 6px darkgrey;
+    min-width: 200px;
+    min-height: 300px;
+    background-color: gainsboro;
+    transition: all 0.5;
+
+}
+
+.element-index-menu .listes-menus .list-content .nom {
+    padding: 5px;
+    margin: 3px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.element-index-menu .listes-menus .list-content ul {
+    padding: 5px;
+    margin: 0;
+}
+
+.element-index-menu .listes-menus .list-content ul li {
+    padding: 5px;
+    border-bottom: 1px solid darkgrey;
+    background-color: gainsboro;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.element-index-menu .listes-menus .list-content ul li:last-child {
+    border-bottom: none;
+}
+
+.dialog {
+    max-width: 300px;
+    background-color: ghostwhite;
+    display: block;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 300;
+    transition: .5s;
+
+}
+
+.dialog-header {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 5px;
+}
+
+.dialog-content {
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.dialog-content dd {
+    margin: 5px;
+}
+
+.dialog-content .title {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 10px 0 5px;
+}
+
+.dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .index-list {
+        display: block;
+    }
+
+    .index-list ul {
+        margin: 0;
+        flex-basis: 100%;
+    }
+
+    .show-menu-list {
+        display: block;
+    }
+
+    .paramettre input[type="search"]:focus {
+        width: 70%;
+    }
+
+    .dialog {
+        max-width: 80vw;
+    }
+}

@@ -1,23 +1,10 @@
 <?php
-spl_autoload_register(function ($class)  {
-    $file="../modele/$class.php";
-        if(file_exists($file))
-        {
-             require $file;
-        }
-});
+spl_autoload_register(function ($class) {
+    $path = str_replace("\\", "/", $class);
+    $remote = "../" . $path . ".php";
 
-spl_autoload_register(function ($class)  {
-    $file="../src/$class.php";
-        if(file_exists($file))
-        {
-             require $file;
-        }
-});
-spl_autoload_register(function ($class)  {
-    $file="../core/$class.php";
-        if(file_exists($file))
-        {
-             require $file;
-        }
+    if (file_exists($remote)) require_once $remote;
+    else {
+        throw new Exception("Fichier non  trouvé", 1);
+    }
 });

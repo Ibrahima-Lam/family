@@ -4,15 +4,6 @@
 
 
 
-<?php
-$conx = new Connexion();
-$prop = "p.idPersonne,p.nomPersonne ,nomGeneration,p.sexe,d.nomPersonne as parent";
-$res = $conx->pdo->query("SELECT $prop FROM personne p  left natural join etre e join generation g on ( p.generation=g.idGeneration) 
-    left join personne d on(e.idParent=d.idPersonne) ");
-$res->setFetchMode(PDO::FETCH_CLASS, "Personne");
-$tab = $res->fetchAll();
-
-?>
 <script src="../public/js/table.js" defer></script>
 <div class="container">
     <div class="row">
