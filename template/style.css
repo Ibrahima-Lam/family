@@ -1,0 +1,185 @@
+html {
+    transition: scroll 1s;
+}
+
+.pseudo-element {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 2px;
+    padding: 0px;
+    box-shadow: 0 0 1px;
+    background-color: ghostwhite;
+    width: 98%;
+    border: 1px solid grey;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.pseudo-element-head {
+    border-bottom: 1px solid grey;
+    background-color: whitesmoke;
+    max-height: 60px;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+}
+
+.pseudo-element-head .profile {
+    border-right: 1px solid grey;
+    padding: 10px;
+    width: 90%;
+    max-height: inherit;
+
+
+}
+
+.pseudo-element-head .profile * {
+    cursor: pointer;
+
+}
+
+.pseudo-element-head .profile .element-name {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    max-height: inherit;
+    overflow: auto;
+}
+
+.pseudo-element-body {
+    padding: 10px 0;
+    min-height: 300px;
+    text-align: center;
+
+}
+
+.pseudo-element-body * {
+    padding: auto 10px;
+}
+
+.pseudo-element-body .lignee {
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.pseudo-element-body dd,
+.data {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: lighter;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.pseudo-element-foot {
+    border-top: 1px solid grey;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pseudo-element-foot * {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.pseudo-menu {
+    padding: 10px;
+    display: block;
+    width: 5%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    overflow: visible;
+    position: relative;
+}
+
+.pseudo-menu .menus {
+    position: absolute;
+    z-index: 5;
+    background-color: gainsboro;
+    width: 120px;
+    height: 200px;
+    top: 60px;
+    right: 10px;
+    box-shadow: 1px 2px grey;
+}
+
+.pseudo-menu .menus ul {
+    display: block;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.pseudo-menu .menus ul li {
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.profile img {
+    margin: 0 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    padding: 5px;
+}
+
+.sub-header {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: rgb(243, 237, 237);
+    box-shadow: 0 2px 2px lightgray;
+    font-weight: bolder;
+    font-size: 20px;
+    font-variant: small-caps;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.partie {
+    box-shadow: inset;
+}
+
+.scroller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 3;
+    background-color: darkslategray;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: right 1s;
+
+}
+
+.scroller img {
+    width: 25px;
+    height: 30px;
+}
+
+.hid-scroll {
+    right: -500px;
+}

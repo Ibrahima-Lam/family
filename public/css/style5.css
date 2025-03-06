@@ -1,0 +1,35 @@
+.fixeur{
+    position: fixed;
+    top: 40vh;
+    right: 35vw;
+    
+}
+.formes{
+    display: block;
+    background-color:cadetblue;
+}
+.frms{
+    display: block;
+    
+    max-width: 300px;
+}
+.btn-danger{
+    background-color: red;
+    color: white;
+}
+.btn-primary{
+    background-color: steelblue;
+    color: white;
+}
+.frms label{
+    padding: 5px;
+    margin: 5px;
+}
+.frms input[type="text"],.frms select{
+    padding: 5px;
+    margin: 5px;
+    width: 90%;
+    border-radius: 6px;
+    background-color: bisque;
+    
+}

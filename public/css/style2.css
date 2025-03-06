@@ -1,0 +1,126 @@
+.row h2 {
+    background-color: rgb(230, 161, 137);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 6px;
+
+}
+
+dd :nth-child(odd),
+details {
+    background-color: aliceblue;
+}
+
+fieldset {
+    border-radius: 5px;
+}
+
+.element:hover {
+    transition-delay: 0.1s;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    transform: scale(110%);
+    transition-timing-function: linear;
+
+}
+
+.target {
+
+    transition-property: transform;
+    transform: scale(120%);
+    transition-timing-function: linear;
+    background-color: rgb(230, 161, 137);
+}
+
+.target:hover {
+    transform: scale(125%);
+
+}
+
+.page {
+    min-height: 900px;
+}
+
+.preface {
+    padding: 20px;
+    margin: 10px;
+    line-height: 25px;
+}
+
+.preface p {
+
+    margin: 10px;
+    padding: 10px;
+
+}
+
+.elements {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    min-height: 700px;
+}
+
+.element {
+    max-width: auto;
+    margin: 5px;
+}
+
+.toggle {
+    display: none;
+}
+
+.menu-action {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    background-color: aqua;
+    display: block;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px;
+    padding: 10px;
+
+}
+
+@media screen and (max-width:600px) {
+    .container {
+        min-width: none;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .content {
+        display: inline-flex;
+    }
+
+    .preface {
+        padding: 0;
+        margin: 0;
+    }
+
+    .preface p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .target {
+        transform: scale(102%);
+    }
+
+    .target:hover {
+        transform: scale(110%);
+    }
+
+    .nav-bar {
+        width: 100%;
+    }
+
+    #link {
+        display: none;
+    }
+
+    .striped {
+        width: auto;
+    }
+}

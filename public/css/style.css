@@ -1,0 +1,312 @@
+body {
+    display: block;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative;
+    top: 60px;
+}
+
+.container,
+.nav-bar {
+    margin: 20px;
+    padding: 10px;
+
+    width: 75%;
+
+}
+
+.row {
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 2px 2px 2px 2px grey;
+    border-radius: 5px;
+    width: 100% !important;
+}
+
+.striped {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.striped tr {
+    height: 30px;
+}
+
+.striped tr:nth-child(even) {
+    background-color: rgba(112, 128, 144, 0.205);
+}
+
+.striped thead {
+    background-color: rgba(112, 128, 144, 0.205);
+
+}
+
+.striped tr:hover {
+    background-color: rgba(95, 158, 160, 0.507);
+    color: blueviolet;
+}
+
+td a {
+    text-decoration: none;
+}
+
+.striped tr td {
+    padding: 10px;
+}
+
+.striped tr td a {
+    color: black;
+}
+
+/* nav bar */
+.nav-bar {
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    display: flex;
+    align-items: stretch;
+    background-color: darkolivegreen;
+    max-height: 50px;
+    justify-content: space-between;
+    border-radius: 5px;
+    width: 78%;
+    height: 40px;
+
+
+}
+
+.nav-bar ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.nav-bar ul li {
+    list-style: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.nav-bar ul li input {
+    height: 30px;
+    border-radius: 5px;
+}
+
+.nav-bar ul li input:hover,
+.nav-bar ul li input:focus {
+    transform: scaleX(110%);
+    /* transition-delay: 0.5s; */
+    transition-duration: 1s;
+
+}
+
+.nav-bar ul li a,
+.nav-bar ul li span {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-bar ul li a:hover {
+    text-decoration: underline;
+    color: rgb(43, 174, 226);
+    transition-duration: 0.5s;
+
+
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+
+.element {
+    min-width: 60px;
+    min-height: 90px;
+    display: block;
+    align-items: stretch;
+    margin-top: 20px;
+
+    border-radius: 5px;
+    background-color: rgb(241, 230, 214);
+    border: 1px solid black;
+
+
+}
+
+
+
+.element span {
+    padding: 5px;
+    margin: 5px 0;
+    background-color: rgb(236, 213, 182);
+
+    min-width: 100px !important;
+
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.element span a {
+    text-decoration: none;
+    color: black;
+}
+
+.element span a:hover,
+.striped tr td a:hover {
+    text-decoration: underline;
+    color: blue;
+    transition-duration: 0.5s;
+    transform: translate(10px);
+}
+
+.element ul {
+    margin: 10px 15px;
+    padding: 10px 2px;
+}
+
+.element ul li {
+    list-style: none;
+    font-style: italic;
+    font-size: small;
+}
+
+
+
+.groupe {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 100%;
+    box-shadow: 1px 1px 1px 1px darkolivegreen;
+    min-height: 500px;
+}
+
+.groupe form {
+    margin: 20px;
+    padding: 20px;
+    display: block;
+    width: 50%;
+    box-shadow: 0 0 1px 1px darkolivegreen;
+    border-radius: 4px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+
+
+}
+
+.control .field {
+    width: 200px;
+
+}
+
+.radio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.control input[type=text],
+.control select {
+    padding: 5px;
+    border-radius: 6px;
+    background-color: rgb(252, 250, 248);
+}
+
+.control input[type=text]:focus,
+.control select:focus {
+    transform: scale(105%);
+}
+
+label {
+
+    text-transform: capitalize;
+    font-size: 16px;
+   
+}
+
+.action {
+    display: inline;
+    justify-content: space-between;
+    width: 40%;
+    padding: 10px;
+    margin: 10px;
+}
+
+.btn {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+    min-height: 20px;
+    border: none;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.btn-primary {
+    background-color: rgb(73, 70, 255);
+    color: white;
+}
+
+.btn-success {
+    background-color: green;
+    color: white;
+}
+
+.btn-default {
+    background-color: burlywood;
+    color: white;
+}
+
+.corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    align-items: center;
+    background-color: darkolivegreen;
+    color: white;
+    border-radius: 4px;
+
+}
+
+.striped tr th {
+    text-align: left;
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+.desc {
+    transform: rotate(180deg);
+}
+
+.active {
+    color: blue;
+}
+
+.striped tr th img {
+    padding: 0 10px;
+    margin: 0 10px;
+}
+
+.matched {
+    background-color: aqua;
+    color: black;
+}

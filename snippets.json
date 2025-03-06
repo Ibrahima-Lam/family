@@ -1,0 +1,15 @@
+{
+    "html": {
+        "snippets": {
+            "ull": "ul>li{item${0}}*5",
+            "tbl": "table.table.striped#>tr",
+            "btn": "button.#",
+            "inp:s": "input:submit.#[name='${0}']"
+        }
+    },
+    "css": {
+        "snippets": {
+            "flx": "p10"
+        }
+    }
+}

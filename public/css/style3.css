@@ -1,0 +1,124 @@
+.toggle {
+
+    display: none;
+
+}
+
+
+
+details:nth-child(odd) {
+    background-color: aliceblue;
+}
+
+.page-garde {
+    min-height: 700px;
+    background-color: darkcyan;
+}
+
+th img {
+    width: 10px;
+}
+
+
+
+@media screen and (max-width:600px) {
+    .striped {
+        width: 95% !important;
+    }
+
+    .striped tr {
+        width: 100% !important;
+    }
+
+
+    .striped tr td {
+        padding: 4px;
+        margin: 0;
+        flex-wrap: wrap;
+        font-size: small;
+    }
+
+    .striped tr th {
+        font-size: xx-small;
+        padding: 4px;
+        align-content: center;
+
+    }
+
+    .row {
+        padding: 2px;
+        margin: 0;
+        overflow-x: auto;
+    }
+
+    p,
+    blockquote {
+        font-size: small;
+        padding: 5px;
+    }
+
+    .nav-bar {
+        min-width: auto;
+        width: 100vw;
+        padding: 2px;
+        margin: 0;
+        justify-content: space-around;
+    }
+
+    .nav-bar ul {
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        width: 70%;
+    }
+
+    .nav-bar ul li {
+        padding: 2px;
+        margin: 2px;
+        font-size: smaller;
+    }
+
+    .nav-bar ul li input {
+        width: 100px;
+    }
+
+    .nav-bar ul li input:focus {
+        width: fit-content;
+    }
+
+    .toggle {
+        display: flex;
+        background-color: aliceblue;
+        border-radius: 50%;
+        padding: 0 5px;
+        margin: 3px 10px;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    #link {
+        position: absolute;
+        right: 20px;
+        top: 45px;
+        background-color: darkolivegreen;
+        border-radius: 4px;
+        width: 100px;
+        padding: 10px;
+        min-height: 150px;
+
+
+    }
+
+    #link li {
+        padding: 5px;
+        margin: 5px;
+        border-bottom: 1px dotted white;
+
+    }
+
+    #link li:last-child {
+        border: none;
+    }
+}

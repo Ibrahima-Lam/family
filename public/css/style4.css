@@ -1,0 +1,95 @@
+.fields {
+    display: block;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 300px;
+
+}
+.groupe{
+    display: block;
+}
+.textes {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+    background-color: beige;
+    font-size: large;
+
+}
+
+.listes {
+    width: 250px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+    position: fixed;
+    top: 60vh;
+    
+    z-index: 10;
+    float:left;
+    max-height: 200px;
+    overflow: auto;
+
+
+
+}
+
+.item {
+    cursor: pointer;
+    list-style: none;
+    padding: 5px 0;
+    border-bottom: 1px dotted black;
+
+}
+
+.item:last-child {
+    border: none;
+}
+
+.item:hover {
+    background-color: lightblue;
+    color: white;
+}
+
+.actived {
+    background-color: darkturquoise;
+}
+
+
+@media screen and (max-width:600px) {
+    .content {
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .control {
+        display: block;
+        margin: 10px 0;
+        height: auto;
+    }
+
+    .groupe {
+        min-width: none;
+        height: auto;
+        width: 100vw;
+    }
+
+    .groupe form {
+        width: 100vw;
+        height: 40vh;
+        box-shadow: 0 0 1px 1px green;
+        margin: 0;
+    }
+
+    .control label,
+    .control input {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .listes {
+        max-height: 300px;
+        top: 60vh;
+    }
+}

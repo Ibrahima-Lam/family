@@ -1,0 +1,318 @@
+ body {
+     font-family: Arial, Helvetica, sans-serif;
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+ }
+
+ .nav-bar {
+     position: fixed;
+     z-index: 2;
+     top: 0;
+     left: 0;
+     display: flex;
+     align-items: center;
+     background-color: darkolivegreen;
+     max-height: 80px;
+     justify-content: space-around;
+
+     width: 100vw;
+     height: 60px;
+
+
+ }
+
+ .show {
+     position: fixed;
+     right: 0;
+ }
+
+ .nav-bar h3 {
+
+     color: white;
+ }
+
+ .nav-bar ul {
+     padding: 0;
+     margin: 0;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 60%;
+ }
+
+ .nav-bar ul li {
+     list-style: none;
+     margin: 5px;
+     padding: 5px;
+ }
+
+ .nav-bar ul li a {
+     text-decoration: none;
+     color: white;
+     font-size: 16px;
+ }
+
+ .slider {
+     color: white;
+     padding: 3px;
+     width: 30px;
+     height: 20px;
+     display: none;
+     cursor: pointer;
+ }
+
+ .nav-link {
+     background-color: inherit;
+ }
+
+ .container {
+     width: 100vw;
+     overflow-x: auto;
+     margin: 50px 0;
+     padding: 20px 0;
+ }
+
+ .content {
+     width: 60%;
+     margin: 20px;
+     position: relative;
+     left: 10vw;
+ }
+
+ .table {
+     border-collapse: collapse;
+     width: 100%;
+     background-color: ghostwhite;
+
+ }
+
+ .table tr {
+     width: 100%;
+ }
+
+ .table tr:nth-child(odd) {
+     background-color: gainsboro;
+ }
+
+ dialog {
+     max-width: 90vw;
+     border: none;
+     background-color: azure;
+     box-shadow: 0 0 3px;
+ }
+
+ dialog .table {
+     width: 100%;
+ }
+
+ embed {
+     opacity: 0.7;
+ }
+
+ .pg {
+     padding: 10px;
+ }
+
+ dialog .table tbody tr:nth-child(even) {
+     background-color: gainsboro;
+ }
+
+ .table td,
+ .table th {
+     padding: 10px;
+ }
+
+ a {
+     text-decoration: none;
+ }
+
+ a:visited {
+     color: blue;
+ }
+
+ .element {
+     background-color: rgba(227, 223, 223, 0.84);
+     box-shadow: 1px 1px 2px 2px gray;
+     margin: 10px;
+     text-align: center;
+
+ }
+
+ .element-content {
+     padding: 10px;
+     border-radius: 5px;
+ }
+
+ .element .title {
+     background-color: chocolate;
+     color: white;
+     padding: 5px;
+
+ }
+
+ .element .sub-title {
+
+     padding: 5px;
+     background-color: lightgray;
+     font-weight: lighter;
+
+ }
+
+ .element .name {
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+     font-weight: bold;
+     font-style: italic;
+ }
+
+ .element dd {
+     padding: 2px;
+ }
+
+ .liens {
+     padding: 5px 20px;
+     margin: 0 20px;
+ }
+
+ /* arbre elements */
+ body {
+     font-family: Arial, Helvetica, sans-serif;
+
+ }
+
+
+ a {
+     text-decoration: none;
+ }
+
+ a:visited {
+     color: blue;
+ }
+
+ .striped {
+     border-collapse: collapse;
+
+
+
+ }
+
+
+
+ .striped tr:nth-child(odd) {
+     background-color: gainsboro;
+ }
+
+ .striped th,
+ .striped td {
+     padding: 10px;
+ }
+
+
+
+ .section {
+     text-decoration: underline;
+     font-weight: bolder;
+ }
+
+ .arbre-parent {
+     width: 100%;
+     overflow-x: auto;
+ }
+
+ .arbre {
+     background-color: beige;
+     width: max-content;
+     padding: 10px;
+
+
+ }
+
+ .arbre dd {
+
+     font-weight: bold;
+     font-size: large;
+ }
+
+ dl[class^="G"] {
+     border: 1px solid blue;
+     /* background-color: blue; */
+ }
+
+
+ dl[class$="5"],
+ dl[class$="0"] {
+     border: 1px solid green;
+     /* background-color: green; */
+ }
+
+ dl[class$="6"],
+ dl[class$="1"] {
+     border: 1px solid red;
+     /* background-color: red; */
+ }
+
+ dl[class$="7"],
+ dl[class$="2"] {
+     border: 1px solid black;
+     /* background-color: yellow; */
+ }
+
+ dl[class$="9"],
+ dl[class$="4"] {
+     border: 1px solid purple;
+     /* background-color: purple; */
+ }
+
+ dd {
+     cursor: pointer;
+ }
+
+ .attente {
+     background-color: bisque;
+ }
+
+
+
+ @media screen and (max-width:800px) {
+
+     .container {
+         width: 100vw;
+     }
+
+     .content {
+         width: 100%;
+         padding: 0;
+         margin: 0;
+         left: 0;
+     }
+
+     .table-parent {
+         width: 98%;
+         overflow-x: auto;
+     }
+
+
+     .nav-link {
+         position: absolute;
+         z-index: 1;
+         right: -500px;
+         top: 50px;
+         padding: 5px;
+         transition: right 0.4s;
+
+     }
+
+     .show {
+         right: 0;
+     }
+
+     .nav-link ul {
+         display: block;
+         margin: 0;
+         padding: 10px;
+     }
+
+     .slider {
+         display: inline;
+     }
+ }
