@@ -11,8 +11,8 @@ class Database
 
     public function __construct()
     {
-        // $dns="mysql:dbname=$db;host=localhost";
-        $dbPath = getenv('DB_PATH') ?: dirname(__DIR__, 2) . '/DB/famille.db';
+        $config = require dirname(__DIR__, 2) . '/config/database.php';
+        $dbPath = $config['path'];
         $dns = 'sqlite:' . $dbPath;
         $this->pdo = new PDO($dns);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

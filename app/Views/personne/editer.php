@@ -2,8 +2,8 @@
 $title = "Editer";
 ?>
 
-<script src="../public/js/table.js" defer></script>
-<script src="../public/js/editer.js" defer></script>
+<script src="../public/assets/js/table.js" defer></script>
+<script src="../public/assets/js/editer.js" defer></script>
 <div class="container">
     <div class="row">
         <table class='striped'>
@@ -27,11 +27,11 @@ $title = "Editer";
                         <td><?= e($value->sexe) ?></td>
                         <td><a href="personne.php?id=<?= e($value->idPersonne) ?>"><?= e(ucwords($value->parent ?? '')) ?></a></td>
                         <?php if ($value->idParent): ?>
-                            <td id="<?= e($value->idPersonne) ?>" data-i="<?= e($value->idPersonne) ?>" data-p="<?= e($value->idParent) ?>" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/icons/pencil.svg" width="15px"></a></td>
+                            <td id="<?= e($value->idPersonne) ?>" data-i="<?= e($value->idPersonne) ?>" data-p="<?= e($value->idParent) ?>" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/assets/icons/pencil.svg" width="15px"></a></td>
                         <?php else: ?>
                             <td></td>
                         <?php endif ?>
-                        <td id="<?= e($value->idPersonne) ?>" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/icons/basket.svg" width="15px"></a></td>
+                        <td id="<?= e($value->idPersonne) ?>" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/assets/icons/basket.svg" width="15px"></a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

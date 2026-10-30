@@ -2,7 +2,7 @@
 
 namespace Src;
 
-use App\Modele\Personne;
+use App\Models\Personne;
 
 use stdClass;
 

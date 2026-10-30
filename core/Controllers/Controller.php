@@ -8,7 +8,7 @@ class Controller
 
     public static function loadModel($class): mixed
     {
-        $model = "App\\Modele\\" . ucfirst($class);
+        $model = "App\\Models\\" . ucfirst($class);
         return new $model();
     }
 
@@ -16,7 +16,7 @@ class Controller
     {
         extract($data);
         ob_start();
-        require dirname(__DIR__, 2) . "/app/views/$file.php";
+        require dirname(__DIR__, 2) . "/app/Views/$file.php";
         $content = ob_get_clean();
         require_once dirname(__DIR__, 2) . "/public/layout.php";
     }
