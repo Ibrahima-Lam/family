@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Core\Controllers\Controller;
 
-class appController extends Controller
+class AppController extends Controller
 {
     public function index()
     {

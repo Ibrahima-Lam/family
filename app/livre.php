@@ -1,3 +1,7 @@
+<?php
+http_response_code(404);
+exit("Page introuvable.");
+?>
 <!DOCTYPE html>
 <html lang="en">
 

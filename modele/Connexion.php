@@ -4,9 +4,27 @@ class Connexion
     private $pdo;
     public function __construct()
     {
-        $pdo = new PDO("sqlite:../modele/famille.db");
+        $dbPath = getenv('DB_PATH') ?: dirname(__DIR__) . '/DB/famille.db';
+        $pdo = new PDO('sqlite:' . $dbPath);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $this->pdo = $pdo;
     }
+
+    public function fetchOne(string $sql, array $params = [], int $mode = PDO::FETCH_ASSOC): mixed
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch($mode);
+    }
+
+    public function fetchAll(string $sql, array $params = [], int $mode = PDO::FETCH_ASSOC): array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll($mode);
+    }
+
     public function firstId(): mixed
     {
         $res = $this->pdo->query("select idPersonne from personne ")->fetch(2)["idPersonne"];

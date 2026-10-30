@@ -21,17 +21,17 @@ $title = "Editer";
             <tbody id="contains">
                 <?php foreach ($data as $value) : ?>
                     <tr>
-                        <td><?= $value->idPersonne ?></td>
-                        <td><a href="personne.php?id=<?= $value->idPersonne ?>"><?= ucwords($value->nomPersonne) ?></a></td>
-                        <td><?= $value->nomGeneration ?></td>
-                        <td><?= $value->sexe ?></td>
-                        <td><a href="personne.php?id=<?= $value->idPersonne ?>"><?= ucwords($value->parent) ?></a></td>
+                        <td><?= e($value->idPersonne) ?></td>
+                        <td><a href="personne.php?id=<?= e($value->idPersonne) ?>"><?= e(ucwords($value->nomPersonne ?? '')) ?></a></td>
+                        <td><?= e($value->nomGeneration) ?></td>
+                        <td><?= e($value->sexe) ?></td>
+                        <td><a href="personne.php?id=<?= e($value->idPersonne) ?>"><?= e(ucwords($value->parent ?? '')) ?></a></td>
                         <?php if ($value->idParent): ?>
-                            <td id="<?= $value->idPersonne ?>" data-i="<?= $value->idPersonne ?>" data-p="<?= $value->idParent ?>" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/icons/pencil.svg" width="15px"></a></td>
+                            <td id="<?= e($value->idPersonne) ?>" data-i="<?= e($value->idPersonne) ?>" data-p="<?= e($value->idParent) ?>" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/icons/pencil.svg" width="15px"></a></td>
                         <?php else: ?>
                             <td></td>
                         <?php endif ?>
-                        <td id="<?= $value->idPersonne ?>" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/icons/basket.svg" width="15px"></a></td>
+                        <td id="<?= e($value->idPersonne) ?>" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/icons/basket.svg" width="15px"></a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

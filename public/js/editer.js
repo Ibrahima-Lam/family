@@ -1,7 +1,7 @@
 
 
 async function deleteData(id) {
-    let req = await fetch('?p=api/delete/' + id)
+    let req = await fetch('?p=api/delete/' + id + '&_token=' + encodeURIComponent(window.CSRF_TOKEN || ''))
     return await req.json()
 }
 
@@ -31,7 +31,7 @@ async function getOptions(selected) {
 }
 async function sendData(data) {
 
-    let req = await fetch('?p=api/edit&' + data,)
+    let req = await fetch('?p=api/edit&' + data + '&_token=' + encodeURIComponent(window.CSRF_TOKEN || ''),)
     return await req.json()
 }
 async function showDialog(i, p) {

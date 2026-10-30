@@ -1,4 +1,8 @@
 <?php
+http_response_code(404);
+exit("Page introuvable.");
+?>
+<?php
  require "../autoloader/autoload.php" ;
   
  var_dump($_REQUEST);

@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use Core\Controllers\Controller;
-use src\Html;
-use src\Arbre;
-use src\Altoperson;
-use src\Link;
+use Src\Html;
+use Src\Arbre;
+use Src\Altoperson;
+use Src\Link;
 use stdClass;
 
 class PersonneController extends Controller

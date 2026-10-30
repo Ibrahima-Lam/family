@@ -2,7 +2,7 @@
 
 namespace App\Modele;
 
-use core\Service\Database;
+use Core\Service\Database;
 
 class Modele extends Database
 {

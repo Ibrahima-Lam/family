@@ -1,3 +1,7 @@
+<?php
+http_response_code(404);
+exit("Page introuvable.");
+?>
 <?php ob_start(); ?>
 <?php require "../autoloader/autoload.php"; ?>
 <?php require "ajaxnom.php"; ?>

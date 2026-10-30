@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace Src;
 
 class Html
 {
@@ -19,12 +19,12 @@ class Html
       $tt .= "<div title='cliquez sur le Nom pour voir les details qui lui correspondent' class='element $targ' draggable='true'>";
       // $target=($value->idPersonne)?
       $link = ($id) ? "#" : "personne.php?id=";
-      $tt .= "<span title='Le Nom de la personne'><a href='$link" . ($value->idPersonne ?? '') . "'>  " . ($value->nomPersonne ?? '') . "</a></span>";
+      $tt .= "<span title='Le Nom de la personne'><a href='" . e($link) . e($value->idPersonne ?? '') . "'>  " . e($value->nomPersonne ?? '') . "</a></span>";
       $sexe = $value->sexe ?? '';
       $card = ($gene == 1) ? "ere" : "eme";
       $tt .= "<ul>";
       $tt .= ($sexe == "M") ? "<li title='Son genre'>Homme</li>" : (!($sexe == "F") ?: "<li>Femme</li>");
-      $tt .= "<li><abbr title='{$gene}$card Generation'>G{$gene}</abbr></li>";
+      $tt .= "<li><abbr title='" . e($gene) . e($card) . " Generation'>G" . e($gene) . "</abbr></li>";
       $tt .=  "</ul>";
       $tt .= "</div>";
     }
@@ -40,7 +40,7 @@ class Html
       $lab = $value[$cle2];
       $el = ($entry == $val && $entry) ? "selected" : "";
 
-      $opt .= "<option value='$val' $el>$lab</option>";
+      $opt .= "<option value='" . e($val) . "' $el>" . e($lab) . "</option>";
     }
     return $opt;
   }
@@ -71,10 +71,10 @@ class Html
 
     if (empty($tab) || !is_array($tab)) return "<strong>néant <br></strong>";
     $ul = "<div class='element'><ul>";
-    $ul .= "<h3> $cat </h3>";
+    $ul .= "<h3> " . e($cat) . " </h3>";
 
     foreach ($tab as  $value) {
-      $ul .= "<li><strong>" . ucfirst($value->nomSupplement) . ":</strong>" . ucwords($value->valeur) . "</li>";
+      $ul .= "<li><strong>" . e(ucfirst($value->nomSupplement)) . ":</strong>" . e(ucwords($value->valeur)) . "</li>";
     }
     $ul .= "</ul></div>";
     return $ul;

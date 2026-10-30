@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use Core\Controllers\Controller;
-use src\Arbre;
-use src\Html;
+use Src\Arbre;
+use Src\Html;
 
 class ApiController extends Controller
 {
@@ -24,7 +24,7 @@ class ApiController extends Controller
         $tree = $arbre->makeChildren($id);
         $this->response($tree);
     }
-    public function options(String $idg = null): void
+    public function options(?string $idg = null): void
     {
         $selected = $_GET["selected"] ?? null;
         $data = $idg ? $this->loadModel('personne')->findAllIdandNomByGeneration($idg, true) : $this->loadModel('personne')->findAllIdandNom();
@@ -66,69 +66,127 @@ class ApiController extends Controller
                 sort($names);
             }
         }
-        return $this->response($names);
+        $this->response($names);
     }
 
 
-    public function add()
+    private function checkCsrf(): void
+    {
+        $token = (string) ($_REQUEST['_token'] ?? '');
+        if (!hash_equals($_SESSION['csrf'] ?? '', $token)) {
+            $this->response([
+                'message' => 'Requête invalide (CSRF)',
+                'status' => self::STATUS_ERROR,
+            ]);
+        }
+    }
+
+    private function input(): array
+    {
+        $nom = trim((string) ($_REQUEST['nom'] ?? ''));
+        $sexe = (string) ($_REQUEST['sexe'] ?? '');
+        $parent = $_REQUEST['parent'] ?? null;
+        $parent = ($parent === '' || $parent === null) ? null : trim((string) $parent);
+
+        return [$nom, $sexe, $parent];
+    }
+
+    private function validParent(?string $parent): bool
+    {
+        if ($parent === null) {
+            return true;
+        }
+        if (!ctype_digit($parent) || (int) $parent <= 0) {
+            return false;
+        }
+        return (bool) $this->loadModel('personne')->findOne($parent);
+    }
+
+    public function add(): void
     {
 
-        extract($_REQUEST);
+        $this->checkCsrf();
+        [$nom, $sexe, $parent] = $this->input();
 
-        $generation =
-            $this->loadModel('personne')->findElementGeneration($parent);
+        if ($nom === '' || !in_array($sexe, ['M', 'F'], true) || !$this->validParent($parent)) {
+            $this->response([
+                "message" => self::MESSAGE_SAVE_ERROR,
+                "status" => self::STATUS_ERROR,
+            ]);
+            return;
+        }
+
+        $generation = $parent ? $this->loadModel('personne')->findElementGeneration($parent) : 0;
         $check = $this->loadModel('generation')->checkGeneration($generation);
         $generation++;
         if (!$check) {
             $this->loadModel('generation')->addGeneration($generation);
         }
-        $res = $this->loadModel('personne')->addPersonne($nom, $generation, $sexe, $parent);
+        $res = $this->loadModel('personne')->addPersonne($nom, (string) $generation, $sexe, $parent);
         if ($res) {
-            return    $this->response([
+            $this->response([
                 "message" => self::MESSAGE_SAVE_OK,
                 "status" => self::STATUS_OK,
                 'data' => $this->loadModel('personne')->findLastOne()
             ]);
         } else
-            return $this->response([
+            $this->response([
                 "message" => self::MESSAGE_SAVE_ERROR,
                 "status" => self::STATUS_ERROR,
             ]);
     }
-    public function edit()
+    public function edit(): void
     {
 
-        extract($_REQUEST);
+        $this->checkCsrf();
+        [$nom, $sexe, $parent] = $this->input();
+        $id = (string) ($_REQUEST['id'] ?? '');
 
-        $generation =
-            $this->loadModel('personne')->findElementGeneration($parent);
+        if (
+            !ctype_digit($id) || (int) $id <= 0
+            || !$this->loadModel('personne')->findOne($id)
+            || $nom === '' || !in_array($sexe, ['M', 'F'], true)
+            || !$this->validParent($parent)
+        ) {
+            $this->response([
+                "message" => self::MESSAGE_UPDATE_ERROR,
+                "status" => self::STATUS_ERROR,
+            ]);
+            return;
+        }
+
+        $generation = $parent ? $this->loadModel('personne')->findElementGeneration($parent) : 0;
         $check = $this->loadModel('generation')->checkGeneration($generation);
         $generation++;
         if (!$check) {
             $this->loadModel('generation')->addGeneration($generation);
         }
-        $res = $this->loadModel('personne')->editPersonne($id, $nom, $generation, $sexe, $parent);
+        $res = $this->loadModel('personne')->editPersonne((int) $id, $nom, (string) $generation, $sexe, $parent);
         if ($res) {
-            return    $this->response([
+            $this->response([
                 "message" => self::MESSAGE_UPDATE_OK,
                 "status" => self::STATUS_OK,
                 'data' => $this->loadModel('personne')->findLastOne()
             ]);
         } else
-            return $this->response([
+            $this->response([
                 "message" => self::MESSAGE_UPDATE_ERROR,
                 "status" => self::STATUS_ERROR,
             ]);
     }
     public function delete($id = null)
     {
-        $res = $id ? $this->loadModel('personne')->delete($id) : false;
-        if ($res) return $this->response([
+        $this->checkCsrf();
+        $id = $id ?? ($_REQUEST['id'] ?? null);
+        $id = ($id === null || $id === '') ? null : (string) $id;
+        $valid = $id !== null && ctype_digit($id) && (int) $id > 0;
+        $res = $valid ? $this->loadModel('personne')->delete($id) : false;
+        if ($res) $this->response([
             "message" => self::MESSAGE_DELETE_OK,
             "status" => self::STATUS_OK,
         ]);
         else
-            return $this->response([
+            $this->response([
                 "message" => self::MESSAGE_DELETE_ERROR,
                 "status" => self::STATUS_ERROR,
             ]);

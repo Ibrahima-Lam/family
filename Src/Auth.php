@@ -30,15 +30,27 @@ class Auth
 
     public function checkUser($id): bool
     {
-        $res = $this->db->pdo->query("Select id from user where id='$id'")->fetch();
-
-        return ($res) ? true : false;
+        $res = $this->db->fetchOne("SELECT id FROM user WHERE id = :id", ['id' => $id]);
+        return (bool) $res;
     }
 
     public function getUser(string $nom, string $password): ?User
     {
-        $user = $this->db->pdo->query("Select * from user where nom='$nom' and password='$password'")->fetchObject("User");
-        $this->session->set("user", $user);
-        return $user;
+        $row = $this->db->fetchOne("SELECT * FROM user WHERE nom = :nom", ['nom' => $nom]);
+        if ($row && password_verify($password, (string) $row['password'])) {
+            $user = new User();
+            $user->id = $row['id'];
+            $user->nom = $row['nom'];
+            $user->password = $row['password'];
+            $user->role = $row['role'];
+            $this->session->set("user", $user);
+            return $user;
+        }
+        return null;
+    }
+
+    public static function hashPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 }

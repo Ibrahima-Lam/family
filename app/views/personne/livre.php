@@ -1,8 +1,8 @@
 <?php
 $title = "Livre";
 
-use src\Html;
-use src\Personnage;
+use Src\Html;
+use Src\Personnage;
 ?>
 <div class="container">
     <div class="row page">
@@ -20,11 +20,11 @@ use src\Personnage;
             <tbody id="contains">
                 <?php foreach ($tab as $value): ?>
                     <tr>
-                        <td><?= $value->idPersonne ?></td>
-                        <td><a href="#<?= $value->idPersonne ?>"><?= ucwords($value->nomPersonne) ?></a></td>
-                        <td><?= $value->nomGeneration ?></td>
-                        <td><?= $value->sexe ?></td>
-                        <td><a href="#<?= $value->idParent ?>"><?= ucwords($value->parent) ?></a></td>
+                        <td><?= e($value->idPersonne) ?></td>
+                        <td><a href="#<?= e($value->idPersonne) ?>"><?= e(ucwords($value->nomPersonne ?? '')) ?></a></td>
+                        <td><?= e($value->nomGeneration) ?></td>
+                        <td><?= e($value->sexe) ?></td>
+                        <td><a href="#<?= e($value->idParent) ?>"><?= e(ucwords($value->parent ?? '')) ?></a></td>
                     </tr>
 
                 <?php endforeach ?>
@@ -35,7 +35,7 @@ use src\Personnage;
     <?php foreach ($tab as $value) : ?>
         <div>
             <div class="row elements">
-                <h2 id="<?= $value->idPersonne ?>"><?= ucwords($value->nomPersonne) ?></h2>
+                <h2 id="<?= e($value->idPersonne) ?>"><?= e(ucwords($value->nomPersonne ?? '')) ?></h2>
                 <?php
                 $id = $value->idPersonne;
                 $element = new Personnage($id);

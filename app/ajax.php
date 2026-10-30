@@ -1,4 +1,8 @@
 <?php
+http_response_code(404);
+exit("Page introuvable.");
+?>
+<?php
 
 $idg=$_GET["id"] ?? 1;
 

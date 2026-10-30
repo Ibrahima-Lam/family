@@ -1,10 +1,8 @@
 
 async function postData(data) {
-    let dt = ''
-    for (let key in data) {
-        dt += key + '=' + data[key] + '&'
-    }
-    let req = await fetch('?p=api/add&' + dt)
+    const params = new URLSearchParams(data)
+    params.append('_token', window.CSRF_TOKEN || '')
+    let req = await fetch('?p=api/add&' + params.toString())
     return req.json()
 }
 

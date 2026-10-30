@@ -1,6 +1,6 @@
 <?php
 
-namespace core\Service;
+namespace Core\Service;
 
 use \PDO;
 
@@ -12,7 +12,8 @@ class Database
     public function __construct()
     {
         // $dns="mysql:dbname=$db;host=localhost";
-        $dns = "sqlite:../DB/famille.db";
+        $dbPath = getenv('DB_PATH') ?: dirname(__DIR__, 2) . '/DB/famille.db';
+        $dns = 'sqlite:' . $dbPath;
         $this->pdo = new PDO($dns);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -54,6 +55,22 @@ class Database
     public function selectAll(string $req, $mode = PDO::FETCH_ASSOC): mixed
     {
         return  $this->select($req, $mode, false);
+    }
+
+
+    public function fetchOne(string $sql, array $params = [], $mode = PDO::FETCH_OBJ): mixed
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch($mode);
+    }
+
+
+    public function fetchAll(string $sql, array $params = [], $mode = PDO::FETCH_ASSOC): array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll($mode);
     }
 
 

@@ -12,7 +12,7 @@ $title = "Details";
                 <?= $options ?>
             </select>
         </fieldset>
-        <h1><?= $data->nomPersonne ?></h1>
+        <h1><?= e($data->nomPersonne ?? '') ?></h1>
         <h2>Les Parents</h2>
         <?= $parentHtml ?>
         <br>

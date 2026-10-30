@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace Src;
 
 
 use App\Modele\Personne;

@@ -9,12 +9,11 @@ class Generation extends Modele
     public function findAll(): false|array
     {
         $prop = "g.idGeneration,g.nomGeneration";
-        $data = $this->selectAll("SELECT $prop FROM generation g", PDO::FETCH_ASSOC);
-        return $data;
+        return $this->fetchAll("SELECT $prop FROM generation g", [], PDO::FETCH_ASSOC);
     }
     public function checkGeneration(int $id): bool
     {
-        $data = $this->select("SELECT * FROM generation WHERE idGeneration > '$id'",  PDO::FETCH_ASSOC);
+        $data = $this->fetchAll("SELECT * FROM generation WHERE idGeneration > :id", ['id' => $id], PDO::FETCH_ASSOC);
         return !empty($data);
     }
     public function addGeneration(int $id): bool

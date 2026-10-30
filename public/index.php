@@ -1,15 +1,25 @@
 <?php
-require_once '../autoloader/autoload.php';
-$p = $_GET["p"] ?? "app/index";
-$args = explode("/", $p);
-$class = $args[0] ?? null;
 
-$controller = "App\Controllers\\" . $class . "Controller";
-$methode = $args[1] ?? "index";
-$instance = new $controller;
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (empty($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = bin2hex(random_bytes(32));
+}
+
+$p = $_GET['p'] ?? 'app/index';
+$args = explode('/', $p);
+$class = ucfirst($args[0] ?? 'app');
+
+$controller = 'App\\Controllers\\' . $class . 'Controller';
+$method = $args[1] ?? 'index';
 unset($args[0], $args[1]);
+
 try {
-    call_user_func_array([$instance, $methode], $args ?? []);
-} catch (\Exception $e) {
+    $instance = new $controller();
+    call_user_func_array([$instance, $method], array_values($args));
+} catch (\Throwable $e) {
     echo $e->getMessage();
 }

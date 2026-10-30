@@ -20,11 +20,11 @@ $tab = $data ?? [];
             <tbody id="contains">
                 <?php foreach ($tab as $value) : ?>
                     <tr>
-                        <td><?= $value->idPersonne ?></td>
-                        <td><a href="?p=personne/details/<?= $value->idPersonne ?>"><?= ucwords($value->nomPersonne) ?></a></td>
-                        <td><?= $value->nomGeneration ?></td>
-                        <td><?= $value->sexe ?></td>
-                        <td><a href="?p=personne/details/<?= $value->idPersonne ?>"><?= ucwords($value->parent) ?></a></td>
+                        <td><?= e($value->idPersonne) ?></td>
+                        <td><a href="?p=personne/details/<?= e($value->idPersonne) ?>"><?= e(ucwords($value->nomPersonne ?? '')) ?></a></td>
+                        <td><?= e($value->nomGeneration) ?></td>
+                        <td><?= e($value->sexe) ?></td>
+                        <td><a href="?p=personne/details/<?= e($value->idPersonne) ?>"><?= e(ucwords($value->parent ?? '')) ?></a></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
