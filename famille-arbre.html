@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arbre généalogique — Famille Téguela</title>
+<style>
+:root {
+  --bg: #f5f7f9;
+  --card: #ffffff;
+  --ink: #1f2933;
+  --muted: #8a94a3;
+  --accent: #0f766e;
+  --accent-soft: #e6f2f0;
+  --line: #d5dde5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+header {
+  background: linear-gradient(135deg, #0f766e, #115e59);
+  color: #fff;
+  padding: 1.75rem 1.5rem;
+}
+header h1 { margin: 0; font-size: clamp(1.3rem, 3vw, 1.8rem); }
+main { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+button {
+  font: inherit; cursor: pointer;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: .45rem .8rem; border-radius: 8px;
+}
+button:hover { background: var(--accent-soft); border-color: var(--accent); }
+input[type="search"], select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .45rem .65rem;
+}
+input[type="search"] { flex: 1 1 240px; min-width: 200px; }
+select { cursor: pointer; }
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--muted);
+  font-size: .9rem;
+  white-space: nowrap;
+}
+.check input { accent-color: var(--accent); }
+.result-count { margin-left: auto; color: var(--muted); font-size: .9rem; }
+#empty { color: var(--muted); padding: .5rem .35rem; }
+.tree-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: .5rem;
+}
+section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(16,24,40,.08);
+}
+dl.tree {
+  margin: .25rem 0 .25rem 1.05rem;
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--line);
+}
+dl.tree > dt { position: relative; margin: .2rem 0; }
+dl.tree > dt::before {
+  content: "";
+  position: absolute;
+  left: -1.1rem;
+  top: .95rem;
+  width: .85rem;
+  border-top: 1px solid var(--line);
+}
+dt.leaf { padding: .15rem .35rem .15rem 1.5rem; border-radius: 6px; }
+dt.leaf::after {
+  content: "";
+  position: absolute;
+  left: .95rem;
+  top: .8rem;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: var(--line);
+}
+summary {
+  cursor: pointer;
+  padding: .2rem .35rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+summary:hover { background: var(--accent-soft); }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gen {
+  display: inline-block;
+  min-width: 2.3rem;
+  padding: .02rem .35rem;
+  margin-right: .15rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: .02em;
+}
+.kids {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  white-space: nowrap;
+}
+#arbre dt.match > details > summary,
+#arbre dt.leaf.match {
+  background: #fff3b0;
+  box-shadow: inset 0 0 0 1px #e8c95a;
+}
+section + section { margin-top: 1rem; }
+.panel h2 { margin: .1rem 0 .5rem; font-size: 1.15rem; }
+.panel h3 {
+  margin: 1rem 0 .4rem;
+  font-size: .78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: .7rem;
+  margin: .75rem 0 .5rem;
+}
+.stat {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .7rem .5rem;
+  text-align: center;
+}
+.stat-value {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.stat-label { color: var(--muted); font-size: .82rem; }
+.stats-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.1rem;
+}
+.table-wrap { overflow-x: auto; }
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.stats-table th, .stats-table td {
+  padding: .35rem .45rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+.stats-table th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.stats-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.stats-table tr.total td { font-weight: 700; border-bottom: 0; }
+.bar-track {
+  display: block;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  height: .55rem;
+  min-width: 100px;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  background: var(--accent);
+  height: 100%;
+  border-radius: 999px;
+}
+.help { margin: .5rem 0; padding-left: 1.2rem; }
+.help li { margin: .3rem 0; }
+.help code, .source code {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: .05rem .3rem;
+  font-size: .85em;
+}
+.source { color: var(--muted); font-size: .85rem; margin: .75rem 0 0; }
+strong { color: #0b4f4a; }
+@media (max-width: 600px) {
+  main { padding: 1rem; }
+  section { padding: .85rem; }
+  .tree-scroll { margin: 0 -.15rem; padding: 0 .15rem .5rem; }
+  #arbre > .tree-scroll > dl.tree { min-width: calc(100% + 360px); }
+  dl.tree { margin-left: .55rem; padding-left: .8rem; }
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Généalogie de la famille Téguela</h1>
+</header>
+<main>
+<div class="toolbar">
+<input id="search" type="search" placeholder="Rechercher un nom…" aria-label="Rechercher un nom">
+<select id="genFilter" aria-label="Filtrer par génération">
+<option value="">Toutes les générations</option>
+<option value="1">G1</option>
+<option value="2">G2</option>
+<option value="3">G3</option>
+<option value="4">G4</option>
+<option value="5">G5</option>
+<option value="6">G6</option>
+<option value="7">G7</option>
+<option value="8">G8</option>
+<option value="9">G9</option>
+<option value="10">G10</option>
+<option value="11">G11</option>
+</select>
+<select id="branchFilter" aria-label="Filtrer par branche">
+<option value="">Toutes les branches</option>
+<option value="main">Lignée principale</option>
+<option value="A">Branche A</option>
+<option value="B">Branche B</option>
+<option value="C">Branche C</option>
+</select>
+<label class="check"><input type="checkbox" id="withDesc" checked> Inclure les descendants</label>
+<button type="button" id="reset">Réinitialiser</button>
+<span id="resultCount" class="result-count" aria-live="polite"></span>
+</div>
+<div class="toolbar">
+<button type="button" onclick="setAll(true)">Tout ouvrir</button>
+<button type="button" onclick="setAll(false)">Tout fermer</button>
+</div>
+<section id="arbre">
+<div class="tree-scroll">
+<dl class="tree">
+<dt data-gen="1" data-branch="main" data-name="diaji teguela dit hamet teguela" data-kids="1"><details open><summary><span class="gen">G1</span> <strong>Diaji Téguela</strong> dit <strong>Hamet Téguela</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="2" data-branch="main" data-name="diogni" data-kids="1"><details><summary><span class="gen">G2</span> <strong>Diogni</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="3" data-branch="main" data-name="yama" data-kids="1"><details><summary><span class="gen">G3</span> <strong>Yama</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="4" data-branch="main" data-name="maloum" data-kids="1"><details><summary><span class="gen">G4</span> <strong>Maloum</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="5" data-branch="main" data-name="aly maloum" data-kids="0"><span class="gen">G5</span> Aly Maloum <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="5" data-branch="main" data-name="samba maloum" data-kids="0"><span class="gen">G5</span> Samba Maloum <span class="kids">(0)</span></dt>
+<dt data-gen="5" data-branch="main" data-name="demba maloum dit dialade" data-kids="1"><details><summary><span class="gen">G5</span> <strong>Demba Maloum</strong> dit <strong>Dialade</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="6" data-branch="A" data-name="a yougour demba" data-kids="1"><details><summary><span class="gen">G6</span> <strong>A. Yougour Demba</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="7" data-branch="A" data-name="abdoulaye yougour dit abdoulaye matal" data-kids="1"><details><summary><span class="gen">G7</span> <strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="A" data-name="amadou abdoulaye dit amadou dialade" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong> <span class="kids">(7)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="moussa amadou dialade" data-kids="0"><span class="gen">G9</span> Moussa Amadou Dialade <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="dieynaba amadou" data-kids="0"><span class="gen">G9</span> Dieynaba Amadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="aissata amadou" data-kids="0"><span class="gen">G9</span> Aissata Amadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="abdoulaye amadou" data-kids="0"><span class="gen">G9</span> Abdoulaye Amadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="hawa amadou" data-kids="0"><span class="gen">G9</span> Hawa Amadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="mariata amadou" data-kids="0"><span class="gen">G9</span> Mariata Amadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="mariem amadou" data-kids="0"><span class="gen">G9</span> Mariem Amadou <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="A" data-name="fatimata abdoulaye" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Fatimata Abdoulaye</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="A" data-name="aisse fatimata aisse egoudy sinthiou" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou) <span class="kids">(5)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="A" data-name="mariem fatimata dite peinda siyel" data-kids="0"><span class="gen">G10</span> Mariem Fatimata dite Peinda Siyel <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="A" data-name="dieriby fatimata dite siyo" data-kids="0"><span class="gen">G10</span> Dieriby Fatimata dite Siyo <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="A" data-name="alassane fatimata" data-kids="0"><span class="gen">G10</span> Alassane Fatimata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="A" data-name="salamata fatimata dite sadio aisse" data-kids="0"><span class="gen">G10</span> Salamata Fatimata dite Sadio Aisse <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="A" data-name="mariem dite peinda siyel" data-kids="0"><span class="gen">G10</span> Mariem dite Peinda Sîyel <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="A" data-name="dieynaba abdoulaye bakaw" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Dieynaba Abdoulaye</strong> (Bakaw) <span class="kids">(5)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="fatimata dieynaba fatimata saidy" data-kids="0"><span class="gen">G9</span> Fatimata Dieynaba / Fatimata Saidy <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="oumou dieynaba oumou diallel" data-kids="0"><span class="gen">G9</span> Oumou Dieynaba / Oumou Diallel <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="amadou dieynaba amadou saidy" data-kids="0"><span class="gen">G9</span> Amadou Dieynaba / Amadou Saidy <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="sileye dieynaba sileye saidy" data-kids="0"><span class="gen">G9</span> Sileye Dieynaba / Sileye Saidy <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="pollel seidou" data-kids="0"><span class="gen">G9</span> Pollel Seidou <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="A" data-name="mariem abdoulaye" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Mariem Abdoulaye</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="A" data-name="aisse mariem dite aisse egoudy aissata lorou" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Aisse Mariem</strong> dite <strong>Aisse Egoudy</strong> / <strong>Aissata Lorou</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="A" data-name="hawe ba ferrela" data-kids="0"><span class="gen">G10</span> Hawe Ba (Ferrela) <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="7" data-branch="A" data-name="hamet yougour" data-kids="1"><details><summary><span class="gen">G7</span> <strong>Hamet Yougour</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="A" data-name="samba hamet" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Samba Hamet</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="fadim samba" data-kids="0"><span class="gen">G9</span> Fadim Samba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="dieynaba samba" data-kids="0"><span class="gen">G9</span> Dieynaba Samba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="weyssi samba" data-kids="0"><span class="gen">G9</span> Weyssi Samba <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="A" data-name="demba hamet" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Demba Hamet</strong> <span class="kids">(5)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="cire demba" data-kids="0"><span class="gen">G9</span> Cire Demba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="fatimata demba" data-kids="0"><span class="gen">G9</span> Fatimata Demba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="aissata demba" data-kids="0"><span class="gen">G9</span> Aissata Demba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="hawo demba" data-kids="0"><span class="gen">G9</span> Hawo Demba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="dieinaba demba" data-kids="0"><span class="gen">G9</span> Dieinaba Demba <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="A" data-name="hamad hamet dit samba" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Hamad Hamet</strong> dit <strong>Samba</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="mamadou samba" data-kids="0"><span class="gen">G9</span> Mamadou Samba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="amadou samba" data-kids="0"><span class="gen">G9</span> Amadou Samba <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="youma samba" data-kids="0"><span class="gen">G9</span> Youma Samba <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="7" data-branch="A" data-name="bocar yougour" data-kids="1"><details><summary><span class="gen">G7</span> <strong>Bocar Yougour</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="A" data-name="aissata bocar" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Aissata Bocar</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="A" data-name="sadio aissata" data-kids="0"><span class="gen">G9</span> Sadio Aissata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="coumba aissata" data-kids="0"><span class="gen">G9</span> Coumba Aissata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="A" data-name="debel aissata" data-kids="0"><span class="gen">G9</span> Debel Aissata <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="6" data-branch="B" data-name="b hamet demba" data-kids="1"><details><summary><span class="gen">G6</span> <strong>B. Hamet Demba</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="7" data-branch="B" data-name="nago samba" data-kids="1"><details><summary><span class="gen">G7</span> <strong>Nago Samba</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="B" data-name="samba nago" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Samba Nago</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="B" data-name="mamadou ou moussa samba dit bocar bonko" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong> <span class="kids">(6)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="B" data-name="sileymane bocar" data-kids="0"><span class="gen">G10</span> Sileymane Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="ibrahim bocar" data-kids="0"><span class="gen">G10</span> Ibrahim Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="mountagha bocar" data-kids="0"><span class="gen">G10</span> Mountagha Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="moussa bocar" data-kids="0"><span class="gen">G10</span> Moussa Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="fatimata bocar" data-kids="0"><span class="gen">G10</span> Fatimata Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="mariata bocar" data-kids="0"><span class="gen">G10</span> Mariata Bocar <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="B" data-name="ibrahim samba" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Ibrahim Samba</strong> <span class="kids">(5)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="B" data-name="amadou ibrahim dit pathe lam" data-kids="0"><span class="gen">G10</span> Amadou Ibrahim dit Pathé Lam <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="sileymane ibrahim dit baidy mariem" data-kids="0"><span class="gen">G10</span> Sileymane Ibrahim dit Baidy Mariem <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="boudy ibrahim" data-kids="0"><span class="gen">G10</span> Boudy Ibrahim <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="zeinaba ibrahim sans enfant" data-kids="0"><span class="gen">G10</span> Zeinaba Ibrahim (sans enfant) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="B" data-name="mariata ibrahim sans enfant" data-kids="0"><span class="gen">G10</span> Mariata Ibrahim (sans enfant) <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="B" data-name="aissata samba" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Aissata Samba</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="10" data-branch="B" data-name="bocar aissata" data-kids="1"><details><summary><span class="gen">G10</span> <strong>Bocar Aissata</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="11" data-branch="B" data-name="aissata bocar" data-kids="0"><span class="gen">G11</span> Aissata Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="11" data-branch="B" data-name="harouna bocar dit barre dia" data-kids="0"><span class="gen">G11</span> Harouna Bocar dit Barré Dia <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="11" data-branch="B" data-name="fatimata bocar" data-kids="0"><span class="gen">G11</span> Fatimata Bocar <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="11" data-branch="B" data-name="aminata bocar" data-kids="0"><span class="gen">G11</span> Aminata Bocar <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt class="leaf" data-gen="8" data-branch="B" data-name="boye nago sans enfant" data-kids="0"><span class="gen">G8</span> Boye Nago (sans enfant) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="8" data-branch="B" data-name="aissata nago enfant" data-kids="0"><span class="gen">G8</span> Aissata Nago (enfant) <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt class="leaf" data-gen="7" data-branch="B" data-name="cire hamet" data-kids="0"><span class="gen">G7</span> Ciré Hamet <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="7" data-branch="B" data-name="samba hamet" data-kids="0"><span class="gen">G7</span> <strong>Samba Hamet</strong> <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="6" data-branch="C" data-name="c sileye demba maloum" data-kids="1"><details><summary><span class="gen">G6</span> <strong>C. Sileye Demba Maloum</strong> <span class="kids">(5)</span></summary>
+<dl class="tree">
+<dt data-gen="7" data-branch="C" data-name="1 mamadou sileye" data-kids="1"><details><summary><span class="gen">G7</span> <strong>1. Mamadou Sileye</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="C" data-name="bocar mamadou dit bocarel dialade" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong> <span class="kids">(7)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="mamadou bocar samba lam et freres" data-kids="0"><span class="gen">G9</span> Mamadou Bocar → Samba Lam et frères <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="fatimata bocar mamadou fatimata et s urs" data-kids="0"><span class="gen">G9</span> Fatimata Bocar → Mamadou Fatimata et sœurs <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="adama bocar mamadou adama s urs freres" data-kids="0"><span class="gen">G9</span> Adama Bocar → Mamadou Adama, sœurs, frères <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="sileye bocar adama freres et s urs" data-kids="0"><span class="gen">G9</span> Sileye Bocar → Adama, frères et sœurs <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="aissata bocar mamadou freres et s urs" data-kids="0"><span class="gen">G9</span> Aissata Bocar → Mamadou, frères et sœurs <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="kardiata bocar sileye kardiata freres et s urs" data-kids="0"><span class="gen">G9</span> Kardiata Bocar → Sileye Kardiata, frères et sœurs <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="hassan bocar mamadou hassan et freres" data-kids="0"><span class="gen">G9</span> Hassan Bocar → Mamadou Hassan et frères <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="aissata mamadou dite astel dialade" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="guelel aissata pere bocar dieyni" data-kids="0"><span class="gen">G9</span> Guelel Aissata (père : Bocar Dieyni) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="sileye aissata pere hamdou sy et freres et s urs" data-kids="0"><span class="gen">G9</span> Sileye Aissata (père : Hamdou Sy et frères et sœurs) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="dialade aissata pere hassan dialade et s urs" data-kids="0"><span class="gen">G9</span> Dialadé Aissata (père : Hassan Dialade et sœurs) <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="kardiata mamadou dite dialade" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="hawe kardiata bocar hawe nioly" data-kids="0"><span class="gen">G9</span> Hawe Kardiata → Bocar Hawe (Nioly) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="aisse kardiata bocar aissata ganki" data-kids="0"><span class="gen">G9</span> Aisse Kardiata → Bocar Aissata (Ganki) <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="7" data-branch="C" data-name="2 amadou sileye" data-kids="1"><details><summary><span class="gen">G7</span> <strong>2. Amadou Sileye</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="C" data-name="moussa amadou dit moussa matal" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="C" data-name="mamadou moussa" data-kids="1"><details><summary><span class="gen">G9</span> Mamadou Moussa <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="bocar mamadou" data-kids="0"><span class="gen">G10</span> Bocar Mamadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="cire mamadou" data-kids="0"><span class="gen">G10</span> Ciré Mamadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="habi mamadou" data-kids="0"><span class="gen">G10</span> Habi Mamadou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="hadjirata mamadou" data-kids="0"><span class="gen">G10</span> Hadjirata Mamadou <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="cire moussa" data-kids="1"><details><summary><span class="gen">G9</span> Cire Moussa <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="abou demba" data-kids="0"><span class="gen">G10</span> Abou Demba <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="fatimata moussa" data-kids="1"><details><summary><span class="gen">G9</span> Fatimata Moussa <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="mamadel fatimata" data-kids="0"><span class="gen">G10</span> Mamadel Fatimata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="cire fatimata" data-kids="0"><span class="gen">G10</span> Ciré Fatimata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="mayramel fatimata" data-kids="0"><span class="gen">G10</span> Mayramel Fatimata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="dieiniyel fatimata" data-kids="0"><span class="gen">G10</span> Dieiniyel Fatimata <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="aminata moussa" data-kids="1"><details><summary><span class="gen">G9</span> Aminata Moussa <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="demba dieini" data-kids="0"><span class="gen">G10</span> Demba Dieini <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="mamadou amadou dit lamine" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Mamadou Amadou</strong> dit <strong>Lamine</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="bocar mamadou dit bocar maye" data-kids="0"><span class="gen">G9</span> Bocar Mamadou dit Bocar Maye <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="7" data-branch="C" data-name="3 hawe sileye" data-kids="1"><details><summary><span class="gen">G7</span> <strong>3. Hawe Sileye</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="C" data-name="sileye hawe" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Sileye Hawe</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="bocar sileye dit ndiaye raki" data-kids="0"><span class="gen">G9</span> Bocar Sileye dit Ndiaye Raki <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="yero hawe" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Yero Hawe</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="9" data-branch="C" data-name="bocar yero dit malal diebe" data-kids="0"><span class="gen">G9</span> Bocar Yero dit Malal Diebe <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="7" data-branch="C" data-name="4 kardiata sileye" data-kids="1"><details><summary><span class="gen">G7</span> <strong>4. Kardiata Sileye</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="8" data-branch="C" data-name="aly kardiata" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Aly Kardiata</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="C" data-name="abdoulaye aly dit samba hawe" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="mamadou samba dit amadou hawa demett" data-kids="0"><span class="gen">G10</span> Mamadou Samba dit Amadou Hawa (Demett) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="elimane da demett" data-kids="0"><span class="gen">G10</span> Elimane Da (Demett) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="aissata aminata dia" data-kids="0"><span class="gen">G10</span> Aissata Aminata Dia <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="hawe aly" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Hawe Aly</strong> <span class="kids">(3)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="abdoulaye amadou dia tam ba kounda" data-kids="0"><span class="gen">G10</span> Abdoulaye Amadou Dia (Tam Ba Kounda) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="yahya amadou dia" data-kids="0"><span class="gen">G10</span> Yahya Amadou Dia <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="bocar amadou dia dit moualim dia" data-kids="0"><span class="gen">G10</span> Bocar Amadou Dia dit Moualim Dia <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="kardiata aly" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Kardiata Aly</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="alpha saidou kassoum belly ourdi" data-kids="0"><span class="gen">G10</span> Alpha Saidou Kassoum (Belly Ourdi) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="alghassem dia" data-kids="0"><span class="gen">G10</span> Alghassem Dia <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="diebe kardiata dit diebe mariem" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="C" data-name="malal diebe dit yero kardiata" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="abdoul wedoud dia" data-kids="0"><span class="gen">G10</span> Abdoul Wedoud Dia <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="abdoulaye boubou" data-kids="0"><span class="gen">G10</span> Abdoulaye Boubou <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="hawe kardiata" data-kids="0"><span class="gen">G10</span> Hawe Kardiata <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="yahya dia" data-kids="0"><span class="gen">G10</span> Yahya Dia <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt data-gen="8" data-branch="C" data-name="hawe kardiata dit hawe mariem" data-kids="1"><details><summary><span class="gen">G8</span> <strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong> <span class="kids">(4)</span></summary>
+<dl class="tree">
+<dt data-gen="9" data-branch="C" data-name="melel hawe" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Melel Hawe</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="mariem melel belli soye" data-kids="0"><span class="gen">G10</span> Mariem Melel (BELLI SOYE) <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="nakade" data-kids="0"><span class="gen">G10</span> Nakade <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt class="leaf" data-gen="9" data-branch="C" data-name="amadou hawe" data-kids="0"><span class="gen">G9</span> <strong>Amadou Hawe</strong> <span class="kids">(0)</span></dt>
+<dt data-gen="9" data-branch="C" data-name="haby hawe" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Haby Hawe</strong> <span class="kids">(2)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="samba haby" data-kids="0"><span class="gen">G10</span> Samba Haby <span class="kids">(0)</span></dt>
+<dt class="leaf" data-gen="10" data-branch="C" data-name="seydi haby" data-kids="0"><span class="gen">G10</span> Seydi Haby <span class="kids">(0)</span></dt>
+</dl></details></dt>
+<dt data-gen="9" data-branch="C" data-name="kadidia hawe" data-kids="1"><details><summary><span class="gen">G9</span> <strong>Kadidia Hawe</strong> <span class="kids">(1)</span></summary>
+<dl class="tree">
+<dt class="leaf" data-gen="10" data-branch="C" data-name="hamid alpha" data-kids="0"><span class="gen">G10</span> Hamid Alpha <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt class="leaf" data-gen="7" data-branch="C" data-name="mariem sileye" data-kids="0"><span class="gen">G7</span> <strong>Mariem Sileye</strong> <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+<dt class="leaf" data-gen="5" data-branch="main" data-name="pathe maloum" data-kids="0"><span class="gen">G5</span> Pathé Maloum <span class="kids">(0)</span></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl></details></dt>
+</dl>
+</div>
+<p id="empty" hidden>Aucun résultat.</p>
+</section>
+<section id="stats" class="panel">
+<h2>Statistiques</h2>
+<div class="stat-grid">
+<div class="stat"><span class="stat-value">150</span><span class="stat-label">personnes</span></div>
+<div class="stat"><span class="stat-value">11</span><span class="stat-label">générations</span></div>
+<div class="stat"><span class="stat-value">52</span><span class="stat-label">avec enfants</span></div>
+<div class="stat"><span class="stat-value">98</span><span class="stat-label">sans enfant</span></div>
+<div class="stat"><span class="stat-value">2,9</span><span class="stat-label">enfants / parent</span></div>
+</div>
+<div class="stats-columns">
+<div><h3>Par génération</h3><div class="table-wrap">
+<table class="stats-table">
+<thead><tr><th>Génération</th><th class="num">Personnes</th><th>Répartition</th></tr></thead><tbody>
+<tr><td>G1</td><td class="num">1</td><td><span class="bar-track"><span class="bar-fill" style="width:0.7%"></span></span></td></tr>
+<tr><td>G2</td><td class="num">1</td><td><span class="bar-track"><span class="bar-fill" style="width:0.7%"></span></span></td></tr>
+<tr><td>G3</td><td class="num">1</td><td><span class="bar-track"><span class="bar-fill" style="width:0.7%"></span></span></td></tr>
+<tr><td>G4</td><td class="num">1</td><td><span class="bar-track"><span class="bar-fill" style="width:0.7%"></span></span></td></tr>
+<tr><td>G5</td><td class="num">4</td><td><span class="bar-track"><span class="bar-fill" style="width:2.7%"></span></span></td></tr>
+<tr><td>G6</td><td class="num">3</td><td><span class="bar-track"><span class="bar-fill" style="width:2.0%"></span></span></td></tr>
+<tr><td>G7</td><td class="num">11</td><td><span class="bar-track"><span class="bar-fill" style="width:7.3%"></span></span></td></tr>
+<tr><td>G8</td><td class="num">21</td><td><span class="bar-track"><span class="bar-fill" style="width:14.0%"></span></span></td></tr>
+<tr><td>G9</td><td class="num">58</td><td><span class="bar-track"><span class="bar-fill" style="width:38.7%"></span></span></td></tr>
+<tr><td>G10</td><td class="num">45</td><td><span class="bar-track"><span class="bar-fill" style="width:30.0%"></span></span></td></tr>
+<tr><td>G11</td><td class="num">4</td><td><span class="bar-track"><span class="bar-fill" style="width:2.7%"></span></span></td></tr>
+<tr class="total"><td>Total</td><td class="num">150</td><td></td></tr>
+</tbody></table></div></div>
+<div><h3>Par branche</h3><div class="table-wrap">
+<table class="stats-table">
+<thead><tr><th>Branche</th><th class="num">Personnes</th><th>Répartition</th></tr></thead><tbody>
+<tr><td>Lignée principale</td><td class="num">8</td><td><span class="bar-track"><span class="bar-fill" style="width:5.3%"></span></span></td></tr>
+<tr><td>Branche A</td><td class="num">46</td><td><span class="bar-track"><span class="bar-fill" style="width:30.7%"></span></span></td></tr>
+<tr><td>Branche B</td><td class="num">26</td><td><span class="bar-track"><span class="bar-fill" style="width:17.3%"></span></span></td></tr>
+<tr><td>Branche C</td><td class="num">70</td><td><span class="bar-track"><span class="bar-fill" style="width:46.7%"></span></span></td></tr>
+<tr class="total"><td>Total</td><td class="num">150</td><td></td></tr>
+</tbody></table></div></div>
+</div>
+</section>
+<section id="aide" class="panel">
+<h2>Fonctionnalités</h2>
+<ul class="help">
+<li><strong>Recherche</strong> : filtre les noms sans tenir compte des accents ni de la casse. Les ancêtres des personnes trouvées restent visibles pour garder le contexte.</li>
+<li><strong>Génération</strong> : limite l’affichage à une génération (G1 = racine, G11 = la plus récente) tout en conservant les ancêtres nécessaires.</li>
+<li><strong>Branche</strong> : isole la lignée principale ou l’une des branches A, B, C.</li>
+<li><strong>Inclure les descendants</strong> : avec une recherche, affiche aussi toute la descendance des personnes trouvées. L’option est ignorée si un filtre de génération ou de branche est actif.</li>
+<li><strong>Tout ouvrir / Tout fermer</strong> : déploie ou replie l’arbre entier.</li>
+<li><strong>Mobile</strong> : l’arbre défile horizontalement pour conserver la hiérarchie des générations.</li>
+<li><strong>Réinitialiser</strong> : efface la recherche et les filtres et revient à l’affichage initial.</li>
+<li>Les badges <span class="gen">G5</span> indiquent la génération ; le nombre entre parenthèses indique le nombre d’enfants.</li>
+</ul>
+<p class="source">Source : <code>famille-structuree.md</code>, enrichi à partir de la base <code>famille.db</code>.</p>
+</section>
+</main>
+<script>
+function setAll(open) {
+  document.querySelectorAll('#arbre details').forEach(function (d) {
+    if (open) { d.setAttribute('open', ''); }
+    else { d.removeAttribute('open'); }
+  });
+}
+
+(function () {
+  var search = document.getElementById('search');
+  var genFilter = document.getElementById('genFilter');
+  var branchFilter = document.getElementById('branchFilter');
+  var withDesc = document.getElementById('withDesc');
+  var countEl = document.getElementById('resultCount');
+  var emptyEl = document.getElementById('empty');
+  var reset = document.getElementById('reset');
+  var rootDl = document.querySelector('#arbre .tree-scroll > dl.tree');
+  if (!rootDl) return;
+  var all = Array.prototype.slice.call(document.querySelectorAll('#arbre dt'));
+
+  function norm(s) {
+    return (s || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function childrenOf(dt) {
+    var dl = dt.querySelector(':scope > details > dl.tree');
+    if (!dl) return [];
+    return Array.prototype.slice.call(dl.querySelectorAll(':scope > dt'));
+  }
+
+  function ancestorsOf(dt) {
+    var out = [];
+    var p = dt.parentElement;
+    while (p) {
+      if (p.tagName === 'DT') out.push(p);
+      p = p.parentElement;
+    }
+    return out;
+  }
+
+  function resetAll() {
+    all.forEach(function (dt) {
+      dt.classList.remove('match', 'path');
+      dt.style.display = '';
+    });
+    document.querySelectorAll('#arbre details').forEach(function (d) {
+      d.removeAttribute('open');
+    });
+    var first = document.querySelector('#arbre .tree-scroll > dl.tree > dt > details');
+    if (first) first.setAttribute('open', '');
+    countEl.textContent = '';
+    emptyEl.hidden = true;
+  }
+
+  function apply() {
+    var q = norm(search.value);
+    var gen = genFilter.value;
+    var branch = branchFilter.value;
+    var active = q || gen || branch;
+    if (!active) {
+      resetAll();
+      return;
+    }
+
+    all.forEach(function (dt) {
+      dt.classList.remove('match', 'path');
+      dt.style.display = 'none';
+    });
+
+    var matched = new Set();
+    var hits = 0;
+
+    all.forEach(function (dt) {
+      var name = dt.getAttribute('data-name') || '';
+      var ok = true;
+      if (q && name.indexOf(q) === -1) ok = false;
+      if (gen && dt.getAttribute('data-gen') !== gen) ok = false;
+      if (branch && dt.getAttribute('data-branch') !== branch) ok = false;
+      if (!ok) return;
+
+      hits++;
+      dt.classList.add('match');
+      matched.add(dt);
+      ancestorsOf(dt).forEach(function (a) {
+        matched.add(a);
+        a.classList.add('path');
+      });
+      if (q && withDesc.checked && !gen && !branch) {
+        dt.querySelectorAll(':scope details dt').forEach(function (x) {
+          matched.add(x);
+        });
+      }
+    });
+
+    function visible(dt) {
+      var kids = childrenOf(dt);
+      var kidVisible = false;
+      for (var i = 0; i < kids.length; i++) {
+        if (visible(kids[i])) kidVisible = true;
+      }
+      var v = matched.has(dt) || kidVisible;
+      dt.style.display = v ? '' : 'none';
+      var d = dt.querySelector(':scope > details');
+      if (d && v && kidVisible) {
+        d.open = true;
+      }
+      return v;
+    }
+
+    Array.prototype.slice.call(rootDl.children).forEach(function (dt) {
+      if (dt.tagName === 'DT') visible(dt);
+    });
+
+    countEl.textContent = hits + (hits > 1 ? ' résultats' : ' résultat');
+    emptyEl.hidden = hits !== 0;
+  }
+
+  search.addEventListener('input', apply);
+  genFilter.addEventListener('change', apply);
+  branchFilter.addEventListener('change', apply);
+  withDesc.addEventListener('change', apply);
+  reset.addEventListener('click', function () {
+    search.value = '';
+    genFilter.value = '';
+    branchFilter.value = '';
+    withDesc.checked = true;
+    resetAll();
+    search.focus();
+  });
+
+  apply();
+})();
+</script>
+</body>
+</html>

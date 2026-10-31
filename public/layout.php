@@ -9,7 +9,7 @@
     <script>
         window.CSRF_TOKEN = <?= json_encode($_SESSION['csrf'] ?? '') ?>;
     </script>
-    <link rel="stylesheet" href="../public/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         #menu {
             position: absolute;
@@ -68,13 +68,13 @@
             z-index: 10;
         }
     </style>
-    <link rel="stylesheet" href="../public/assets/css/style2.css">
-    <link rel="stylesheet" href="../public/assets/css/style3.css">
-    <link rel="stylesheet" href="../public/assets/css/style4.css">
-    <link rel="stylesheet" href="../public/assets/css/style5.css">
-    <script src="../public/assets/js/script.js" defer></script>
-    <script src="../public/assets/js/arbre.js" defer></script>
-    <script src="../public/assets/js/search.js" defer></script>
+    <link rel="stylesheet" href="assets/css/style2.css">
+    <link rel="stylesheet" href="assets/css/style3.css">
+    <link rel="stylesheet" href="assets/css/style4.css">
+    <link rel="stylesheet" href="assets/css/style5.css">
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/arbre.js" defer></script>
+    <script src="assets/js/search.js" defer></script>
 </head>
 
 <body>
@@ -112,7 +112,7 @@
         <div class="toggle" id="list-link">
 
             <ul class="toggle-list">
-                <li><a href="#"><img src="../public/assets/icons/three-dots-vertical.svg"></a></li>
+                <li><a href="#"><img src="assets/icons/three-dots-vertical.svg"></a></li>
             </ul>
         </div>
     </div>
@@ -121,7 +121,7 @@
     <?= $content ?>
 
     <template id="template">
-        <img src="../public/assets/icons/triangle-fill.svg" id="triangle">
+        <img src="assets/icons/triangle-fill.svg" id="triangle">
     </template>
 </body>
 

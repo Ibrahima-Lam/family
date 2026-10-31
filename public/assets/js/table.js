@@ -83,8 +83,8 @@ const HtmlTable2 = {
         <td><a href="?p=personne/details/${value.idPersonne}">${value.nomPersonne}</a></td>
         <td>${value.nomGeneration}</td><td>${value.sexe}</td>
         <td><a href="?p=personne/details/${value.idParent}">${value.parent ?? ''}</a></td>
-                    ${value.idParent ? `<td id="${value.idPersonne}"data-i="${value.idPersonne}"data-p="${value.idParent}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="../public/assets/icons/pencil.svg" width="15px"></a></td>` : `<td></td>`}
-                        <td id="${value.idPersonne}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="../public/assets/icons/basket.svg" width="15px"></a></td>
+                    ${value.idParent ? `<td id="${value.idPersonne}"data-i="${value.idPersonne}"data-p="${value.idParent}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="assets/icons/pencil.svg" width="15px"></a></td>` : `<td></td>`}
+                        <td id="${value.idPersonne}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="assets/icons/basket.svg" width="15px"></a></td>
         </tr>`).join('')}
         </tbody>`,
 

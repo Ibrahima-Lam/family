@@ -1,0 +1,2983 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Livre de la famille Téguela</title>
+<style>
+:root {
+  --paper: #f3ead8;
+  --page: #fffdf7;
+  --ink: #2b2118;
+  --muted: #7a6a58;
+  --line: #d8c9ae;
+  --accent: #0f5f56;
+  --accent-soft: #e7f1ee;
+  --gold: #b08d4f;
+  --topbar: 56px;
+  --shadow: 0 18px 40px rgba(59, 42, 20, .12);
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(90, 65, 30, .06) 1px, transparent 1px);
+  background-size: 4px 4px;
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.6;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: .15em; }
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+[id] { scroll-margin-top: calc(var(--topbar) + 1rem); }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--topbar);
+  padding: 0 1.25rem;
+  background: rgba(243, 234, 216, .93);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  font-family: var(--ui);
+  font-size: .9rem;
+}
+.brand { font-weight: 700; color: var(--ink); letter-spacing: .02em; }
+.topnav { display: flex; gap: 1rem; }
+.topnav a { color: var(--muted); }
+.topnav a:hover { color: var(--accent); }
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.cover {
+  position: relative;
+  overflow: hidden;
+  margin: 1rem 0 2rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  background: linear-gradient(145deg, #0d3f3a, #125b51);
+  color: #f7f0e0;
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.cover::before,
+.cover::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(240, 226, 195, .35);
+  pointer-events: none;
+}
+.cover::before { inset: 14px; border-radius: 2px; }
+.cover::after { inset: 20px; border-color: rgba(240, 226, 195, .18); }
+.cover .kicker { color: #d8c7a4; }
+.cover h1 {
+  margin: .35rem 0 .5rem;
+  font-size: clamp(2.2rem, 7vw, 4.6rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.subtitle {
+  max-width: 36rem;
+  margin: 0 auto 1.2rem;
+  color: #e9dfc9;
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+}
+.cover-meta {
+  margin: 0 0 1.6rem;
+  color: #cbbd9f;
+  font-family: var(--ui);
+  font-size: .9rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.cover-actions {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.button {
+  display: inline-block;
+  padding: .65rem 1.15rem;
+  border: 1px solid #d8c7a4;
+  border-radius: 999px;
+  background: #f7f0e0;
+  color: #0d3f3a;
+  font-family: var(--ui);
+  font-size: .9rem;
+  font-weight: 600;
+}
+.button:hover { background: #fffaf0; text-decoration: none; }
+.button.ghost {
+  background: transparent;
+  color: #f7f0e0;
+  border-color: rgba(247, 240, 224, .5);
+}
+.button.ghost:hover { background: rgba(247, 240, 224, .1); }
+
+.kicker {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.page {
+  background: var(--page);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  margin-bottom: 2rem;
+}
+.page-head { margin-bottom: 1.5rem; }
+.page h2 {
+  margin: .2rem 0 .5rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 600;
+}
+.page-intro { margin: 0; color: var(--muted); }
+
+.toc-group { margin-top: 1.4rem; }
+.toc-group + .toc-group {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+.toc-group h3 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 .5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 1;
+  column-gap: 1.5rem;
+}
+.toc-list li { break-inside: avoid; margin: .18rem 0; }
+.toc-list a { color: var(--ink); }
+.toc-list a:hover { color: var(--accent); }
+@media (min-width: 640px) { .toc-list { columns: 2; } }
+@media (min-width: 900px) { .toc-list { columns: 3; } }
+
+.gen-badge {
+  display: inline-block;
+  min-width: 2.2rem;
+  padding: .05rem .4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--ui);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.entry {
+  --branch: #0f5f56;
+  position: relative;
+  margin: 0 0 1.5rem;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem);
+  background: var(--page);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--branch);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--topbar) + 1rem);
+}
+.entry.branch-a { --branch: #1d4ed8; }
+.entry.branch-b { --branch: #b45309; }
+.entry.branch-c { --branch: #7e22ce; }
+.entry-head {
+  position: relative;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--line);
+}
+.entry-kicker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: .35rem;
+  font-family: var(--ui);
+}
+.entry-no {
+  color: var(--muted);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.branch-label {
+  color: var(--branch);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.entry h2 {
+  margin: .15rem 0 .2rem;
+  font-size: clamp(1.45rem, 3.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.entry h2 strong { font-weight: 600; }
+.entry-sub { margin: 0; color: var(--muted); font-size: .9rem; }
+.to-toc {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--ui);
+  font-size: .78rem;
+  color: var(--muted);
+}
+.to-toc:hover { color: var(--accent); }
+
+.relations {
+  display: grid;
+  gap: .8rem;
+  margin-top: 1rem;
+}
+@media (min-width: 720px) {
+  .relations { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+}
+.rel h3 {
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
+  margin: 0 0 .35rem;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.rel-count { color: var(--branch); font-variant-numeric: tabular-nums; }
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.links li { margin: 0; }
+.ref {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .35rem;
+  color: var(--ink);
+}
+.ref:hover { color: var(--accent); }
+.ref .g {
+  display: inline-block;
+  padding: 0 .3rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fbf6ea;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: .65rem;
+  line-height: 1.5;
+}
+.none { margin: 0; color: var(--muted); font-style: italic; }
+
+.entry.is-target { animation: flash 1.6s ease; }
+@keyframes flash {
+  0%, 100% { box-shadow: var(--shadow); }
+  15% { box-shadow: 0 0 0 4px rgba(176, 141, 79, .45), var(--shadow); }
+}
+
+.colophon {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: .9rem;
+}
+.colophon p { margin: .3rem 0; }
+.colophon code {
+  background: rgba(255, 255, 255, .5);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .05rem .3rem;
+  font-size: .85em;
+}
+
+@media (max-width: 600px) {
+  main { padding: 1rem .85rem 3rem; }
+  .cover { margin-top: .5rem; }
+  .to-toc { position: static; display: inline-block; margin-top: .4rem; }
+  .entry-head { padding-right: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .entry.is-target { animation: none; }
+}
+
+@media print {
+  body { background: #fff; }
+  .topbar, .cover-actions, .to-toc, .colophon a { display: none; }
+  .cover {
+    background: #0d3f3a;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .page, .entry { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#cover">Famille Téguela</a>
+  <nav class="topnav" aria-label="Navigation">
+    <a href="#sommaire">Sommaire</a>
+    <a href="famille-arbre.html">Arbre</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="cover" id="cover">
+  <p class="kicker">Généalogie familiale</p>
+  <h1>La famille Téguela</h1>
+  <p class="subtitle">Livre des personnes, de leurs parents, de leurs frères et
+  sœurs et de leurs enfants</p>
+  <p class="cover-meta">150 personnes · 11 générations ·
+  4 branches</p>
+  <div class="cover-actions">
+    <a class="button" href="#sommaire">Ouvrir le sommaire</a>
+    <a class="button ghost" href="famille-arbre.html">Voir l’arbre</a>
+  </div>
+</section>
+
+
+<section id="sommaire" class="page toc">
+  <header class="page-head">
+    <p class="kicker">Sommaire</p>
+    <h2>Les personnes du livre</h2>
+    <p class="page-intro">Chaque nom ouvre la page de la personne. Les liens de
+    parenté sont également cliquables.</p>
+  </header>
+  <section class="toc-group"><h3><span class="gen-badge">G1</span> 1 personne</h3><ul class="toc-list"><li><a href="#p001"><strong>Diaji Téguela</strong> dit <strong>Hamet Téguela</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G2</span> 1 personne</h3><ul class="toc-list"><li><a href="#p002"><strong>Diogni</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G3</span> 1 personne</h3><ul class="toc-list"><li><a href="#p003"><strong>Yama</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G4</span> 1 personne</h3><ul class="toc-list"><li><a href="#p004"><strong>Maloum</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G5</span> 4 personnes</h3><ul class="toc-list"><li><a href="#p005">Aly Maloum</a></li><li><a href="#p006">Samba Maloum</a></li><li><a href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong></a></li><li><a href="#p150">Pathé Maloum</a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G6</span> 3 personnes</h3><ul class="toc-list"><li><a href="#p008">Yougour Demba</a></li><li><a href="#p054">Hamet Demba</a></li><li><a href="#p080">Sileye Demba Maloum</a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G7</span> 11 personnes</h3><ul class="toc-list"><li><a href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong></a></li><li><a href="#p034"><strong>Hamet Yougour</strong></a></li><li><a href="#p049"><strong>Bocar Yougour</strong></a></li><li><a href="#p055"><strong>Nago Samba</strong></a></li><li><a href="#p078">Ciré Hamet</a></li><li><a href="#p079"><strong>Samba Hamet</strong></a></li><li><a href="#p081"><strong>1. Mamadou Sileye</strong></a></li><li><a href="#p097"><strong>2. Amadou Sileye</strong></a></li><li><a href="#p115"><strong>3. Hawe Sileye</strong></a></li><li><a href="#p120"><strong>4. Kardiata Sileye</strong></a></li><li><a href="#p149"><strong>Mariem Sileye</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G8</span> 21 personnes</h3><ul class="toc-list"><li><a href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong></a></li><li><a href="#p018"><strong>Fatimata Abdoulaye</strong></a></li><li><a href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)</a></li><li><a href="#p031"><strong>Mariem Abdoulaye</strong></a></li><li><a href="#p035"><strong>Samba Hamet</strong></a></li><li><a href="#p039"><strong>Demba Hamet</strong></a></li><li><a href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong></a></li><li><a href="#p050"><strong>Aissata Bocar</strong></a></li><li><a href="#p056"><strong>Samba Nago</strong></a></li><li><a href="#p076">Boye Nago (sans enfant)</a></li><li><a href="#p077">Aissata Nago (enfant)</a></li><li><a href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong></a></li><li><a href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong></a></li><li><a href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong></a></li><li><a href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong></a></li><li><a href="#p113"><strong>Mamadou Amadou</strong> dit <strong>Lamine</strong></a></li><li><a href="#p116"><strong>Sileye Hawe</strong></a></li><li><a href="#p118"><strong>Yero Hawe</strong></a></li><li><a href="#p121"><strong>Aly Kardiata</strong></a></li><li><a href="#p133"><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong></a></li><li><a href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G9</span> 58 personnes</h3><ul class="toc-list"><li><a href="#p011">Moussa Amadou Dialade</a></li><li><a href="#p012">Dieynaba Amadou</a></li><li><a href="#p013">Aissata Amadou</a></li><li><a href="#p014">Abdoulaye Amadou</a></li><li><a href="#p015">Hawa Amadou</a></li><li><a href="#p016">Mariata Amadou</a></li><li><a href="#p017">Mariem Amadou</a></li><li><a href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)</a></li><li><a href="#p026">Fatimata Dieynaba / Fatimata Saidy</a></li><li><a href="#p027">Oumou Dieynaba / Oumou Diallel</a></li><li><a href="#p028">Amadou Dieynaba / Amadou Saidy</a></li><li><a href="#p029">Sileye Dieynaba / Sileye Saidy</a></li><li><a href="#p030">Pollel Seidou</a></li><li><a href="#p032"><strong>Aisse Mariem</strong> dite <strong>Aisse Egoudy</strong> / <strong>Aissata Lorou</strong></a></li><li><a href="#p036">Fadim Samba</a></li><li><a href="#p037">Dieynaba Samba</a></li><li><a href="#p038">Weyssi Samba</a></li><li><a href="#p040">Cire Demba</a></li><li><a href="#p041">Fatimata Demba</a></li><li><a href="#p042">Aissata Demba</a></li><li><a href="#p043">Hawo Demba</a></li><li><a href="#p044">Dieinaba Demba</a></li><li><a href="#p046">Mamadou Samba</a></li><li><a href="#p047">Amadou Samba</a></li><li><a href="#p048">Youma Samba</a></li><li><a href="#p051">Sadio Aissata</a></li><li><a href="#p052">Coumba Aissata</a></li><li><a href="#p053">Debel Aissata</a></li><li><a href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong></a></li><li><a href="#p064"><strong>Ibrahim Samba</strong></a></li><li><a href="#p070"><strong>Aissata Samba</strong></a></li><li><a href="#p083">Mamadou Bocar → Samba Lam et frères</a></li><li><a href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs</a></li><li><a href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères</a></li><li><a href="#p086">Sileye Bocar → Adama, frères et sœurs</a></li><li><a href="#p087">Aissata Bocar → Mamadou, frères et sœurs</a></li><li><a href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs</a></li><li><a href="#p089">Hassan Bocar → Mamadou Hassan et frères</a></li><li><a href="#p091">Guelel Aissata (père : Bocar Dieyni)</a></li><li><a href="#p092">Sileye Aissata (père : Hamdou Sy et frères et sœurs)</a></li><li><a href="#p093">Dialadé Aissata (père : Hassan Dialade et sœurs)</a></li><li><a href="#p095">Hawe Kardiata → Bocar Hawe (Nioly)</a></li><li><a href="#p096">Aisse Kardiata → Bocar Aissata (Ganki)</a></li><li><a href="#p099">Mamadou Moussa</a></li><li><a href="#p104">Cire Moussa</a></li><li><a href="#p106">Fatimata Moussa</a></li><li><a href="#p111">Aminata Moussa</a></li><li><a href="#p114">Bocar Mamadou dit Bocar Maye</a></li><li><a href="#p117">Bocar Sileye dit Ndiaye Raki</a></li><li><a href="#p119">Bocar Yero dit Malal Diebe</a></li><li><a href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong></a></li><li><a href="#p126"><strong>Hawe Aly</strong></a></li><li><a href="#p130"><strong>Kardiata Aly</strong></a></li><li><a href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong></a></li><li><a href="#p140"><strong>Melel Hawe</strong></a></li><li><a href="#p143"><strong>Amadou Hawe</strong></a></li><li><a href="#p144"><strong>Haby Hawe</strong></a></li><li><a href="#p147"><strong>Kadidia Hawe</strong></a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G10</span> 45 personnes</h3><ul class="toc-list"><li><a href="#p020">Mariem Fatimata dite Peinda Siyel</a></li><li><a href="#p021">Dieriby Fatimata dite Siyo</a></li><li><a href="#p022">Alassane Fatimata</a></li><li><a href="#p023">Salamata Fatimata dite Sadio Aisse</a></li><li><a href="#p024">Mariem dite Peinda Sîyel</a></li><li><a href="#p033">Hawe Ba (Ferrela)</a></li><li><a href="#p058">Sileymane Bocar</a></li><li><a href="#p059">Ibrahim Bocar</a></li><li><a href="#p060">Mountagha Bocar</a></li><li><a href="#p061">Moussa Bocar</a></li><li><a href="#p062">Fatimata Bocar</a></li><li><a href="#p063">Mariata Bocar</a></li><li><a href="#p065">Amadou Ibrahim dit Pathé Lam</a></li><li><a href="#p066">Sileymane Ibrahim dit Baidy Mariem</a></li><li><a href="#p067">Boudy Ibrahim</a></li><li><a href="#p068">Zeinaba Ibrahim (sans enfant)</a></li><li><a href="#p069">Mariata Ibrahim (sans enfant)</a></li><li><a href="#p071"><strong>Bocar Aissata</strong></a></li><li><a href="#p100">Bocar Mamadou</a></li><li><a href="#p101">Ciré Mamadou</a></li><li><a href="#p102">Habi Mamadou</a></li><li><a href="#p103">Hadjirata Mamadou</a></li><li><a href="#p105">Abou Demba</a></li><li><a href="#p107">Mamadel Fatimata</a></li><li><a href="#p108">Ciré Fatimata</a></li><li><a href="#p109">Mayramel Fatimata</a></li><li><a href="#p110">Dieiniyel Fatimata</a></li><li><a href="#p112">Demba Dieini</a></li><li><a href="#p123">Mamadou Samba dit Amadou Hawa (Demett)</a></li><li><a href="#p124">Elimane Da (Demett)</a></li><li><a href="#p125">Aissata Aminata Dia</a></li><li><a href="#p127">Abdoulaye Amadou Dia (Tam Ba Kounda)</a></li><li><a href="#p128">Yahya Amadou Dia</a></li><li><a href="#p129">Bocar Amadou Dia dit Moualim Dia</a></li><li><a href="#p131">Alpha Saidou Kassoum (Belly Ourdi)</a></li><li><a href="#p132">Alghassem Dia</a></li><li><a href="#p135">Abdoul Wedoud Dia</a></li><li><a href="#p136">Abdoulaye Boubou</a></li><li><a href="#p137">Hawe Kardiata</a></li><li><a href="#p138">Yahya Dia</a></li><li><a href="#p141">Mariem Melel (BELLI SOYE)</a></li><li><a href="#p142">Nakade</a></li><li><a href="#p145">Samba Haby</a></li><li><a href="#p146">Seydi Haby</a></li><li><a href="#p148">Hamid Alpha</a></li></ul></section><section class="toc-group"><h3><span class="gen-badge">G11</span> 4 personnes</h3><ul class="toc-list"><li><a href="#p072">Aissata Bocar</a></li><li><a href="#p073">Harouna Bocar dit Barré Dia</a></li><li><a href="#p074">Fatimata Bocar</a></li><li><a href="#p075">Aminata Bocar</a></li></ul></section>
+</section>
+
+<section class="entries" aria-label="Personnes">
+<article class="entry branch-main" id="p001">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 001</span>
+<span class="gen-badge">G1</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2><strong>Diaji Téguela</strong> dit <strong>Hamet Téguela</strong></h2>
+<p class="entry-sub">Racine · 1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">0</span></h3><p class="none">Aucun parent référencé</p></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p002"><strong>Diogni</strong><span class="g">G2</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-main" id="p002">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 002</span>
+<span class="gen-badge">G2</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2><strong>Diogni</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p001"><strong>Diaji Téguela</strong> dit <strong>Hamet Téguela</strong><span class="g">G1</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p003"><strong>Yama</strong><span class="g">G3</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-main" id="p003">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 003</span>
+<span class="gen-badge">G3</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2><strong>Yama</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p002"><strong>Diogni</strong><span class="g">G2</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p004"><strong>Maloum</strong><span class="g">G4</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-main" id="p004">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 004</span>
+<span class="gen-badge">G4</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2><strong>Maloum</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p003"><strong>Yama</strong><span class="g">G3</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p005">Aly Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p006">Samba Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li><li><a class="ref" href="#p150">Pathé Maloum<span class="g">G5</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-main" id="p005">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 005</span>
+<span class="gen-badge">G5</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2>Aly Maloum</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p004"><strong>Maloum</strong><span class="g">G4</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p006">Samba Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li><li><a class="ref" href="#p150">Pathé Maloum<span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-main" id="p006">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 006</span>
+<span class="gen-badge">G5</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2>Samba Maloum</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p004"><strong>Maloum</strong><span class="g">G4</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p005">Aly Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li><li><a class="ref" href="#p150">Pathé Maloum<span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-main" id="p007">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 007</span>
+<span class="gen-badge">G5</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2><strong>Demba Maloum</strong> dit <strong>Dialade</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p004"><strong>Maloum</strong><span class="g">G4</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p005">Aly Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p006">Samba Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p150">Pathé Maloum<span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p008">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 008</span>
+<span class="gen-badge">G6</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Yougour Demba</h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p049"><strong>Bocar Yougour</strong><span class="g">G7</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p009">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 009</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p049"><strong>Bocar Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p018"><strong>Fatimata Abdoulaye</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li><li><a class="ref" href="#p031"><strong>Mariem Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p010">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 010</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong></h2>
+<p class="entry-sub">7 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p018"><strong>Fatimata Abdoulaye</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li><li><a class="ref" href="#p031"><strong>Mariem Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">7</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p011">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 011</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Moussa Amadou Dialade</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p012">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 012</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Dieynaba Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p013">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 013</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Aissata Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p014">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 014</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Abdoulaye Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p015">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 015</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Hawa Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p016">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 016</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Mariata Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p017">Mariem Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p017">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 017</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Mariem Amadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p011">Moussa Amadou Dialade<span class="g">G9</span></a></li><li><a class="ref" href="#p012">Dieynaba Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p013">Aissata Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p014">Abdoulaye Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p015">Hawa Amadou<span class="g">G9</span></a></li><li><a class="ref" href="#p016">Mariata Amadou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p018">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 018</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Fatimata Abdoulaye</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li><li><a class="ref" href="#p031"><strong>Mariem Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p019">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 019</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)</h2>
+<p class="entry-sub">5 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p018"><strong>Fatimata Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p020">Mariem Fatimata dite Peinda Siyel<span class="g">G10</span></a></li><li><a class="ref" href="#p021">Dieriby Fatimata dite Siyo<span class="g">G10</span></a></li><li><a class="ref" href="#p022">Alassane Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p023">Salamata Fatimata dite Sadio Aisse<span class="g">G10</span></a></li><li><a class="ref" href="#p024">Mariem dite Peinda Sîyel<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p020">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 020</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Mariem Fatimata dite Peinda Siyel</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p021">Dieriby Fatimata dite Siyo<span class="g">G10</span></a></li><li><a class="ref" href="#p022">Alassane Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p023">Salamata Fatimata dite Sadio Aisse<span class="g">G10</span></a></li><li><a class="ref" href="#p024">Mariem dite Peinda Sîyel<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p021">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 021</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Dieriby Fatimata dite Siyo</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p020">Mariem Fatimata dite Peinda Siyel<span class="g">G10</span></a></li><li><a class="ref" href="#p022">Alassane Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p023">Salamata Fatimata dite Sadio Aisse<span class="g">G10</span></a></li><li><a class="ref" href="#p024">Mariem dite Peinda Sîyel<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p022">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 022</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Alassane Fatimata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p020">Mariem Fatimata dite Peinda Siyel<span class="g">G10</span></a></li><li><a class="ref" href="#p021">Dieriby Fatimata dite Siyo<span class="g">G10</span></a></li><li><a class="ref" href="#p023">Salamata Fatimata dite Sadio Aisse<span class="g">G10</span></a></li><li><a class="ref" href="#p024">Mariem dite Peinda Sîyel<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p023">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 023</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Salamata Fatimata dite Sadio Aisse</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p020">Mariem Fatimata dite Peinda Siyel<span class="g">G10</span></a></li><li><a class="ref" href="#p021">Dieriby Fatimata dite Siyo<span class="g">G10</span></a></li><li><a class="ref" href="#p022">Alassane Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p024">Mariem dite Peinda Sîyel<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p024">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 024</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Mariem dite Peinda Sîyel</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p019"><strong>Aisse Fatimata</strong> / <strong>Aisse Egoudy</strong> (Sinthiou)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p020">Mariem Fatimata dite Peinda Siyel<span class="g">G10</span></a></li><li><a class="ref" href="#p021">Dieriby Fatimata dite Siyo<span class="g">G10</span></a></li><li><a class="ref" href="#p022">Alassane Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p023">Salamata Fatimata dite Sadio Aisse<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p025">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 025</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Dieynaba Abdoulaye</strong> (Bakaw)</h2>
+<p class="entry-sub">5 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p018"><strong>Fatimata Abdoulaye</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p031"><strong>Mariem Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p026">Fatimata Dieynaba / Fatimata Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p027">Oumou Dieynaba / Oumou Diallel<span class="g">G9</span></a></li><li><a class="ref" href="#p028">Amadou Dieynaba / Amadou Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p029">Sileye Dieynaba / Sileye Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p030">Pollel Seidou<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p026">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 026</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Fatimata Dieynaba / Fatimata Saidy</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p027">Oumou Dieynaba / Oumou Diallel<span class="g">G9</span></a></li><li><a class="ref" href="#p028">Amadou Dieynaba / Amadou Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p029">Sileye Dieynaba / Sileye Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p030">Pollel Seidou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p027">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 027</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Oumou Dieynaba / Oumou Diallel</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p026">Fatimata Dieynaba / Fatimata Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p028">Amadou Dieynaba / Amadou Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p029">Sileye Dieynaba / Sileye Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p030">Pollel Seidou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p028">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 028</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Amadou Dieynaba / Amadou Saidy</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p026">Fatimata Dieynaba / Fatimata Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p027">Oumou Dieynaba / Oumou Diallel<span class="g">G9</span></a></li><li><a class="ref" href="#p029">Sileye Dieynaba / Sileye Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p030">Pollel Seidou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p029">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 029</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Sileye Dieynaba / Sileye Saidy</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p026">Fatimata Dieynaba / Fatimata Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p027">Oumou Dieynaba / Oumou Diallel<span class="g">G9</span></a></li><li><a class="ref" href="#p028">Amadou Dieynaba / Amadou Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p030">Pollel Seidou<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p030">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 030</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Pollel Seidou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p026">Fatimata Dieynaba / Fatimata Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p027">Oumou Dieynaba / Oumou Diallel<span class="g">G9</span></a></li><li><a class="ref" href="#p028">Amadou Dieynaba / Amadou Saidy<span class="g">G9</span></a></li><li><a class="ref" href="#p029">Sileye Dieynaba / Sileye Saidy<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p031">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 031</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Mariem Abdoulaye</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p010"><strong>Amadou Abdoulaye</strong> dit <strong>Amadou Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p018"><strong>Fatimata Abdoulaye</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p025"><strong>Dieynaba Abdoulaye</strong> (Bakaw)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p032"><strong>Aisse Mariem</strong> dite <strong>Aisse Egoudy</strong> / <strong>Aissata Lorou</strong><span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p032">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 032</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Aisse Mariem</strong> dite <strong>Aisse Egoudy</strong> / <strong>Aissata Lorou</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p031"><strong>Mariem Abdoulaye</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p033">Hawe Ba (Ferrela)<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p033">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 033</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Hawe Ba (Ferrela)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p032"><strong>Aisse Mariem</strong> dite <strong>Aisse Egoudy</strong> / <strong>Aissata Lorou</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p034">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 034</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Hamet Yougour</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p049"><strong>Bocar Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p035">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 035</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Samba Hamet</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p036">Fadim Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p037">Dieynaba Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p038">Weyssi Samba<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p036">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 036</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Fadim Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p037">Dieynaba Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p038">Weyssi Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p037">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 037</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Dieynaba Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p036">Fadim Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p038">Weyssi Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p038">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 038</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Weyssi Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p036">Fadim Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p037">Dieynaba Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p039">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 039</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Demba Hamet</strong></h2>
+<p class="entry-sub">5 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p040">Cire Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p041">Fatimata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p042">Aissata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p043">Hawo Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p044">Dieinaba Demba<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p040">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 040</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Cire Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p041">Fatimata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p042">Aissata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p043">Hawo Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p044">Dieinaba Demba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p041">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 041</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Fatimata Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p040">Cire Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p042">Aissata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p043">Hawo Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p044">Dieinaba Demba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p042">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 042</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Aissata Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p040">Cire Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p041">Fatimata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p043">Hawo Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p044">Dieinaba Demba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p043">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 043</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Hawo Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p040">Cire Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p041">Fatimata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p042">Aissata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p044">Dieinaba Demba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p044">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 044</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Dieinaba Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p040">Cire Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p041">Fatimata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p042">Aissata Demba<span class="g">G9</span></a></li><li><a class="ref" href="#p043">Hawo Demba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p045">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 045</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Hamad Hamet</strong> dit <strong>Samba</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p035"><strong>Samba Hamet</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p039"><strong>Demba Hamet</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p046">Mamadou Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p047">Amadou Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p048">Youma Samba<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p046">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 046</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Mamadou Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p047">Amadou Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p048">Youma Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p047">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 047</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Amadou Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p046">Mamadou Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p048">Youma Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p048">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 048</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Youma Samba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p045"><strong>Hamad Hamet</strong> dit <strong>Samba</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p046">Mamadou Samba<span class="g">G9</span></a></li><li><a class="ref" href="#p047">Amadou Samba<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p049">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 049</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Bocar Yougour</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p009"><strong>Abdoulaye Yougour</strong> dit <strong>Abdoulaye Matal</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p034"><strong>Hamet Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p050"><strong>Aissata Bocar</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p050">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 050</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2><strong>Aissata Bocar</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p049"><strong>Bocar Yougour</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p051">Sadio Aissata<span class="g">G9</span></a></li><li><a class="ref" href="#p052">Coumba Aissata<span class="g">G9</span></a></li><li><a class="ref" href="#p053">Debel Aissata<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-a" id="p051">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 051</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Sadio Aissata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p050"><strong>Aissata Bocar</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p052">Coumba Aissata<span class="g">G9</span></a></li><li><a class="ref" href="#p053">Debel Aissata<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p052">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 052</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Coumba Aissata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p050"><strong>Aissata Bocar</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p051">Sadio Aissata<span class="g">G9</span></a></li><li><a class="ref" href="#p053">Debel Aissata<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-a" id="p053">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 053</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche A</span>
+</div>
+<h2>Debel Aissata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p050"><strong>Aissata Bocar</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p051">Sadio Aissata<span class="g">G9</span></a></li><li><a class="ref" href="#p052">Coumba Aissata<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p054">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 054</span>
+<span class="gen-badge">G6</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Hamet Demba</h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p078">Ciré Hamet<span class="g">G7</span></a></li><li><a class="ref" href="#p079"><strong>Samba Hamet</strong><span class="g">G7</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p055">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 055</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Nago Samba</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p078">Ciré Hamet<span class="g">G7</span></a></li><li><a class="ref" href="#p079"><strong>Samba Hamet</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p076">Boye Nago (sans enfant)<span class="g">G8</span></a></li><li><a class="ref" href="#p077">Aissata Nago (enfant)<span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p056">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 056</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Samba Nago</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p076">Boye Nago (sans enfant)<span class="g">G8</span></a></li><li><a class="ref" href="#p077">Aissata Nago (enfant)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p070"><strong>Aissata Samba</strong><span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p057">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 057</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong></h2>
+<p class="entry-sub">6 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p070"><strong>Aissata Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p058">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 058</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Sileymane Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p059">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 059</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Ibrahim Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p060">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 060</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Mountagha Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p061">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 061</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Moussa Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p062">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 062</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Fatimata Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p063">Mariata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p063">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 063</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Mariata Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p058">Sileymane Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p059">Ibrahim Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p060">Mountagha Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p061">Moussa Bocar<span class="g">G10</span></a></li><li><a class="ref" href="#p062">Fatimata Bocar<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p064">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 064</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Ibrahim Samba</strong></h2>
+<p class="entry-sub">5 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p070"><strong>Aissata Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p065">Amadou Ibrahim dit Pathé Lam<span class="g">G10</span></a></li><li><a class="ref" href="#p066">Sileymane Ibrahim dit Baidy Mariem<span class="g">G10</span></a></li><li><a class="ref" href="#p067">Boudy Ibrahim<span class="g">G10</span></a></li><li><a class="ref" href="#p068">Zeinaba Ibrahim (sans enfant)<span class="g">G10</span></a></li><li><a class="ref" href="#p069">Mariata Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p065">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 065</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Amadou Ibrahim dit Pathé Lam</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p066">Sileymane Ibrahim dit Baidy Mariem<span class="g">G10</span></a></li><li><a class="ref" href="#p067">Boudy Ibrahim<span class="g">G10</span></a></li><li><a class="ref" href="#p068">Zeinaba Ibrahim (sans enfant)<span class="g">G10</span></a></li><li><a class="ref" href="#p069">Mariata Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p066">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 066</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Sileymane Ibrahim dit Baidy Mariem</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p065">Amadou Ibrahim dit Pathé Lam<span class="g">G10</span></a></li><li><a class="ref" href="#p067">Boudy Ibrahim<span class="g">G10</span></a></li><li><a class="ref" href="#p068">Zeinaba Ibrahim (sans enfant)<span class="g">G10</span></a></li><li><a class="ref" href="#p069">Mariata Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p067">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 067</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Boudy Ibrahim</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p065">Amadou Ibrahim dit Pathé Lam<span class="g">G10</span></a></li><li><a class="ref" href="#p066">Sileymane Ibrahim dit Baidy Mariem<span class="g">G10</span></a></li><li><a class="ref" href="#p068">Zeinaba Ibrahim (sans enfant)<span class="g">G10</span></a></li><li><a class="ref" href="#p069">Mariata Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p068">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 068</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Zeinaba Ibrahim (sans enfant)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p065">Amadou Ibrahim dit Pathé Lam<span class="g">G10</span></a></li><li><a class="ref" href="#p066">Sileymane Ibrahim dit Baidy Mariem<span class="g">G10</span></a></li><li><a class="ref" href="#p067">Boudy Ibrahim<span class="g">G10</span></a></li><li><a class="ref" href="#p069">Mariata Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p069">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 069</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Mariata Ibrahim (sans enfant)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p065">Amadou Ibrahim dit Pathé Lam<span class="g">G10</span></a></li><li><a class="ref" href="#p066">Sileymane Ibrahim dit Baidy Mariem<span class="g">G10</span></a></li><li><a class="ref" href="#p067">Boudy Ibrahim<span class="g">G10</span></a></li><li><a class="ref" href="#p068">Zeinaba Ibrahim (sans enfant)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p070">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 070</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Aissata Samba</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p057"><strong>Mamadou ou Moussa Samba</strong> dit <strong>Bocar Bonko</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p064"><strong>Ibrahim Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p071"><strong>Bocar Aissata</strong><span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p071">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 071</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Bocar Aissata</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p070"><strong>Aissata Samba</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p072">Aissata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p073">Harouna Bocar dit Barré Dia<span class="g">G11</span></a></li><li><a class="ref" href="#p074">Fatimata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p075">Aminata Bocar<span class="g">G11</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-b" id="p072">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 072</span>
+<span class="gen-badge">G11</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Aissata Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p071"><strong>Bocar Aissata</strong><span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p073">Harouna Bocar dit Barré Dia<span class="g">G11</span></a></li><li><a class="ref" href="#p074">Fatimata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p075">Aminata Bocar<span class="g">G11</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p073">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 073</span>
+<span class="gen-badge">G11</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Harouna Bocar dit Barré Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p071"><strong>Bocar Aissata</strong><span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p072">Aissata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p074">Fatimata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p075">Aminata Bocar<span class="g">G11</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p074">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 074</span>
+<span class="gen-badge">G11</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Fatimata Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p071"><strong>Bocar Aissata</strong><span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p072">Aissata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p073">Harouna Bocar dit Barré Dia<span class="g">G11</span></a></li><li><a class="ref" href="#p075">Aminata Bocar<span class="g">G11</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p075">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 075</span>
+<span class="gen-badge">G11</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Aminata Bocar</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p071"><strong>Bocar Aissata</strong><span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p072">Aissata Bocar<span class="g">G11</span></a></li><li><a class="ref" href="#p073">Harouna Bocar dit Barré Dia<span class="g">G11</span></a></li><li><a class="ref" href="#p074">Fatimata Bocar<span class="g">G11</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p076">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 076</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Boye Nago (sans enfant)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p077">Aissata Nago (enfant)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p077">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 077</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Aissata Nago (enfant)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p056"><strong>Samba Nago</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p076">Boye Nago (sans enfant)<span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p078">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 078</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2>Ciré Hamet</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p079"><strong>Samba Hamet</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-b" id="p079">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 079</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche B</span>
+</div>
+<h2><strong>Samba Hamet</strong></h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p055"><strong>Nago Samba</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p078">Ciré Hamet<span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p080">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 080</span>
+<span class="gen-badge">G6</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Sileye Demba Maloum</h2>
+<p class="entry-sub">5 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p008">Yougour Demba<span class="g">G6</span></a></li><li><a class="ref" href="#p054">Hamet Demba<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">5</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p149"><strong>Mariem Sileye</strong><span class="g">G7</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p081">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 081</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>1. Mamadou Sileye</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p149"><strong>Mariem Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p082">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 082</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong></h2>
+<p class="entry-sub">7 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">7</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p083">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 083</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mamadou Bocar → Samba Lam et frères</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p084">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 084</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Fatimata Bocar → Mamadou Fatimata et sœurs</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p085">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 085</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Adama Bocar → Mamadou Adama, sœurs, frères</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p086">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 086</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Sileye Bocar → Adama, frères et sœurs</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p087">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 087</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Aissata Bocar → Mamadou, frères et sœurs</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p088">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 088</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Kardiata Bocar → Sileye Kardiata, frères et sœurs</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p089">Hassan Bocar → Mamadou Hassan et frères<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p089">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 089</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Hassan Bocar → Mamadou Hassan et frères</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">6</span></h3><ul class="links"><li><a class="ref" href="#p083">Mamadou Bocar → Samba Lam et frères<span class="g">G9</span></a></li><li><a class="ref" href="#p084">Fatimata Bocar → Mamadou Fatimata et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p085">Adama Bocar → Mamadou Adama, sœurs, frères<span class="g">G9</span></a></li><li><a class="ref" href="#p086">Sileye Bocar → Adama, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p087">Aissata Bocar → Mamadou, frères et sœurs<span class="g">G9</span></a></li><li><a class="ref" href="#p088">Kardiata Bocar → Sileye Kardiata, frères et sœurs<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p090">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 090</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p091">Guelel Aissata (père : Bocar Dieyni)<span class="g">G9</span></a></li><li><a class="ref" href="#p092">Sileye Aissata (père : Hamdou Sy et frères et sœurs)<span class="g">G9</span></a></li><li><a class="ref" href="#p093">Dialadé Aissata (père : Hassan Dialade et sœurs)<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p091">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 091</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Guelel Aissata (père : Bocar Dieyni)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p092">Sileye Aissata (père : Hamdou Sy et frères et sœurs)<span class="g">G9</span></a></li><li><a class="ref" href="#p093">Dialadé Aissata (père : Hassan Dialade et sœurs)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p092">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 092</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Sileye Aissata (père : Hamdou Sy et frères et sœurs)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p091">Guelel Aissata (père : Bocar Dieyni)<span class="g">G9</span></a></li><li><a class="ref" href="#p093">Dialadé Aissata (père : Hassan Dialade et sœurs)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p093">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 093</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Dialadé Aissata (père : Hassan Dialade et sœurs)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p091">Guelel Aissata (père : Bocar Dieyni)<span class="g">G9</span></a></li><li><a class="ref" href="#p092">Sileye Aissata (père : Hamdou Sy et frères et sœurs)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p094">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 094</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p082"><strong>Bocar Mamadou</strong> dit <strong>Bocarel Dialade</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p090"><strong>Aissata Mamadou</strong> dite <strong>Astel Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p095">Hawe Kardiata → Bocar Hawe (Nioly)<span class="g">G9</span></a></li><li><a class="ref" href="#p096">Aisse Kardiata → Bocar Aissata (Ganki)<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p095">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 095</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Hawe Kardiata → Bocar Hawe (Nioly)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p096">Aisse Kardiata → Bocar Aissata (Ganki)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p096">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 096</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Aisse Kardiata → Bocar Aissata (Ganki)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p094"><strong>Kardiata Mamadou</strong> dite <strong>Dialadé</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p095">Hawe Kardiata → Bocar Hawe (Nioly)<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p097">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 097</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>2. Amadou Sileye</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p149"><strong>Mariem Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p113"><strong>Mamadou Amadou</strong> dit <strong>Lamine</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p098">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 098</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p113"><strong>Mamadou Amadou</strong> dit <strong>Lamine</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p104">Cire Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p111">Aminata Moussa<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p099">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 099</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mamadou Moussa</h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p104">Cire Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p111">Aminata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p100">Bocar Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p101">Ciré Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p102">Habi Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p103">Hadjirata Mamadou<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p100">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 100</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Bocar Mamadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p101">Ciré Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p102">Habi Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p103">Hadjirata Mamadou<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p101">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 101</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Ciré Mamadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p100">Bocar Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p102">Habi Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p103">Hadjirata Mamadou<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p102">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 102</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Habi Mamadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p100">Bocar Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p101">Ciré Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p103">Hadjirata Mamadou<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p103">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 103</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Hadjirata Mamadou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p100">Bocar Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p101">Ciré Mamadou<span class="g">G10</span></a></li><li><a class="ref" href="#p102">Habi Mamadou<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p104">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 104</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Cire Moussa</h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p111">Aminata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p105">Abou Demba<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p105">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 105</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Abou Demba</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p104">Cire Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p106">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 106</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Fatimata Moussa</h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p104">Cire Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p111">Aminata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p107">Mamadel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p108">Ciré Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p109">Mayramel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p110">Dieiniyel Fatimata<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p107">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 107</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mamadel Fatimata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p108">Ciré Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p109">Mayramel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p110">Dieiniyel Fatimata<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p108">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 108</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Ciré Fatimata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p107">Mamadel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p109">Mayramel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p110">Dieiniyel Fatimata<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p109">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 109</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mayramel Fatimata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p107">Mamadel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p108">Ciré Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p110">Dieiniyel Fatimata<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p110">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 110</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Dieiniyel Fatimata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p107">Mamadel Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p108">Ciré Fatimata<span class="g">G10</span></a></li><li><a class="ref" href="#p109">Mayramel Fatimata<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p111">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 111</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Aminata Moussa</h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p099">Mamadou Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p104">Cire Moussa<span class="g">G9</span></a></li><li><a class="ref" href="#p106">Fatimata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p112">Demba Dieini<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p112">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 112</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Demba Dieini</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p111">Aminata Moussa<span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p113">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 113</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Mamadou Amadou</strong> dit <strong>Lamine</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p098"><strong>Moussa Amadou</strong> dit <strong>Moussa Matal</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p114">Bocar Mamadou dit Bocar Maye<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p114">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 114</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Bocar Mamadou dit Bocar Maye</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p113"><strong>Mamadou Amadou</strong> dit <strong>Lamine</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p115">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 115</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>3. Hawe Sileye</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p149"><strong>Mariem Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p116"><strong>Sileye Hawe</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p118"><strong>Yero Hawe</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p116">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 116</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Sileye Hawe</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p118"><strong>Yero Hawe</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p117">Bocar Sileye dit Ndiaye Raki<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p117">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 117</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Bocar Sileye dit Ndiaye Raki</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p116"><strong>Sileye Hawe</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p118">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 118</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Yero Hawe</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p116"><strong>Sileye Hawe</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p119">Bocar Yero dit Malal Diebe<span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p119">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 119</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Bocar Yero dit Malal Diebe</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p118"><strong>Yero Hawe</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p120">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 120</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>4. Kardiata Sileye</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p149"><strong>Mariem Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p133"><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p121">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 121</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Aly Kardiata</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p133"><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p130"><strong>Kardiata Aly</strong><span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p122">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 122</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p130"><strong>Kardiata Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p123">Mamadou Samba dit Amadou Hawa (Demett)<span class="g">G10</span></a></li><li><a class="ref" href="#p124">Elimane Da (Demett)<span class="g">G10</span></a></li><li><a class="ref" href="#p125">Aissata Aminata Dia<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p123">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 123</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mamadou Samba dit Amadou Hawa (Demett)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p124">Elimane Da (Demett)<span class="g">G10</span></a></li><li><a class="ref" href="#p125">Aissata Aminata Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p124">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 124</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Elimane Da (Demett)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p123">Mamadou Samba dit Amadou Hawa (Demett)<span class="g">G10</span></a></li><li><a class="ref" href="#p125">Aissata Aminata Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p125">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 125</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Aissata Aminata Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p123">Mamadou Samba dit Amadou Hawa (Demett)<span class="g">G10</span></a></li><li><a class="ref" href="#p124">Elimane Da (Demett)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p126">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 126</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Hawe Aly</strong></h2>
+<p class="entry-sub">3 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p130"><strong>Kardiata Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p127">Abdoulaye Amadou Dia (Tam Ba Kounda)<span class="g">G10</span></a></li><li><a class="ref" href="#p128">Yahya Amadou Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p129">Bocar Amadou Dia dit Moualim Dia<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p127">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 127</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Abdoulaye Amadou Dia (Tam Ba Kounda)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p128">Yahya Amadou Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p129">Bocar Amadou Dia dit Moualim Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p128">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 128</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Yahya Amadou Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p127">Abdoulaye Amadou Dia (Tam Ba Kounda)<span class="g">G10</span></a></li><li><a class="ref" href="#p129">Bocar Amadou Dia dit Moualim Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p129">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 129</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Bocar Amadou Dia dit Moualim Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p127">Abdoulaye Amadou Dia (Tam Ba Kounda)<span class="g">G10</span></a></li><li><a class="ref" href="#p128">Yahya Amadou Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p130">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 130</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Kardiata Aly</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p122"><strong>Abdoulaye Aly</strong> dit <strong>Samba Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p126"><strong>Hawe Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p131">Alpha Saidou Kassoum (Belly Ourdi)<span class="g">G10</span></a></li><li><a class="ref" href="#p132">Alghassem Dia<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p131">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 131</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Alpha Saidou Kassoum (Belly Ourdi)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p130"><strong>Kardiata Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p132">Alghassem Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p132">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 132</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Alghassem Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p130"><strong>Kardiata Aly</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p131">Alpha Saidou Kassoum (Belly Ourdi)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p133">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 133</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong><span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p134">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 134</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p133"><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p135">Abdoul Wedoud Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p136">Abdoulaye Boubou<span class="g">G10</span></a></li><li><a class="ref" href="#p137">Hawe Kardiata<span class="g">G10</span></a></li><li><a class="ref" href="#p138">Yahya Dia<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p135">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 135</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Abdoul Wedoud Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p136">Abdoulaye Boubou<span class="g">G10</span></a></li><li><a class="ref" href="#p137">Hawe Kardiata<span class="g">G10</span></a></li><li><a class="ref" href="#p138">Yahya Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p136">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 136</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Abdoulaye Boubou</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p135">Abdoul Wedoud Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p137">Hawe Kardiata<span class="g">G10</span></a></li><li><a class="ref" href="#p138">Yahya Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p137">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 137</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Hawe Kardiata</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p135">Abdoul Wedoud Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p136">Abdoulaye Boubou<span class="g">G10</span></a></li><li><a class="ref" href="#p138">Yahya Dia<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p138">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 138</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Yahya Dia</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p134"><strong>Malal Diebe</strong> dit <strong>Yero Kardiata</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p135">Abdoul Wedoud Dia<span class="g">G10</span></a></li><li><a class="ref" href="#p136">Abdoulaye Boubou<span class="g">G10</span></a></li><li><a class="ref" href="#p137">Hawe Kardiata<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p139">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 139</span>
+<span class="gen-badge">G8</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong></h2>
+<p class="entry-sub">4 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p121"><strong>Aly Kardiata</strong><span class="g">G8</span></a></li><li><a class="ref" href="#p133"><strong>Diebe Kardiata</strong> dit <strong>Diebe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p143"><strong>Amadou Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p147"><strong>Kadidia Hawe</strong><span class="g">G9</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p140">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 140</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Melel Hawe</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p143"><strong>Amadou Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p147"><strong>Kadidia Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p141">Mariem Melel (BELLI SOYE)<span class="g">G10</span></a></li><li><a class="ref" href="#p142">Nakade<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p141">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 141</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Mariem Melel (BELLI SOYE)</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p142">Nakade<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p142">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 142</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Nakade</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p141">Mariem Melel (BELLI SOYE)<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p143">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 143</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Amadou Hawe</strong></h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p147"><strong>Kadidia Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p144">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 144</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Haby Hawe</strong></h2>
+<p class="entry-sub">2 enfants</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p143"><strong>Amadou Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p147"><strong>Kadidia Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">2</span></h3><ul class="links"><li><a class="ref" href="#p145">Samba Haby<span class="g">G10</span></a></li><li><a class="ref" href="#p146">Seydi Haby<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p145">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 145</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Samba Haby</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p146">Seydi Haby<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p146">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 146</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Seydi Haby</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p145">Samba Haby<span class="g">G10</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p147">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 147</span>
+<span class="gen-badge">G9</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Kadidia Hawe</strong></h2>
+<p class="entry-sub">1 enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p139"><strong>Hawe Kardiata</strong> dit <strong>Hawe Mariem</strong><span class="g">G8</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p140"><strong>Melel Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p143"><strong>Amadou Hawe</strong><span class="g">G9</span></a></li><li><a class="ref" href="#p144"><strong>Haby Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p148">Hamid Alpha<span class="g">G10</span></a></li></ul></section>
+</div>
+</article>
+<article class="entry branch-c" id="p148">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 148</span>
+<span class="gen-badge">G10</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2>Hamid Alpha</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p147"><strong>Kadidia Hawe</strong><span class="g">G9</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">0</span></h3><p class="none">Aucun frère ou sœur</p></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-c" id="p149">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 149</span>
+<span class="gen-badge">G7</span>
+<span class="branch-label">Branche C</span>
+</div>
+<h2><strong>Mariem Sileye</strong></h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p080">Sileye Demba Maloum<span class="g">G6</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">4</span></h3><ul class="links"><li><a class="ref" href="#p081"><strong>1. Mamadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p097"><strong>2. Amadou Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p115"><strong>3. Hawe Sileye</strong><span class="g">G7</span></a></li><li><a class="ref" href="#p120"><strong>4. Kardiata Sileye</strong><span class="g">G7</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+<article class="entry branch-main" id="p150">
+<header class="entry-head">
+<div class="entry-kicker">
+<span class="entry-no">N° 150</span>
+<span class="gen-badge">G5</span>
+<span class="branch-label">Lignée principale</span>
+</div>
+<h2>Pathé Maloum</h2>
+<p class="entry-sub">Aucun enfant</p>
+<a class="to-toc" href="#sommaire">↑ Sommaire</a>
+</header>
+<div class="relations">
+<section class="rel"><h3>Parent <span class="rel-count">1</span></h3><ul class="links"><li><a class="ref" href="#p004"><strong>Maloum</strong><span class="g">G4</span></a></li></ul></section>
+<section class="rel"><h3>Frères et sœurs <span class="rel-count">3</span></h3><ul class="links"><li><a class="ref" href="#p005">Aly Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p006">Samba Maloum<span class="g">G5</span></a></li><li><a class="ref" href="#p007"><strong>Demba Maloum</strong> dit <strong>Dialade</strong><span class="g">G5</span></a></li></ul></section>
+<section class="rel"><h3>Enfants <span class="rel-count">0</span></h3><p class="none">Aucun enfant</p></section>
+</div>
+</article>
+</section>
+
+<footer class="colophon">
+  <p>Livre composé à partir de <code>famille-structuree.md</code>.</p>
+  <p>150 personnes · 11 générations · 4 branches.</p>
+  <p><a href="#sommaire">Retour au sommaire</a></p>
+</footer>
+
+</main>
+<script>
+(function () {
+  function flash(target) {
+    if (!target) return;
+    target.classList.remove('is-target');
+    void target.offsetWidth;
+    target.classList.add('is-target');
+    setTimeout(function () { target.classList.remove('is-target'); }, 1600);
+  }
+
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest ? event.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    var id = link.getAttribute('href');
+    if (!id || id === '#') return;
+    var target = document.querySelector(id);
+    if (target) flash(target);
+  });
+
+  if (location.hash) {
+    var initial = document.querySelector(location.hash);
+    if (initial) setTimeout(function () { flash(initial); }, 150);
+  }
+})();
+</script>
+</body>
+</html>

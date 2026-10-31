@@ -1,7 +1,10 @@
 /vendor/
 .DS_Store
+__pycache__/
+*.py[cod]
 
 /storage/logs/*
 !/storage/logs/.gitkeep
 /storage/cache/*
 !/storage/cache/.gitkeep
+/storage/*.pid

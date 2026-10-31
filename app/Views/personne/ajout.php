@@ -2,9 +2,9 @@
 $title = 'Formulaire'
 ?>
 <div class="container">
-    <script src="../public/assets/js/completion.js" defer></script>
-    <script src="../public/assets/js/addpersonne.js" defer></script>
-    <script src="../public/assets/js/ajout.js" defer></script>
+    <script src="assets/js/completion.js" defer></script>
+    <script src="assets/js/addpersonne.js" defer></script>
+    <script src="assets/js/ajout.js" defer></script>
 
 
     <div class='groupe'>
