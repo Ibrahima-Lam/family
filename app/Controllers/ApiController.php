@@ -22,11 +22,8 @@ class ApiController extends Controller
 
     public function arbre($id = null): void
     {
-        $id = ($id === null || $id === '') ? '1' : (string) $id;
-        $arbre = new Arbre($id);
-        $rootId = $arbre->getRootId() ?? $id;
-        $tree = $arbre->makeChildren($rootId);
-        $this->response($tree);
+        $arbre = new Arbre($id === null || $id === '' ? null : (string) $id);
+        $this->response($arbre->toGraph());
     }
 
     public function options(?string $idg = null): void

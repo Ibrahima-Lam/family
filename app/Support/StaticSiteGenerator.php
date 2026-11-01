@@ -203,15 +203,19 @@ final class StaticSiteGenerator
             return '<div class="container"><div class="panel"><p>Aucune personne dans l’arbre.</p></div></div>';
         }
 
+        $tree = $arbre->getResult();
+        $graph = $arbre->toGraph();
+
+        ob_start();
+        require dirname(__DIR__, 2) . '/app/Views/personne/_arbre_views.php';
+        $views = (string) ob_get_clean();
+
         return '<div class="container">'
             . '<div class="page-head"><div><span class="eyebrow">Généalogie</span><h1>Arbre des générations</h1>'
             . '<p>Explorez la descendance de <strong>'
-            . person_name($arbre->getRootName(), $arbre->getRootSurname()) . '</strong> et dépliez les branches.</p>'
+            . person_name($arbre->getRootName(), $arbre->getRootSurname()) . '</strong> avec l’affichage de votre choix.</p>'
             . '</div></div>'
-            . '<div class="tree-toolbar">'
-            . '<button type="button" class="btn btn-default btn-sm" data-tree-action="expand">Tout déplier</button>'
-            . '<button type="button" class="btn btn-default btn-sm" data-tree-action="collapse">Tout plier</button>'
-            . '</div><div class="person-tree">' . $arbre->getResult() . '</div></div>';
+            . $views . '</div>';
     }
 
     private function bookContent(array $people): string

@@ -110,7 +110,8 @@ class PersonneController extends Controller
         $rootName = $arbre->getRootName();
         $rootSurname = $arbre->getRootSurname();
         $tree = $arbre->getResult();
-        $this->render('personne/arbre', compact('tree', 'id', 'rootName', 'rootSurname'));
+        $graph = $arbre->toGraph();
+        $this->render('personne/arbre', compact('tree', 'graph', 'id', 'rootName', 'rootSurname'));
     }
     public function lien(): void
     {

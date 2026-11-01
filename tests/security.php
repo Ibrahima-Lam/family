@@ -85,6 +85,13 @@ check($arbre->getRootId() === '45', 'La racine de l’arbre est résolue');
 check(str_contains($tree, '<dl class="G2">') && str_contains($tree, 'data-generation="10"'), 'L’arbre est imbriqué par génération');
 check(substr_count($tree, 'class="tree-node"') === 93, 'Toutes les personnes sont présentes dans l’arbre');
 
+$graph = $arbre->toGraph();
+check(($graph['root'] ?? null) === '45', 'Le graphe expose la racine de l’arbre');
+check(count($graph['nodes'] ?? []) === 93, 'Le graphe contient toutes les personnes');
+check(count($graph['edges'] ?? []) === 92, 'Le graphe contient tous les liens parent-enfant');
+check(($graph['nodes'][0]['href'] ?? '') === '?p=personne/details/45', 'Le graphe pointe vers les fiches web');
+check(isset($graph['nodes'][0]['status'], $graph['nodes'][0]['attention']), 'Le graphe expose le statut de descendance');
+
 $model = new Personne();
 $person = $model->findOne('64');
 check($person !== false && $person->nomPersonne === 'Abdoulaye Yougourou' && $person->surnom === 'Abdoulaye Matal', 'Un nom avec surnom est séparé');

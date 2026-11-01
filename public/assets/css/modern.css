@@ -2225,6 +2225,233 @@ button.btn {
     font: inherit;
 }
 
+.tree-display-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 18px;
+    margin: 0 0 14px;
+}
+
+.tree-view-switch {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-soft);
+}
+
+.tree-view-switch button {
+    min-width: 74px;
+    padding: 8px 17px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.tree-view-switch button:hover {
+    color: var(--green-800);
+    background: var(--surface);
+}
+
+.tree-view-switch button.is-active {
+    color: #fff;
+    background: var(--green-800);
+    box-shadow: var(--shadow-xs);
+}
+
+.tree-hint {
+    margin: 0;
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+.tree-graph-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 10px;
+}
+
+.tree-graph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tree-graph-toolbar[hidden],
+.tree-hint[hidden],
+.tree-view[hidden] {
+    display: none !important;
+}
+
+.tree-view {
+    display: block;
+}
+
+.tree-graph {
+    position: relative;
+    width: 100%;
+    height: clamp(480px, 66vh, 760px);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+        radial-gradient(circle at 1px 1px, rgba(23, 59, 48, .1) 1px, transparent 1.4px) 0 0 / 24px 24px,
+        radial-gradient(620px 380px at 90% 0, rgba(201, 154, 61, .08), transparent 72%),
+        var(--surface);
+    box-shadow: var(--shadow-sm);
+    touch-action: none;
+}
+
+.tree-graph-3d {
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(58, 125, 102, .13), transparent 58%),
+        radial-gradient(720px 460px at 90% 8%, rgba(201, 154, 61, .1), transparent 70%),
+        var(--surface);
+}
+
+.tree-graph::after {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    z-index: 3;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 253, 249, .94);
+    box-shadow: var(--shadow-xs);
+    color: var(--muted);
+    font-size: .74rem;
+    font-weight: 600;
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    transition: opacity .18s ease;
+}
+
+.tree-graph.is-zoomed-out::after {
+    content: 'Zoomez pour lire les noms';
+    opacity: 1;
+}
+
+.tree-graph-3d::after {
+    display: none;
+}
+
+.tree-svg,
+.tree-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+}
+
+.tree-svg.is-dragging,
+.tree-canvas.is-dragging {
+    cursor: grabbing;
+}
+
+.tree-graph-link {
+    fill: none;
+    stroke: rgba(58, 125, 102, .42);
+    stroke-width: 1.6;
+    vector-effect: non-scaling-stroke;
+}
+
+.tree-graph-box {
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+    transition: stroke .16s ease, stroke-width .16s ease;
+}
+
+.tree-graph-node {
+    cursor: pointer;
+    outline: none;
+}
+
+.tree-graph-node:hover .tree-graph-box,
+.tree-graph-node:focus-visible .tree-graph-box {
+    stroke: var(--green-700);
+    stroke-width: 3;
+}
+
+.tree-graph-node:focus-visible .tree-graph-box {
+    stroke: var(--gold);
+}
+
+.tree-graph-name {
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.tree-graph-surname {
+    fill: var(--muted);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-style: italic;
+    pointer-events: none;
+}
+
+.tree-graph-meta {
+    fill: var(--muted);
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    pointer-events: none;
+}
+
+.tree-graph-attention {
+    fill: var(--clay);
+    pointer-events: none;
+}
+
+.tree-svg.is-zoomed-out .tree-graph-name,
+.tree-svg.is-zoomed-out .tree-graph-surname,
+.tree-svg.is-zoomed-out .tree-graph-meta {
+    display: none;
+}
+
+.tree-tooltip {
+    position: absolute;
+    z-index: 4;
+    max-width: min(280px, calc(100% - 24px));
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xs);
+    background: rgba(255, 253, 249, .97);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+    font-size: .78rem;
+    font-weight: 600;
+    line-height: 1.35;
+    pointer-events: none;
+}
+
+.tree-tooltip[hidden] {
+    display: none;
+}
+
 .tree-toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -2642,6 +2869,14 @@ button.btn {
     .form-aside {
         position: static;
     }
+
+    .tree-graph {
+        height: clamp(420px, 58vh, 640px);
+    }
+
+    .tree-graph-toolbar {
+        align-items: flex-start;
+    }
 }
 
 @media (max-width: 620px) {
@@ -2745,6 +2980,53 @@ button.btn {
     .striped td {
         padding: 10px 12px;
         font-size: .82rem;
+    }
+
+    .tree-display-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tree-view-switch {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tree-view-switch button {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 9px 12px;
+    }
+
+    .tree-hint {
+        font-size: .76rem;
+    }
+
+    .tree-graph-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tree-graph-actions {
+        justify-content: space-between;
+    }
+
+    .tree-graph-actions .btn {
+        flex: 1;
+    }
+
+    .tree-graph {
+        height: clamp(360px, 58vh, 560px);
+        border-radius: var(--radius-sm);
+    }
+
+    .tree-toolbar {
+        justify-content: stretch;
+    }
+
+    .tree-toolbar .btn {
+        flex: 1;
     }
 }
 

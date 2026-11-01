@@ -51,6 +51,11 @@ check(!str_contains($index, '?p='), 'Aucun lien dynamique dans l’accueil');
 check(!str_contains($tree, '?p='), 'Aucun lien dynamique dans l’arbre');
 check(!str_contains($person, '?p='), 'Aucun lien dynamique dans une fiche');
 check(str_contains($tree, 'personne/46.html'), 'L’arbre pointe vers les fiches HTML');
+check(str_contains($tree, 'data-tree-view-button="2d"'), 'L’arbre propose la vue 2D');
+check(str_contains($tree, 'data-tree-view-button="3d"'), 'L’arbre propose la vue 3D');
+check(!str_contains($tree, 'data-tree-view-button="canvas"'), 'La vue Canvas redondante n’est plus proposée');
+check(str_contains($tree, 'id="tree-data"'), 'Les données du graphe sont embarquées');
+check(str_contains($tree, 'personne\/45.html'), 'Le graphe statique pointe vers les fiches HTML');
 check(str_contains($index, 'Descendances à vérifier'), 'L’accueil signale les descendances à vérifier');
 check(str_contains($person, 'Descendance'), 'La fiche affiche le statut de descendance');
 

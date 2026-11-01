@@ -147,6 +147,67 @@ class Arbre
         return $html;
     }
 
+    /**
+     * Graphe normalisé utilisé par les vues 2D, Canvas et 3D.
+     *
+     * @return array{root:?string,rootName:string,rootSurname:string,nodes:list<array<string,mixed>>,edges:list<array{source:string,target:string}>}
+     */
+    public function toGraph(): array
+    {
+        $nodes = [];
+        $edges = [];
+        $visited = [];
+
+        $walk = function (string $id) use (&$walk, &$nodes, &$edges, &$visited): void {
+            if (isset($visited[$id]) || !isset($this->byId[$id])) {
+                return;
+            }
+
+            $visited[$id] = true;
+            $row = $this->byId[$id];
+            $children = array_values(array_filter(
+                $this->childrenByParent[$id] ?? [],
+                fn ($childId): bool => isset($this->byId[(string) $childId])
+            ));
+            $status = descendance_status($row['enfantsStatut'] ?? 'inconnu');
+            $missing = (int) ($row['enfantsManquants'] ?? 0);
+
+            $nodes[] = [
+                'id' => $id,
+                'nom' => (string) ($row['nom'] ?? ''),
+                'surnom' => trim((string) ($row['surnom'] ?? '')) ?: null,
+                'generation' => (int) ($row['generation'] ?? 0),
+                'generationLabel' => $this->generationLabel($row),
+                'sexe' => (string) ($row['sexe'] ?? ''),
+                'parent' => trim((string) ($row['idParent'] ?? '')) ?: null,
+                'children' => count($children),
+                'status' => $status,
+                'statusLabel' => descendance_label($status),
+                'missing' => $missing,
+                'attention' => descendance_needs_attention($status, $missing),
+                'href' => $this->detailsPrefix . $id . $this->detailsSuffix,
+            ];
+
+            foreach ($children as $childId) {
+                $childId = (string) $childId;
+                $edges[] = ['source' => $id, 'target' => $childId];
+                $walk($childId);
+            }
+        };
+
+        if ($this->rootId !== null) {
+            $walk($this->rootId);
+        }
+
+        return [
+            'root' => $this->rootId,
+            'rootName' => $this->getRootName(),
+            'rootSurname' => $this->getRootSurname(),
+            'nodes' => $nodes,
+            'edges' => $edges,
+        ];
+    }
+
     private function renderNode(string $id, bool $open): string
     {
         if (isset($this->visited[$id]) || !isset($this->byId[$id])) {
