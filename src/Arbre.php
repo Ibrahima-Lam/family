@@ -233,14 +233,12 @@ class Arbre
         $html .= '<details id="node-' . e($id) . '"' . ($isOpen ? ' open' : '') . '>';
         $html .= '<summary>';
         $html .= '<span class="tree-name"><a href="' . e($this->detailsPrefix) . e($id) . e($this->detailsSuffix) . '">'
-            . person_name($row['nom'] ?? '', $row['surnom'] ?? null) . '</a></span>';
-        $html .= '<span class="tree-id">(' . e($id) . ')</span>';
-        $html .= $badge;
-        $html .= '<span class="tree-count' . ($count === 0 ? ' tree-count-empty' : '')
+            . person_name($row['nom'] ?? '', $row['surnom'] ?? null) . ' <span class="tree-count' . ($count === 0 ? ' tree-count-empty' : '')
             . ($inconnu ? ' tree-count-unknown' : '')
             . ($attention ? ' tree-count-attention' : '') . '" title="'
             . e($count . ' enfant' . ($count > 1 ? 's' : '') . ' · ' . descendance_label($statut))
-            . '">' . $count . '</span>';
+            . '">(' . $count . ')</span></a></span>';
+        $html .= '<span class="tree-id">#' . e($id) . '</span>';
         $html .= '</summary>';
 
         if ($children !== []) {

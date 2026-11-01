@@ -45,6 +45,8 @@ class PersonneController extends Controller
         $descendance = $this->loadModel('personne')->getDescendance($id);
         $childrenCount = count($enfants);
         $descendanceStatuts = Descendance::statuses();
+        $arbre = new Arbre($id);
+        $ligneHtml = $arbre->getLineage($id, '?p=personne/details/', '');
         $this->render(
             'personne/details',
             compact(
@@ -55,7 +57,8 @@ class PersonneController extends Controller
                 'parentHtml',
                 'descendance',
                 'childrenCount',
-                'descendanceStatuts'
+                'descendanceStatuts',
+                'ligneHtml'
             )
         );
     }

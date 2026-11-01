@@ -348,7 +348,7 @@ final class StaticSiteGenerator
             . e(mb_substr((string) ($person->nomPersonne ?? '?'), 0, 1)) . '</span></div>'
             . '<div class="page-actions" style="margin:18px 0"><a class="btn btn-default" href="../liste.html">Sommaire</a>'
             . '<a class="btn btn-default" href="../arbre.html">Arbre</a></div>'
-            . ($lineage !== '' ? '<section class="lineage-card"><h3 class="lineage-title">Sa lignée</h3>'
+            . ($lineage !== '' ? '<section class="lineage-card"><h3 class="lineage-title">Lignée</h3>'
                 . $lineage . '</section>' : '')
             . '<div class="panel"><h2>Descendance</h2>' . $this->descendanceSummary($person, $descendance) . '</div>'
             . '<div class="details-grid">'
@@ -417,9 +417,9 @@ final class StaticSiteGenerator
             . '<header class="app-header"><div class="header-inner">'
             . '<a class="brand" href="' . e($base . 'index.html') . '">'
             . '<span class="brand-mark">FHT</span><span class="brand-name">' . e($this->appName)
-            . '<span>Site statique</span></span></a>'
+            . '</span></a>'
             . '<nav class="primary-nav" id="link" aria-label="Navigation principale">' . $links . '</nav>'
-            . '<div class="header-actions"><span class="badge badge-muted">HTML statique</span>'
+            . '<div class="header-actions">'
             . '<button type="button" class="mobile-toggle" id="list-link" aria-label="Ouvrir la navigation" '
             . 'aria-expanded="false" aria-controls="link"><span aria-hidden="true">☰</span></button></div>'
             . '</div></header>'

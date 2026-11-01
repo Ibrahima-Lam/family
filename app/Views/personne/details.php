@@ -33,6 +33,13 @@ $parent = (string) ($data->parent ?? '');
         </select>
     </div>
 
+    <?php if (!empty($ligneHtml)): ?>
+        <div class="lineage-card">
+            <h3 class="lineage-title">Lignée</h3>
+            <?= $ligneHtml ?>
+        </div>
+    <?php endif ?>
+
     <div class="details-grid">
         <section class="panel">
             <h2>Parents</h2>
