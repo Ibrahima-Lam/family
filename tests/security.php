@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\Personne;
 use App\Security\Auth;
+use App\Support\Descendance;
 use Core\Http\Request;
 use Core\Security\Csrf;
 use Core\Security\RateLimiter;
@@ -89,6 +90,24 @@ $person = $model->findOne('64');
 check($person !== false && $person->nomPersonne === 'Abdoulaye Yougourou' && $person->surnom === 'Abdoulaye Matal', 'Un nom avec surnom est séparé');
 $person = $model->findOne('88');
 check($person !== false && $person->nomPersonne === 'Dieinaba Abdoulaye' && $person->surnom === 'Bakaw', 'Un surnom séparé par un antislash est reconnu');
+$descendance = $model->getDescendance('45');
+check($descendance['statut'] === Descendance::INCONNU, 'La descendance est inconnue par défaut');
+check($model->saveDescendance(45, Descendance::INCOMPLET, 2, 'Deux enfants non ajoutés'), 'La descendance peut être mise à jour');
+$person = $model->findOne('45');
+check(
+    $person !== false
+    && $person->enfantsStatut === Descendance::INCOMPLET
+    && (int) $person->enfantsManquants === 2
+    && $person->enfantsNote === 'Deux enfants non ajoutés',
+    'Le statut de descendance est enregistré'
+);
+$incompletes = $model->findByDescendanceStatut(Descendance::INCOMPLET);
+check(count($incompletes) >= 1, 'Les descendances incomplètes sont filtrables');
+check(($model->countByDescendanceStatut()[Descendance::INCOMPLET] ?? 0) >= 1, 'Les statuts de descendance sont comptés');
+check(!$model->saveDescendance(999999, Descendance::COMPLET, 0, null), 'La mise à jour d’une descendance inconnue échoue');
+check(Descendance::normalizeMissing(Descendance::COMPLET, 4) === 0, 'Un statut complet ne conserve pas de manquants');
+check($model->saveDescendance(45, Descendance::INCONNU, 0, null), 'La descendance peut être remise à inconnu');
+
 $childId = $model->addPersonne('Test Sécurité', 'F', '45', 'Test Alias');
 check(is_int($childId) && $childId > 0, 'Une personne peut être ajoutée');
 $child = $model->findOne((string) $childId);

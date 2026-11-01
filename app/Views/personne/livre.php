@@ -29,6 +29,7 @@ use Src\Personnage;
                         <th>Nom</th>
                         <th>Génération</th>
                         <th>Sexe</th>
+                        <th>Descendance</th>
                         <th>Parent</th>
                     </tr>
                 </thead>
@@ -39,6 +40,11 @@ use Src\Personnage;
                             <td><a href="#<?= e($value->idPersonne) ?>"><?= person_name($value->nomPersonne ?? '', $value->surnom ?? null, true) ?></a></td>
                             <td><span class="badge badge-gold"><?= e($value->nomGeneration) ?></span></td>
                             <td><?= ($value->sexe ?? '') === 'M' ? 'Homme' : (($value->sexe ?? '') === 'F' ? 'Femme' : 'Inconnu') ?></td>
+                            <td>
+                                <?php $enfantsCount = (int) ($value->enfantsCount ?? 0); ?>
+                                <span class="badge badge-muted"><?= e($enfantsCount) ?> enfant<?= $enfantsCount > 1 ? 's' : '' ?></span>
+                                <?= descendance_badge($value->enfantsStatut ?? 'inconnu', $value->enfantsManquants ?? 0) ?>
+                            </td>
                             <td>
                                 <?php if (!empty($value->idParent)): ?>
                                     <a href="#<?= e($value->idParent) ?>"><?= person_name($value->parent ?? '', $value->parentSurnom ?? null, true) ?></a>
@@ -57,6 +63,21 @@ use Src\Personnage;
         <div class="row elements">
             <span class="eyebrow">Génération <?= e($value->nomGeneration) ?></span>
             <h2 id="<?= e($value->idPersonne) ?>"><?= person_name($value->nomPersonne ?? '', $value->surnom ?? null, true) ?></h2>
+
+            <?php
+            $livreEnfants = (int) ($value->enfantsCount ?? 0);
+            $livreManquants = (int) ($value->enfantsManquants ?? 0);
+            ?>
+            <div class="descendance-summary">
+                <?= descendance_badge($value->enfantsStatut ?? 'inconnu', $livreManquants) ?>
+                <p>
+                    <?= e($livreEnfants) ?> enfant<?= $livreEnfants > 1 ? 's' : '' ?> ajouté<?= $livreEnfants > 1 ? 's' : '' ?>.
+                    <?= e(descendance_description($value->enfantsStatut ?? 'inconnu')) ?>
+                </p>
+            </div>
+            <?php if (trim((string) ($value->enfantsNote ?? '')) !== ''): ?>
+                <p class="descendance-note"><?= e($value->enfantsNote) ?></p>
+            <?php endif ?>
             <?php
             $id = $value->idPersonne;
             $lineage = $lineages[(string) $id] ?? '';

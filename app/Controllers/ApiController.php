@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Support\Descendance;
 use Core\Controllers\Controller;
 use Core\Http\Request;
 use Src\Arbre;
@@ -95,6 +96,50 @@ class ApiController extends Controller
 
         sort($names);
         $this->response($names);
+    }
+
+    public function descendances(): void
+    {
+        $request = new Request();
+        $statut = Descendance::normalize($request->string('statut', Descendance::INCOMPLET));
+        $model = $this->loadModel('personne');
+
+        $this->response([
+            'status' => self::STATUS_OK,
+            'statut' => $statut,
+            'counts' => $model->countByDescendanceStatut(),
+            'data' => $model->findByDescendanceStatut($statut),
+        ]);
+    }
+
+    public function descendance(): void
+    {
+        $request = new Request();
+        $id = $request->string('id');
+        $statut = Descendance::normalize($request->string('statut'));
+        $manquants = max(0, min(999, (int) $request->string('manquants', '0')));
+        $note = $request->string('note');
+        $model = $this->loadModel('personne');
+
+        if (!ctype_digit($id) || (int) $id <= 0 || !$model->findOne($id) || mb_strlen($note, 'UTF-8') > 1000) {
+            $this->response([
+                'message' => self::MESSAGE_UPDATE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 422);
+        }
+
+        if (!$model->saveDescendance((int) $id, $statut, $manquants, $note)) {
+            $this->response([
+                'message' => self::MESSAGE_UPDATE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 500);
+        }
+
+        $this->response([
+            'message' => self::MESSAGE_UPDATE_OK,
+            'status' => self::STATUS_OK,
+            'data' => $model->getDescendance($id),
+        ]);
     }
 
     /** @return array{0:string,1:?string,2:string,3:?string} */

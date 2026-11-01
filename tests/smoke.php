@@ -12,6 +12,7 @@ $classes = [
     App\Models\Personne::class,
     App\Models\Utilisateur::class,
     App\Security\Auth::class,
+    App\Support\Descendance::class,
     Core\Controllers\Controller::class,
     Core\ErrorHandler::class,
     Core\Exceptions\HttpException::class,

@@ -29,6 +29,7 @@ $title = 'Gérer les personnes';
                         <th class="sorters"><data value="nomPersonne">Nom</data></th>
                         <th class="sorters"><data value="nomGeneration">Génération</data></th>
                         <th class="sorters"><data value="sexe">Sexe</data></th>
+                        <th class="sorters"><data value="enfantsStatut">Descendance</data></th>
                         <th class="sorters"><data value="parent">Parent</data></th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
@@ -52,6 +53,11 @@ $title = 'Gérer les personnes';
                                 <?php else: ?>
                                     <span class="badge badge-muted">Inconnu</span>
                                 <?php endif ?>
+                            </td>
+                            <td>
+                                <?php $enfantsCount = (int) ($value->enfantsCount ?? 0); ?>
+                                <span class="badge badge-muted"><?= e($enfantsCount) ?></span>
+                                <?= descendance_badge($value->enfantsStatut ?? 'inconnu', $value->enfantsManquants ?? 0) ?>
                             </td>
                             <td>
                                 <?php if (!empty($value->idParent)): ?>

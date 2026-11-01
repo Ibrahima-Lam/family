@@ -78,6 +78,31 @@ function personLabel(name, surname) {
     return `${escapeHtml(name ?? '')}${surname ? ` <span class="person-surname">${escapeHtml(surname)}</span>` : ''}`
 }
 
+function descendanceBadge(status, missing) {
+    const labels = {
+        inconnu: 'Descendance inconnue',
+        aucun: 'Aucun enfant',
+        complet: 'Descendance complète',
+        incomplet: 'Descendance incomplète'
+    }
+    const normalized = Object.hasOwn(labels, status) ? status : 'inconnu'
+    const manquants = Math.max(0, Number(missing) || 0)
+    let label = labels[normalized]
+    let classes = 'badge-muted'
+
+    if (normalized === 'aucun' || normalized === 'complet') {
+        classes = 'badge-green'
+    }
+    if (normalized === 'incomplet' || manquants > 0) {
+        classes = 'badge-warning'
+    }
+    if (normalized === 'incomplet' && manquants > 0) {
+        label += ` · ${manquants} manquant${manquants > 1 ? 's' : ''}`
+    }
+
+    return `<span class="badge ${classes}">${escapeHtml(label)}</span>`
+}
+
 function escapeRegExp(value) {
     return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
@@ -89,6 +114,7 @@ const HtmlTable2 = {
                     <th class="sorters"><data value='nomPersonne'> NOM</data></th>
                     <th class="sorters"><data value='nomGeneration'> GENERATION</data></th>
                     <th class="sorters"><data value='sexe'> SEXE</data></th>
+                    <th class="sorters"><data value='enfantsStatut'> DESCENDANCE</data></th>
                     <th class="sorters"><data value='parent'> PARENT</data></th>
                     <th><data value='id'> Editer</data></th>
                     <th><data value='id'>Supprimer</data></th>
@@ -99,6 +125,7 @@ const HtmlTable2 = {
         <td>${escapeHtml(value.idPersonne)}</td>
         <td><a href="?p=personne/details/${encodeURIComponent(value.idPersonne)}">${personLabel(value.nomPersonne, value.surnom)}</a></td>
         <td>${escapeHtml(value.nomGeneration)}</td><td>${escapeHtml(value.sexe)}</td>
+        <td><span class="badge badge-muted">${escapeHtml(value.enfantsCount ?? 0)}</span> ${descendanceBadge(value.enfantsStatut, value.enfantsManquants)}</td>
         <td><a href="?p=personne/details/${encodeURIComponent(value.idParent ?? '')}">${personLabel(value.parent, value.parentSurnom)}</a></td>
                     ${value.idParent ? `<td id="${escapeHtml(value.idPersonne)}"data-i="${escapeHtml(value.idPersonne)}"data-p="${escapeHtml(value.idParent)}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="assets/icons/pencil.svg" width="15px" alt="Éditer"></a></td>` : `<td></td>`}
                         <td id="${escapeHtml(value.idPersonne)}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="assets/icons/basket.svg" width="15px" alt="Supprimer"></a></td>

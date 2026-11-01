@@ -22,9 +22,11 @@
     "scripts": {
         "test": [
             "@php tests/smoke.php",
-            "@php tests/security.php"
+            "@php tests/security.php",
+            "@php tests/static_export.php"
         ],
         "migrate": "@php bin/migrate.php",
+        "export:static": "@php bin/export-static.php",
         "lint": "find app bin bootstrap config core public routes src tests -name '*.php' -print0 | xargs -0 -n1 php -l"
     },
     "config": {

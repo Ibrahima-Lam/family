@@ -103,6 +103,10 @@ $isDirectory = ($p === 'personne' || str_starts_with($p, 'personne/details') || 
                                 Gérer les personnes
                             </a>
                         <?php endif ?>
+                        <a href="?p=personne/incomplets">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+                            Descendances à vérifier
+                        </a>
                         <div class="menu-divider"></div>
                         <a href="?p=personne/livre&imprim=true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>

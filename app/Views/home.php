@@ -2,6 +2,7 @@
 $title = 'Accueil';
 $total = $total ?? 0;
 $generations = $generations ?? 0;
+$aCompleter = $aCompleter ?? 0;
 ?>
 
 <section class="hero">
@@ -26,10 +27,10 @@ $generations = $generations ?? 0;
             <strong><?= e($generations) ?></strong>
             <span>Générations</span>
         </div>
-        <div class="stat-card">
-            <strong><?= e(date('Y')) ?></strong>
-            <span>Mémoire vivante</span>
-        </div>
+        <a class="stat-card" href="?p=personne/incomplets">
+            <strong><?= e($aCompleter) ?></strong>
+            <span>Descendances à vérifier</span>
+        </a>
     </div>
 </section>
 

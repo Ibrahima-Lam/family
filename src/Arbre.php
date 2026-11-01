@@ -14,12 +14,20 @@ class Arbre
     /** @var array<string, bool> */
     private array $visited = [];
     private ?string $rootId = null;
+    private string $detailsPrefix = '?p=personne/details/';
+    private string $detailsSuffix = '';
 
     public function __construct($id = null)
     {
         $this->model = new Personne();
         $this->loadData();
         $this->rootId = $this->resolveRoot($id);
+    }
+
+    public function setDetailsLink(string $prefix, string $suffix = ''): void
+    {
+        $this->detailsPrefix = $prefix;
+        $this->detailsSuffix = $suffix;
     }
 
     private function loadData(): void
@@ -102,24 +110,24 @@ class Arbre
         return '<dl class="tree-root">' . $this->renderNode($this->rootId, true) . '</dl>';
     }
 
-    public function getLineages(string $linkPrefix = '?p=personne/details/'): string
+    public function getLineages(string $linkPrefix = '?p=personne/details/', string $linkSuffix = ''): string
     {
         $html = '';
 
         foreach (array_keys($this->byId) as $personId) {
-            $html .= $this->getLineage((string) $personId, $linkPrefix);
+            $html .= $this->getLineage((string) $personId, $linkPrefix, $linkSuffix);
         }
 
         return $html;
     }
 
-    public function getLineage(string $id, string $linkPrefix = '?p=personne/details/'): string
+    public function getLineage(string $id, string $linkPrefix = '?p=personne/details/', string $linkSuffix = ''): string
     {
         if (!isset($this->byId[$id])) {
             return '';
         }
 
-        return $this->renderLineage($id, $linkPrefix);
+        return $this->renderLineage($id, $linkPrefix, $linkSuffix);
     }
 
     public function makeChildren($id = null): string
@@ -150,15 +158,28 @@ class Arbre
         $children = $this->childrenByParent[$id] ?? [];
         $count = count($children);
         $isOpen = $open && $count > 0;
+        $statut = descendance_status($row['enfantsStatut'] ?? 'inconnu');
+        $manquants = (int) ($row['enfantsManquants'] ?? 0);
+        $attention = descendance_needs_attention($statut, $manquants);
+        $inconnu = $statut === 'inconnu';
+        $badge = $attention
+            ? '<span class="tree-attention badge badge-warning" title="' . e(descendance_description($statut)) . '">'
+                . ($manquants > 0 ? e($manquants) . ' manquant' . ($manquants > 1 ? 's' : '') : 'À vérifier')
+                . '</span>'
+            : '';
 
         $html = '<dd class="tree-node" data-generation="' . e((string) ($row['generation'] ?? '')) . '">';
         $html .= '<details id="node-' . e($id) . '"' . ($isOpen ? ' open' : '') . '>';
         $html .= '<summary>';
-        $html .= '<span class="tree-name"><a href="?p=personne/details/' . e($id) . '">'
+        $html .= '<span class="tree-name"><a href="' . e($this->detailsPrefix) . e($id) . e($this->detailsSuffix) . '">'
             . person_name($row['nom'] ?? '', $row['surnom'] ?? null) . '</a></span>';
         $html .= '<span class="tree-id">(' . e($id) . ')</span>';
-        $html .= '<span class="tree-count' . ($count === 0 ? ' tree-count-empty' : '') . '" title="'
-            . $count . ' enfant' . ($count > 1 ? 's' : '') . '">' . $count . '</span>';
+        $html .= $badge;
+        $html .= '<span class="tree-count' . ($count === 0 ? ' tree-count-empty' : '')
+            . ($inconnu ? ' tree-count-unknown' : '')
+            . ($attention ? ' tree-count-attention' : '') . '" title="'
+            . e($count . ' enfant' . ($count > 1 ? 's' : '') . ' · ' . descendance_label($statut))
+            . '">' . $count . '</span>';
         $html .= '</summary>';
 
         if ($children !== []) {
@@ -180,7 +201,7 @@ class Arbre
         return $html;
     }
 
-    private function renderLineage(string $id, string $linkPrefix): string
+    private function renderLineage(string $id, string $linkPrefix, string $linkSuffix = ''): string
     {
         $chain = [];
         $seen = [];
@@ -211,7 +232,7 @@ class Arbre
 
         foreach ($chain as $ancestorId) {
             $ancestor = $this->byId[$ancestorId];
-            $html .= '<a href="' . e($linkPrefix) . e($ancestorId) . '">'
+            $html .= '<a href="' . e($linkPrefix) . e($ancestorId) . e($linkSuffix) . '">'
                 . person_name($ancestor['nom'] ?? '', $ancestor['surnom'] ?? null) . '</a>';
             $html .= '<span class="lineage-arrow" aria-hidden="true">→</span>';
         }

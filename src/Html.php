@@ -5,6 +5,14 @@ namespace Src;
 class Html
 {
     public static ?string $target = null;
+    public static string $linkPrefix = '?p=personne/details/';
+    public static string $linkSuffix = '';
+
+    public static function setLinkFormat(string $prefix, string $suffix = ''): void
+    {
+        self::$linkPrefix = $prefix;
+        self::$linkSuffix = $suffix;
+    }
 
     public static function table(array $args, bool $id = false): string
     {
@@ -24,8 +32,9 @@ class Html
             $targ = (self::$target !== null && (string) self::$target === (string) $personId) ? 'target' : '';
             $gene = (int) ($value->generation ?? $value->nomGeneration ?? 0);
             $tt .= "<div title='Cliquez sur le nom pour voir les détails' class='element $targ' draggable='true'>";
-            $link = $id ? '#' : '?p=personne/details/';
-            $tt .= "<span title='Le nom de la personne'><a href='" . e($link) . e($personId) . "'>"
+            $link = $id ? '#' : self::$linkPrefix;
+            $suffix = $id ? '' : self::$linkSuffix;
+            $tt .= "<span title='Le nom de la personne'><a href='" . e($link) . e($personId) . e($suffix) . "'>"
                 . person_name($value->nomPersonne ?? '', $value->surnom ?? null) . "</a></span>";
 
             $tt .= '<ul>';
@@ -38,6 +47,9 @@ class Html
             if ($gene > 0) {
                 $tt .= "<li><abbr title='" . e($gene) . "ème génération'>G" . e($gene) . "</abbr></li>";
             }
+            $statut = $value->enfantsStatut ?? 'inconnu';
+            $manquants = (int) ($value->enfantsManquants ?? 0);
+            $tt .= '<li>' . descendance_badge($statut, $manquants) . '</li>';
             $tt .= '</ul>';
             $tt .= '</div>';
         }

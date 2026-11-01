@@ -29,6 +29,7 @@ $tab = $data ?? [];
                         <th>Nom</th>
                         <th>Génération</th>
                         <th>Sexe</th>
+                        <th>Descendance</th>
                         <th>Parent</th>
                     </tr>
                 </thead>
@@ -50,6 +51,11 @@ $tab = $data ?? [];
                                 <?php else: ?>
                                     <span class="badge badge-muted">Inconnu</span>
                                 <?php endif ?>
+                            </td>
+                            <td>
+                                <?php $enfantsCount = (int) ($value->enfantsCount ?? 0); ?>
+                                <span class="badge badge-muted"><?= e($enfantsCount) ?> enfant<?= $enfantsCount > 1 ? 's' : '' ?></span>
+                                <?= descendance_badge($value->enfantsStatut ?? 'inconnu', $value->enfantsManquants ?? 0) ?>
                             </td>
                             <td>
                                 <?php if (!empty($value->idParent)): ?>

@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Support\Descendance;
 use Core\Controllers\Controller;
+use Core\Http\Request;
 use Core\Http\Response;
 use Src\Html;
 use Src\Arbre;
@@ -40,7 +42,66 @@ class PersonneController extends Controller
         $freresHtml = Html::table($freres);
         $enfantsHtml = Html::table($enfants);
         $parentHtml = Html::table($parent ? [$parent] : []);
-        $this->render('personne/details', compact('data', 'freresHtml', 'enfantsHtml', 'options', 'parentHtml'));
+        $descendance = $this->loadModel('personne')->getDescendance($id);
+        $childrenCount = count($enfants);
+        $descendanceStatuts = Descendance::statuses();
+        $this->render(
+            'personne/details',
+            compact(
+                'data',
+                'freresHtml',
+                'enfantsHtml',
+                'options',
+                'parentHtml',
+                'descendance',
+                'childrenCount',
+                'descendanceStatuts'
+            )
+        );
+    }
+
+    public function descendance(): void
+    {
+        $request = new Request();
+        $id = $request->string('id');
+
+        if (!ctype_digit($id) || (int) $id <= 0) {
+            flash_set('error', 'Identifiant invalide.');
+            Response::redirect('?p=personne');
+        }
+
+        $statut = Descendance::normalize($request->string('statut'));
+        $manquants = max(0, min(999, (int) $request->string('manquants', '0')));
+        $note = $request->string('note');
+
+        if (mb_strlen($note, 'UTF-8') > 1000) {
+            flash_set('error', 'La note de descendance est trop longue (1000 caractères maximum).');
+            Response::redirect('?p=personne/details/' . $id);
+        }
+
+        $saved = $this->loadModel('personne')->saveDescendance($id, $statut, $manquants, $note);
+
+        if (!$saved) {
+            flash_set('error', 'Impossible de mettre à jour la descendance.');
+        } else {
+            flash_set('success', 'La descendance a été mise à jour.');
+        }
+
+        Response::redirect('?p=personne/details/' . $id);
+    }
+
+    public function incomplets(): void
+    {
+        $request = new Request();
+        $statut = Descendance::normalize($request->string('statut', Descendance::INCOMPLET));
+        $model = $this->loadModel('personne');
+        $data = $model->findByDescendanceStatut($statut);
+        $counts = $model->countByDescendanceStatut();
+        $descendanceStatuts = Descendance::statuses();
+        $this->render(
+            'personne/incomplets',
+            compact('data', 'counts', 'statut', 'descendanceStatuts')
+        );
     }
     public function arbre($id = null): void
     {

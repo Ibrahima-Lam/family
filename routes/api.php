@@ -11,7 +11,9 @@ return [
     ['GET', 'api/options/{idg}', [ApiController::class, 'options']],
     ['GET', 'api/arbre', [ApiController::class, 'arbre']],
     ['GET', 'api/arbre/{id}', [ApiController::class, 'arbre']],
+    ['GET', 'api/descendances', [ApiController::class, 'descendances']],
 
+    ['POST', 'api/descendance', [ApiController::class, 'descendance'], ['auth', 'role:editeur', 'csrf']],
     ['POST', 'api/add', [ApiController::class, 'add'], ['auth', 'role:editeur', 'csrf']],
     ['POST', 'api/edit', [ApiController::class, 'edit'], ['auth', 'role:editeur', 'csrf']],
     ['POST', 'api/delete', [ApiController::class, 'delete'], ['auth', 'role:editeur', 'csrf']],

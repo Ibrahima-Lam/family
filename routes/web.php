@@ -20,6 +20,8 @@ return [
     ['GET', 'personne/lien', [PersonneController::class, 'lien']],
     ['POST', 'personne/lien', [PersonneController::class, 'lien'], ['csrf']],
     ['GET', 'personne/livre', [PersonneController::class, 'livre']],
+    ['GET', 'personne/incomplets', [PersonneController::class, 'incomplets']],
+    ['POST', 'personne/descendance', [PersonneController::class, 'descendance'], ['auth', 'role:editeur', 'csrf']],
 
     ['GET', 'personne/ajout', [PersonneController::class, 'ajout'], ['auth', 'role:editeur']],
     ['GET', 'personne/edit', [PersonneController::class, 'edit'], ['auth', 'role:editeur']],

@@ -1,5 +1,6 @@
 <?php
 
+use App\Support\Descendance;
 use Core\Support\Config;
 
 if (!function_exists('e')) {
@@ -27,6 +28,57 @@ if (!function_exists('person_name')) {
         }
 
         return $html;
+    }
+}
+
+if (!function_exists('descendance_status')) {
+    function descendance_status(mixed $status): string
+    {
+        return Descendance::normalize($status);
+    }
+}
+
+if (!function_exists('descendance_missing')) {
+    function descendance_missing(mixed $status, mixed $missing): int
+    {
+        return Descendance::normalizeMissing($status, $missing);
+    }
+}
+
+if (!function_exists('descendance_label')) {
+    function descendance_label(mixed $status): string
+    {
+        return Descendance::label($status);
+    }
+}
+
+if (!function_exists('descendance_description')) {
+    function descendance_description(mixed $status): string
+    {
+        return Descendance::description($status);
+    }
+}
+
+if (!function_exists('descendance_badge')) {
+    function descendance_badge(mixed $status, mixed $missing = 0): string
+    {
+        $status = Descendance::normalize($status);
+        $missing = Descendance::normalizeMissing($status, $missing);
+        $label = Descendance::label($status);
+
+        if ($status === Descendance::INCOMPLET && $missing > 0) {
+            $label .= $missing > 1 ? ' · ' . $missing . ' manquants' : ' · 1 manquant';
+        }
+
+        return '<span class="badge ' . Descendance::badgeClass($status, $missing)
+            . '" title="' . e(Descendance::description($status)) . '">' . e($label) . '</span>';
+    }
+}
+
+if (!function_exists('descendance_needs_attention')) {
+    function descendance_needs_attention(mixed $status, mixed $missing = 0): bool
+    {
+        return Descendance::needsAttention($status, $missing);
     }
 }
 

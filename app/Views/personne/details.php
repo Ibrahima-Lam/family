@@ -46,7 +46,62 @@ $parent = (string) ($data->parent ?? '');
 
         <section class="panel">
             <h2>Enfants</h2>
+
+            <?php
+            $descStatut = $descendance['statut'] ?? 'inconnu';
+            $descManquants = (int) ($descendance['manquants'] ?? 0);
+            $descNote = $descendance['note'] ?? null;
+            ?>
+
+            <div class="descendance-summary">
+                <?= descendance_badge($descStatut, $descManquants) ?>
+                <p>
+                    <?= e($childrenCount) ?> enfant<?= $childrenCount > 1 ? 's' : '' ?> ajouté<?= $childrenCount > 1 ? 's' : '' ?>.
+                    <?= e(descendance_description($descStatut)) ?>
+                    <?php if ($descStatut === 'incomplet' && $descManquants > 0): ?>
+                        <strong><?= e($descManquants) ?> enfant<?= $descManquants > 1 ? 's' : '' ?> connu<?= $descManquants > 1 ? 's' : '' ?> non ajouté<?= $descManquants > 1 ? 's' : '' ?>.</strong>
+                    <?php endif ?>
+                </p>
+            </div>
+
+            <?php if ($descNote !== null): ?>
+                <p class="descendance-note"><?= e($descNote) ?></p>
+            <?php endif ?>
+
             <?= $enfantsHtml ?>
+
+            <?php if (\App\Security\Auth::canEdit()): ?>
+                <form action="?p=personne/descendance" method="post" class="descendance-form">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="id" value="<?= e($data->idPersonne ?? '') ?>">
+                    <h3>Complétude de la descendance</h3>
+
+                    <div class="control">
+                        <label for="enfants-statut">Statut</label>
+                        <select name="statut" id="enfants-statut" class="field">
+                            <?php foreach ($descendanceStatuts as $statutOption): ?>
+                                <option value="<?= e($statutOption) ?>" <?= $descStatut === $statutOption ? 'selected' : '' ?>>
+                                    <?= e(descendance_label($statutOption)) ?>
+                                </option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+
+                    <div class="control">
+                        <label for="enfants-manquants">Enfants connus non ajoutés</label>
+                        <input type="number" name="manquants" id="enfants-manquants" class="field" min="0" max="999" value="<?= e($descManquants) ?>">
+                    </div>
+
+                    <div class="control">
+                        <label for="enfants-note">Note <span class="badge badge-muted">facultatif</span></label>
+                        <input type="text" name="note" id="enfants-note" class="field" maxlength="1000" value="<?= e($descNote ?? '') ?>" placeholder="Ex. deux filles citées dans le récit familial, à ajouter">
+                    </div>
+
+                    <div class="action">
+                        <button type="submit" class="btn btn-success">Enregistrer la descendance</button>
+                    </div>
+                </form>
+            <?php endif ?>
         </section>
     </div>
 </div>

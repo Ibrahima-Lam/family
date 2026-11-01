@@ -7,7 +7,9 @@ __pycache__/
 !/storage/logs/.gitkeep
 /storage/cache/*
 !/storage/cache/.gitkeep
+/storage/static/
 /storage/*.pid
 *.db-wal
 *.db-shm
 *.db-journal
+/database/*.db.backup-*
