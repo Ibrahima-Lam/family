@@ -10,7 +10,7 @@ class Person
     public function getDl(array $tab, $dt = null): string
     {
         $dl = "<dl>";
-        $dl .= "<dt>" . $dt ?? null . "</dt>";
+        $dl .= '<dt>' . e($dt) . '</dt>';
         foreach ($tab as  $value) {
             if (is_array($value)) {
                 $dl .= $this->getDl($value);
@@ -22,15 +22,17 @@ class Person
     }
 
 
-    public function getDetail($det, $sum = null, $id = null, $opened = true): string
+    public function getDetail($det, $sum = null, $id = null, bool $opened = true): string
     {
-        if (in_array($id, array_keys($this->data))) $opened = false;
-        $open = $opened ? "open" : "";
-        $detail = "<details id='$id' $open ontoggle='charge(this)'>";
-        $detail .= "<summary>$sum ($id)</summary>";
+        if ($id !== null && array_key_exists($id, $this->data)) {
+            $opened = false;
+        }
+        $open = $opened ? 'open' : '';
+        $detail = "<details id='" . e($id) . "' $open ontoggle='charge(this)'>";
+        $detail .= '<summary>' . e($sum) . ' (' . e($id) . ')</summary>';
         $detail .= $det;
+        $detail .= '</details>';
 
-        $detail .= "</details>";
         return $detail;
     }
 }

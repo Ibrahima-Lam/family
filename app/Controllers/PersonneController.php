@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Core\Controllers\Controller;
+use Core\Http\Response;
 use Src\Html;
 use Src\Arbre;
 use Src\Altoperson;
@@ -21,8 +22,16 @@ class PersonneController extends Controller
 
     public function details($id = null): void
     {
-        Html::$target = $id;
+        if (!is_string($id) || !ctype_digit($id) || (int) $id <= 0) {
+            Response::abort(404, 'Personne introuvable.');
+        }
+
         $data = $this->loadModel('personne')->findOne($id);
+        if (!$data) {
+            Response::abort(404, 'Personne introuvable.');
+        }
+
+        Html::$target = $id;
         $tab = $this->loadModel('personne')->findAllIdandNom();
         $parent = $data && $data->idParent ? $this->loadModel('personne')->findParent($data->idParent) : null;
         $freres = $data && $data->idParent ? $this->loadModel('personne')->findSiblings($data->idParent) : [];
@@ -36,29 +45,37 @@ class PersonneController extends Controller
     public function arbre($id = null): void
     {
         $arbre = new Arbre($id);
+        $id = $arbre->getRootId() ?? ($id === null || $id === '' ? '1' : (string) $id);
+        $rootName = $arbre->getRootName();
+        $rootSurname = $arbre->getRootSurname();
         $tree = $arbre->getResult();
-        $this->render('personne/arbre', compact('tree', 'id'));
+        $this->render('personne/arbre', compact('tree', 'id', 'rootName', 'rootSurname'));
     }
     public function lien(): void
     {
-        $id1 = $_POST["id1"] ?? null;
-        $id2 = $_POST["id2"] ?? null;
-        if ($id1 && $id2 && $id1 != $id2) {
-            $person = new Altoperson(45);
+        $id1 = isset($_POST['id1']) ? (string) $_POST['id1'] : null;
+        $id2 = isset($_POST['id2']) ? (string) $_POST['id2'] : null;
+
+        $element1 = ($id1 && ctype_digit($id1))
+            ? $this->loadModel('personne')->findOne($id1)
+            : null;
+        $element2 = ($id2 && ctype_digit($id2))
+            ? $this->loadModel('personne')->findOne($id2)
+            : null;
+
+        if ($id1 && $id2 && $id1 !== $id2 && $element1 && $element2) {
+            $person = new Altoperson($id1);
 
             $links = $person->getLink($id1, $id2);
             $parents1 = array_reverse($links->getFirstParents());
             $parents2 = array_reverse($links->getSecondParents());
-
-            $element1 = $this->loadModel('personne')->findOne($id1);
-            $element2 = $this->loadModel('personne')->findOne($id2);
         } else {
 
-            $links = new Link(new stdClass(), [], [], false,);
+            $links = new Link(new stdClass(), [], [], false);
             $parents1 = [];
             $parents2 = [];
-            $element1 = [];
-            $element2 = [];
+            $element1 = new stdClass();
+            $element2 = new stdClass();
         }
 
         $tab = $this->loadModel('personne')->findAllIdandNom();
@@ -69,7 +86,15 @@ class PersonneController extends Controller
     public function livre(): void
     {
         $tab = $this->loadModel('personne')->findAll();
-        $this->render('personne/livre', compact('tab'));
+        $arbre = new Arbre();
+        $lineages = [];
+
+        foreach ($tab as $value) {
+            $personId = (string) $value->idPersonne;
+            $lineages[$personId] = $arbre->getLineage($personId, '#');
+        }
+
+        $this->render('personne/livre', compact('tab', 'lineages'));
     }
 
     public function ajout(): void
@@ -82,7 +107,7 @@ class PersonneController extends Controller
     }
     public function edit(): void
     {
-        $data = $this->loadModel('personne')->findALl();
+        $data = $this->loadModel('personne')->findAll();
         $this->render('personne/editer', compact('data'));
     }
 }

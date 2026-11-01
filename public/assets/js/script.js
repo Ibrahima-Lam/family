@@ -1,37 +1,46 @@
+const menu = document.getElementById('menu');
+const menuBar = document.getElementById('menu-bar');
+const primaryNav = document.getElementById('link');
+const mobileToggle = document.getElementById('list-link');
 
+function closeActions() {
+    menu?.classList.remove('is-open');
+    menuBar?.setAttribute('aria-expanded', 'false');
+}
 
+function closeNavigation() {
+    primaryNav?.classList.remove('is-open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+}
 
-const menubar = document.getElementById('menu-bar');
-const menu = document.getElementById('menu')
-menubar.addEventListener("click", function (e) {
-    e.preventDefault()
-    e.stopPropagation()
-    if (menu.style.left != "-40px") {
-        menu.style.left = "-40px"
-    } else {
+menuBar?.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeNavigation();
+    const open = menu.classList.toggle('is-open');
+    menuBar.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
-        menu.style.left = "-300px"
+mobileToggle?.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeActions();
+    const open = primaryNav.classList.toggle('is-open');
+    mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+document.addEventListener('click', function (event) {
+    if (!menu?.contains(event.target) && !menuBar?.contains(event.target)) {
+        closeActions();
     }
-
-})
-document.addEventListener("click", function () {
-
-    if (menu.style.left != "-300px") {
-        menu.style.left = "-300px"
+    if (!primaryNav?.contains(event.target) && !mobileToggle?.contains(event.target)) {
+        closeNavigation();
     }
-})
-const link = document.getElementById('link');
+});
 
-const listlink = document.getElementById('list-link');
-listlink.addEventListener("click", function (e) {
-    e.preventDefault()
-
-    if (link.style.display !== "block") {
-        link.style.display = "block"
-        e.stopPropagation()
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeActions();
+        closeNavigation();
     }
-    document.addEventListener("click", function () {
-        link.style.display = "none"
-
-    })
-})
+});

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Core\Controllers\Controller;
+use Core\Http\Request;
 use Src\Arbre;
 use Src\Html;
 
@@ -20,75 +21,93 @@ class ApiController extends Controller
 
     public function arbre($id = null): void
     {
+        $id = ($id === null || $id === '') ? '1' : (string) $id;
         $arbre = new Arbre($id);
-        $tree = $arbre->makeChildren($id);
+        $rootId = $arbre->getRootId() ?? $id;
+        $tree = $arbre->makeChildren($rootId);
         $this->response($tree);
     }
+
     public function options(?string $idg = null): void
     {
-        $selected = $_GET["selected"] ?? null;
-        $data = $idg ? $this->loadModel('personne')->findAllIdandNomByGeneration($idg, true) : $this->loadModel('personne')->findAllIdandNom();
-        $options = Html::option($data, 'idPersonne', 'nomPersonne', $selected);
+        $request = new Request();
+        $selected = $request->string('selected');
+        $data = $idg
+            ? $this->loadModel('personne')->findAllIdandNomByGeneration($idg, true)
+            : $this->loadModel('personne')->findAllIdandNom();
+        $options = Html::option($data, 'idPersonne', 'nomPersonne', $selected === '' ? null : $selected);
         $this->response($options);
     }
 
-    public function generations()
+    public function generations(): void
     {
         $data = $this->loadModel('generation')->findAll();
         $this->response($data);
     }
 
-
-    public function personnes()
+    public function personnes(): void
     {
         $data = $this->loadModel('personne')->findAll();
         $this->response($data);
     }
 
-    public function personne($id)
+    public function personne($id = null): void
     {
+        if (!is_string($id) || !ctype_digit($id) || (int) $id <= 0) {
+            $this->response([
+                'message' => 'Identifiant invalide',
+                'status' => self::STATUS_ERROR,
+            ], 422);
+        }
+
         $personne = $this->loadModel('personne')->findOne($id);
+        if (!$personne) {
+            $this->response([
+                'message' => 'Personne introuvable',
+                'status' => self::STATUS_NO_DATA,
+            ], 404);
+        }
+
         $this->response($personne);
     }
-    public function names()
+
+    public function names(): void
     {
         $data = $this->loadModel('personne')->findAllIdandNom();
-        $data = array_column($data, 'nomPersonne');
         $names = [];
+
         foreach ($data as $value) {
-            $n = explode(" ", $value);
-            foreach ($n as $v) {
-                $v = trim($v);
-                if (empty($v)) continue;
-                $names[] = ucfirst($v);
-                $names = array_unique($names);
-                $names = array_values($names);
-                sort($names);
+            foreach ([$value['nomPersonne'] ?? '', $value['surnom'] ?? ''] as $label) {
+                $parts = preg_split('~\s+~u', trim((string) $label)) ?: [];
+
+                foreach ($parts as $part) {
+                    $part = trim($part);
+
+                    if ($part === '') {
+                        continue;
+                    }
+
+                    $names[] = ucfirst($part);
+                    $names = array_values(array_unique($names));
+                }
             }
         }
+
+        sort($names);
         $this->response($names);
     }
 
-
-    private function checkCsrf(): void
-    {
-        $token = (string) ($_REQUEST['_token'] ?? '');
-        if (!hash_equals($_SESSION['csrf'] ?? '', $token)) {
-            $this->response([
-                'message' => 'Requête invalide (CSRF)',
-                'status' => self::STATUS_ERROR,
-            ]);
-        }
-    }
-
+    /** @return array{0:string,1:?string,2:string,3:?string} */
     private function input(): array
     {
-        $nom = trim((string) ($_REQUEST['nom'] ?? ''));
-        $sexe = (string) ($_REQUEST['sexe'] ?? '');
-        $parent = $_REQUEST['parent'] ?? null;
-        $parent = ($parent === '' || $parent === null) ? null : trim((string) $parent);
+        $request = new Request();
 
-        return [$nom, $sexe, $parent];
+        $nom = $request->string('nom');
+        $surnom = $request->string('surnom');
+        $sexe = $request->string('sexe');
+        $parent = $request->string('parent');
+
+        return [$nom, $surnom === '' ? null : $surnom, $sexe, $parent === '' ? null : $parent];
     }
 
     private function validParent(?string $parent): bool
@@ -99,96 +118,97 @@ class ApiController extends Controller
         if (!ctype_digit($parent) || (int) $parent <= 0) {
             return false;
         }
+
         return (bool) $this->loadModel('personne')->findOne($parent);
     }
 
     public function add(): void
     {
+        [$nom, $surnom, $sexe, $parent] = $this->input();
 
-        $this->checkCsrf();
-        [$nom, $sexe, $parent] = $this->input();
-
-        if ($nom === '' || !in_array($sexe, ['M', 'F'], true) || !$this->validParent($parent)) {
-            $this->response([
-                "message" => self::MESSAGE_SAVE_ERROR,
-                "status" => self::STATUS_ERROR,
-            ]);
-            return;
-        }
-
-        $generation = $parent ? $this->loadModel('personne')->findElementGeneration($parent) : 0;
-        $check = $this->loadModel('generation')->checkGeneration($generation);
-        $generation++;
-        if (!$check) {
-            $this->loadModel('generation')->addGeneration($generation);
-        }
-        $res = $this->loadModel('personne')->addPersonne($nom, (string) $generation, $sexe, $parent);
-        if ($res) {
-            $this->response([
-                "message" => self::MESSAGE_SAVE_OK,
-                "status" => self::STATUS_OK,
-                'data' => $this->loadModel('personne')->findLastOne()
-            ]);
-        } else
-            $this->response([
-                "message" => self::MESSAGE_SAVE_ERROR,
-                "status" => self::STATUS_ERROR,
-            ]);
-    }
-    public function edit(): void
-    {
-
-        $this->checkCsrf();
-        [$nom, $sexe, $parent] = $this->input();
-        $id = (string) ($_REQUEST['id'] ?? '');
-
-        if (
-            !ctype_digit($id) || (int) $id <= 0
-            || !$this->loadModel('personne')->findOne($id)
-            || $nom === '' || !in_array($sexe, ['M', 'F'], true)
+        if ($nom === '' || mb_strlen($nom, 'UTF-8') > 255
+            || ($surnom !== null && mb_strlen($surnom, 'UTF-8') > 255)
+            || !in_array($sexe, ['M', 'F'], true)
             || !$this->validParent($parent)
         ) {
             $this->response([
-                "message" => self::MESSAGE_UPDATE_ERROR,
-                "status" => self::STATUS_ERROR,
-            ]);
-            return;
+                'message' => self::MESSAGE_SAVE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 422);
         }
 
-        $generation = $parent ? $this->loadModel('personne')->findElementGeneration($parent) : 0;
-        $check = $this->loadModel('generation')->checkGeneration($generation);
-        $generation++;
-        if (!$check) {
-            $this->loadModel('generation')->addGeneration($generation);
+        $model = $this->loadModel('personne');
+        $id = $model->addPersonne($nom, $sexe, $parent, $surnom);
+
+        if ($id === false) {
+            $this->response([
+                'message' => self::MESSAGE_SAVE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 500);
         }
-        $res = $this->loadModel('personne')->editPersonne((int) $id, $nom, (string) $generation, $sexe, $parent);
-        if ($res) {
-            $this->response([
-                "message" => self::MESSAGE_UPDATE_OK,
-                "status" => self::STATUS_OK,
-                'data' => $this->loadModel('personne')->findLastOne()
-            ]);
-        } else
-            $this->response([
-                "message" => self::MESSAGE_UPDATE_ERROR,
-                "status" => self::STATUS_ERROR,
-            ]);
+
+        $this->response([
+            'message' => self::MESSAGE_SAVE_OK,
+            'status' => self::STATUS_OK,
+            'data' => $model->findOne((string) $id),
+        ], 201);
     }
-    public function delete($id = null)
+
+    public function edit(): void
     {
-        $this->checkCsrf();
-        $id = $id ?? ($_REQUEST['id'] ?? null);
+        [$nom, $surnom, $sexe, $parent] = $this->input();
+        $request = new Request();
+        $id = $request->string('id');
+        $model = $this->loadModel('personne');
+
+        if (
+            !ctype_digit($id) || (int) $id <= 0
+            || !$model->findOne($id)
+            || $nom === '' || mb_strlen($nom, 'UTF-8') > 255
+            || ($surnom !== null && mb_strlen($surnom, 'UTF-8') > 255)
+            || !in_array($sexe, ['M', 'F'], true)
+            || !$this->validParent($parent)
+            || $parent === $id
+            || $model->wouldCreateCycle((int) $id, $parent)
+        ) {
+            $this->response([
+                'message' => self::MESSAGE_UPDATE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 422);
+        }
+
+        if (!$model->editPersonne((int) $id, $nom, $sexe, $parent, $surnom)) {
+            $this->response([
+                'message' => self::MESSAGE_UPDATE_ERROR,
+                'status' => self::STATUS_ERROR,
+            ], 500);
+        }
+
+        $this->response([
+            'message' => self::MESSAGE_UPDATE_OK,
+            'status' => self::STATUS_OK,
+            'data' => $model->findOne($id),
+        ]);
+    }
+
+    public function delete($id = null): void
+    {
+        $request = new Request();
+        $id = $id ?? $request->string('id');
         $id = ($id === null || $id === '') ? null : (string) $id;
         $valid = $id !== null && ctype_digit($id) && (int) $id > 0;
         $res = $valid ? $this->loadModel('personne')->delete($id) : false;
-        if ($res) $this->response([
-            "message" => self::MESSAGE_DELETE_OK,
-            "status" => self::STATUS_OK,
-        ]);
-        else
+
+        if ($res) {
             $this->response([
-                "message" => self::MESSAGE_DELETE_ERROR,
-                "status" => self::STATUS_ERROR,
+                'message' => self::MESSAGE_DELETE_OK,
+                'status' => self::STATUS_OK,
             ]);
+        }
+
+        $this->response([
+            'message' => self::MESSAGE_DELETE_ERROR,
+            'status' => self::STATUS_ERROR,
+        ], 422);
     }
 }

@@ -65,6 +65,23 @@ async function fetchData() {
     return data;
 }
 
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;')
+}
+
+function personLabel(name, surname) {
+    return `${escapeHtml(name ?? '')}${surname ? ` <span class="person-surname">${escapeHtml(surname)}</span>` : ''}`
+}
+
+function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 const HtmlTable2 = {
     thead: ` <thead>
                 <tr>
@@ -79,12 +96,12 @@ const HtmlTable2 = {
             </thead>`,
     table: (data) => `<table id="table" class="table striped ">${HtmlTable2.thead} ${data}</table>`,
     tbody: (data) => `<tbody id="contains">${data.map(value => `<tr>
-        <td>${value.idPersonne}</td>
-        <td><a href="?p=personne/details/${value.idPersonne}">${value.nomPersonne}</a></td>
-        <td>${value.nomGeneration}</td><td>${value.sexe}</td>
-        <td><a href="?p=personne/details/${value.idParent}">${value.parent ?? ''}</a></td>
-                    ${value.idParent ? `<td id="${value.idPersonne}"data-i="${value.idPersonne}"data-p="${value.idParent}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="assets/icons/pencil.svg" width="15px"></a></td>` : `<td></td>`}
-                        <td id="${value.idPersonne}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="assets/icons/basket.svg" width="15px"></a></td>
+        <td>${escapeHtml(value.idPersonne)}</td>
+        <td><a href="?p=personne/details/${encodeURIComponent(value.idPersonne)}">${personLabel(value.nomPersonne, value.surnom)}</a></td>
+        <td>${escapeHtml(value.nomGeneration)}</td><td>${escapeHtml(value.sexe)}</td>
+        <td><a href="?p=personne/details/${encodeURIComponent(value.idParent ?? '')}">${personLabel(value.parent, value.parentSurnom)}</a></td>
+                    ${value.idParent ? `<td id="${escapeHtml(value.idPersonne)}"data-i="${escapeHtml(value.idPersonne)}"data-p="${escapeHtml(value.idParent)}" title="Editer" class="edite" onclick="editer(this)"><a href="#"><img src="assets/icons/pencil.svg" width="15px" alt="Éditer"></a></td>` : `<td></td>`}
+                        <td id="${escapeHtml(value.idPersonne)}" title="Supprimer" class="delete" onclick="supprimer(this)"><a href="#"><img src="assets/icons/basket.svg" width="15px" alt="Supprimer"></a></td>
         </tr>`).join('')}
         </tbody>`,
 
@@ -98,7 +115,7 @@ async function affichage() {
 
 
     if (srch2.value != "") {
-        elements = globalData.filter(value => value.nomPersonne.toLowerCase().includes(srch2.value.toLowerCase()))
+        elements = globalData.filter(value => `${value.nomPersonne ?? ''} ${value.surnom ?? ''}`.toLowerCase().includes(srch2.value.toLowerCase()))
     }
     if (Paramettre.ord == "asc") {
         elements = elements.sort((a, b) => {
@@ -118,14 +135,20 @@ async function affichage() {
 function Matcher() {
 
     const val = srch2.value
+    if (val === '') return
     const td = document.querySelectorAll("td")
+    let reg
+    try {
+        reg = new RegExp(escapeRegExp(val), "i")
+    } catch (e) {
+        return
+    }
     for (let i = 0; i < td.length; i++) {
         let element = td[i];
         let text = element.innerText
         let a = element.querySelector("a");
-        const reg = new RegExp(val, "i")
         if (text.search(reg) != -1 && !element.contains(a)) {
-            let txt = text.replace(reg, "<strong><span class='matched'>" + val + "</span></strong>");
+            let txt = text.replace(reg, "<strong><span class='matched'>" + escapeHtml(val) + "</span></strong>");
             let tag = document.createElement("div");
             tag.innerHTML = txt;
             element.replaceChildren(tag);
@@ -133,7 +156,7 @@ function Matcher() {
         } else if (text.search(reg) != -1 && element.contains(a)) {
             text = a.innerHTML
 
-            let txt = text.replace(reg, "<strong><span class='matched'>" + val + "</span></strong>");
+            let txt = text.replace(reg, "<strong><span class='matched'>" + escapeHtml(val) + "</span></strong>");
             a.innerHTML = txt;
         }
     }

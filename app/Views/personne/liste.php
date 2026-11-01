@@ -1,33 +1,67 @@
 <?php
-$title = "Sommaire";
+$title = 'Sommaire';
 $tab = $data ?? [];
 ?>
 
-
-
 <div class="container">
+    <div class="page-head">
+        <div>
+            <span class="eyebrow">Répertoire familial</span>
+            <h1>Sommaire</h1>
+            <p><?= e(count($tab)) ?> personne<?= count($tab) > 1 ? 's' : '' ?> recensée<?= count($tab) > 1 ? 's' : '' ?> dans l’histoire de la famille.</p>
+        </div>
+        <?php if (\App\Security\Auth::canEdit()): ?>
+            <div class="page-actions">
+                <a class="btn btn-success" href="?p=personne/ajout">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    Ajouter une personne
+                </a>
+            </div>
+        <?php endif ?>
+    </div>
+
     <div class="row">
-        <table class='striped'>
-            <thead>
-                <tr>
-                    <th class="sorters"><data value='id'> ID</data></th>
-                    <th class="sorters"><data value='nom'> NOM</data></th>
-                    <th class="sorters"><data value='idGeneration'> GENERATION</data></th>
-                    <th class="sorters"><data value='sexe'> SEXE</data></th>
-                    <th class="sorters"><data value='parent'> PARENT</data></th>
-                </tr>
-            </thead>
-            <tbody id="contains">
-                <?php foreach ($tab as $value) : ?>
+        <div class="table-wrap">
+            <table class="striped">
+                <thead>
                     <tr>
-                        <td><?= e($value->idPersonne) ?></td>
-                        <td><a href="?p=personne/details/<?= e($value->idPersonne) ?>"><?= e(ucwords($value->nomPersonne ?? '')) ?></a></td>
-                        <td><?= e($value->nomGeneration) ?></td>
-                        <td><?= e($value->sexe) ?></td>
-                        <td><a href="?p=personne/details/<?= e($value->idPersonne) ?>"><?= e(ucwords($value->parent ?? '')) ?></a></td>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Génération</th>
+                        <th>Sexe</th>
+                        <th>Parent</th>
                     </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="contains">
+                    <?php foreach ($tab as $value): ?>
+                        <tr>
+                            <td><span class="badge badge-muted">#<?= e($value->idPersonne) ?></span></td>
+                            <td>
+                                <a href="?p=personne/details/<?= e($value->idPersonne) ?>">
+                                    <?= person_name($value->nomPersonne ?? '', $value->surnom ?? null, true) ?>
+                                </a>
+                            </td>
+                            <td><span class="badge badge-gold"><?= e($value->nomGeneration) ?></span></td>
+                            <td>
+                                <?php if (($value->sexe ?? '') === 'M'): ?>
+                                    <span class="badge badge-green">Homme</span>
+                                <?php elseif (($value->sexe ?? '') === 'F'): ?>
+                                    <span class="badge badge-clay">Femme</span>
+                                <?php else: ?>
+                                    <span class="badge badge-muted">Inconnu</span>
+                                <?php endif ?>
+                            </td>
+                            <td>
+                                <?php if (!empty($value->idParent)): ?>
+                                    <a href="?p=personne/details/<?= e($value->idParent) ?>"><?= person_name($value->parent ?? '', $value->parentSurnom ?? null, true) ?></a>
+                                <?php else: ?>
+                                    <span class="badge badge-muted">Racine</span>
+                                <?php endif ?>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

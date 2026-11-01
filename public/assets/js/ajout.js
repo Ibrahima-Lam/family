@@ -1,37 +1,47 @@
-
 async function postData(data) {
     const params = new URLSearchParams(data)
     params.append('_token', window.CSRF_TOKEN || '')
-    let req = await fetch('?p=api/add&' + params.toString())
-    return req.json()
+
+    const response = await fetch('?p=api/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Accept': 'application/json',
+            'X-CSRF-Token': window.CSRF_TOKEN || ''
+        },
+        body: params.toString()
+    })
+
+    return response.json()
 }
 
-
-function postAll(e) {
+async function postAll(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
-    const forms = document.querySelectorAll("form")
-    const length = forms.length
-    const result = []
-    const valideds = []
-    const success = []
-    forms.forEach(async el => {
+
+    const forms = Array.from(document.querySelectorAll("form"))
+    const requests = []
+
+    forms.forEach(el => {
         const texte = el.querySelector(".field")
-        if (texte.checkValidity()) {
-            valideds.push(el)
+        if (texte && texte.checkValidity()) {
             const data = {
                 nom: el.nom.value,
+                surnom: el.surnom?.value ?? '',
                 parent: el.parent.value,
                 sexe: el.sexe.value,
             }
-            let res = await postData(data);
-            result.push(res)
-            if (res.status) {
-                success.push(res)
-            }
+            requests.push(postData(data))
         }
+    })
 
-    });
+    const results = await Promise.all(requests)
+    const failed = results.filter(res => res.status !== 1)
+
+    if (failed.length > 0 && failed[0].message) {
+        alert(failed[0].message)
+        return
+    }
 
     window.location.assign("?p=personne")
 }

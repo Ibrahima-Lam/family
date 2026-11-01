@@ -8,3 +8,6 @@ __pycache__/
 /storage/cache/*
 !/storage/cache/.gitkeep
 /storage/*.pid
+*.db-wal
+*.db-shm
+*.db-journal

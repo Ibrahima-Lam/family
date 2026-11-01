@@ -24,12 +24,12 @@ class Link
         $this->child = $child;
     }
 
-    public function getParent(): stdClass
+    public function getParent(): ?stdClass
     {
         return $this->parent;
     }
 
-    public function getLinkedParent(): stdClass
+    public function getLinkedParent(): ?stdClass
     {
         return $this->linkedParent;
     }
@@ -60,22 +60,35 @@ class Link
     {
         $parent = $this->getParent();
         $child = $this->getChild();
+        if ($parent === null || $child === null) {
+            return null;
+        }
 
-        $diff = $child->generation - $parent->generation;
-        $ref = ($parent->idPersonne == $id_ref) ? $parent : $child;
-        $diff = ($parent->idPersonne == $id_ref) ? $diff : -$diff;
+        $diff = (int) ($child->generation ?? 0) - (int) ($parent->generation ?? 0);
+        $ref = ((string) ($parent->idPersonne ?? '') === $id_ref) ? $parent : $child;
+        $diff = ((string) ($parent->idPersonne ?? '') === $id_ref) ? $diff : -$diff;
 
-        $genre = $ref->sexe;
+        $genre = (string) ($ref->sexe ?? 'M');
         $checked = $this->check($diff);
+
         return Lien::getText($diff, $genre, $checked);
     }
 
     private function check(int $diff): bool
     {
-        if ($diff != 0) return $this->isDirect();
-        $generation = $this->getLinkedParent()->generation;
-        $childrengene = $this->getChild()->generation;
-        if (($childrengene - $generation) == 1)  return true;
-        return false;
+        if ($diff !== 0) {
+            return $this->isDirect();
+        }
+
+        $linkedParent = $this->getLinkedParent();
+        $child = $this->getChild();
+        if ($linkedParent === null || $child === null) {
+            return false;
+        }
+
+        $generation = (int) ($linkedParent->generation ?? 0);
+        $childrengene = (int) ($child->generation ?? 0);
+
+        return ($childrengene - $generation) === 1;
     }
 }
