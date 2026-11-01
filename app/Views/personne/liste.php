@@ -10,14 +10,19 @@ $tab = $data ?? [];
             <h1>Sommaire</h1>
             <p><?= e(count($tab)) ?> personne<?= count($tab) > 1 ? 's' : '' ?> recensée<?= count($tab) > 1 ? 's' : '' ?> dans l’histoire de la famille.</p>
         </div>
-        <?php if (\App\Security\Auth::canEdit()): ?>
-            <div class="page-actions">
+        <div class="page-actions">
+            <?php if ($sortAZ): ?>
+                <a class="btn btn-default" href="?p=personne" aria-pressed="true">Ordre habituel</a>
+            <?php else: ?>
+                <a class="btn btn-default" href="?p=personne&amp;tri=az" aria-pressed="false">Trier A–Z</a>
+            <?php endif ?>
+            <?php if (\App\Security\Auth::canEdit()): ?>
                 <a class="btn btn-success" href="?p=personne/ajout">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
                     Ajouter une personne
                 </a>
-            </div>
-        <?php endif ?>
+            <?php endif ?>
+        </div>
     </div>
 
     <div class="row">

@@ -1,0 +1,4293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Famille static exporter">
+<title>Arbre généalogique — Famille Hamet Tenguella</title>
+<style>
+:root {
+    --bg: #f4f1e9;
+    --bg-deep: #ece6da;
+    --surface: #fffdf9;
+    --surface-soft: #f8f4ec;
+    --surface-strong: #f0eadf;
+    --ink: #1b2b26;
+    --muted: #66746d;
+    --line: #e1dbcf;
+    --line-strong: #cfc6b6;
+    --green-950: #102a22;
+    --green-900: #173b30;
+    --green-800: #1f4d3e;
+    --green-700: #2b6652;
+    --green-600: #3a7d66;
+    --green-100: #e3efe9;
+    --green-50: #f0f7f3;
+    --clay: #b85c38;
+    --clay-dark: #94452a;
+    --clay-soft: #f7e7df;
+    --gold: #c99a3d;
+    --gold-soft: #f6edd9;
+    --danger: #b42318;
+    --danger-soft: #fdecea;
+    --radius-xs: 8px;
+    --radius-sm: 12px;
+    --radius: 18px;
+    --radius-lg: 26px;
+    --shadow-xs: 0 1px 2px rgba(23, 59, 48, .06);
+    --shadow-sm: 0 10px 30px -24px rgba(23, 59, 48, .45);
+    --shadow: 0 24px 60px -34px rgba(23, 59, 48, .38);
+    --shadow-lg: 0 36px 90px -40px rgba(16, 42, 34, .45);
+    --font-body: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --header-height: 72px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--ink);
+    background:
+        radial-gradient(1200px 700px at 12% -10%, rgba(201, 154, 61, .12), transparent 62%),
+        radial-gradient(900px 620px at 96% 4%, rgba(58, 125, 102, .11), transparent 58%),
+        var(--bg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+body::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+    opacity: .28;
+    background-image: radial-gradient(rgba(23, 59, 48, .18) .6px, transparent .6px);
+    background-size: 18px 18px;
+    mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+a {
+    color: var(--green-700);
+    text-decoration: none;
+    transition: color .18s ease, opacity .18s ease;
+}
+
+a:hover {
+    color: var(--clay);
+}
+
+.person-surname {
+    color: var(--muted);
+    font-size: .88em;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.person-surname::before {
+    content: " (";
+}
+
+.person-surname::after {
+    content: ")";
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0 0 .6em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--green-950);
+}
+
+h1 {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+}
+
+h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+mark {
+    padding: .1em .35em;
+    border-radius: 999px;
+    color: var(--clay-dark);
+    background: var(--clay-soft);
+}
+
+fieldset {
+    min-width: 0;
+    margin: 0 0 20px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+legend {
+    padding: 0 10px;
+    color: var(--green-800);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+
+legend h3 {
+    margin: 0;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+}
+
+::selection {
+    color: #fff;
+    background: var(--green-700);
+}
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(207, 198, 182, .7);
+    background: rgba(255, 253, 249, .88);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    width: min(100%, 1220px);
+    min-height: var(--header-height);
+    margin: 0 auto;
+    padding: 10px 24px;
+}
+
+.brand {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 11px;
+    color: var(--green-950);
+}
+
+.brand:hover {
+    color: var(--green-950);
+}
+
+.brand-mark {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, var(--green-700), var(--green-950));
+    box-shadow: 0 10px 24px -12px rgba(16, 42, 34, .75);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: .04em;
+}
+
+.brand-name {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.05;
+}
+
+.brand-name span {
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: .66rem;
+    font-weight: 600;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+}
+
+.primary-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+}
+
+.primary-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: .88rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.primary-nav a:hover {
+    color: var(--green-900);
+    background: var(--surface-soft);
+}
+
+.primary-nav a.is-active {
+    color: var(--green-950);
+    background: var(--green-100);
+}
+
+.primary-nav svg {
+    width: 16px;
+    height: 16px;
+    opacity: .8;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.search-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 238px;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--muted);
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.search-field:focus-within {
+    border-color: var(--green-600);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px rgba(58, 125, 102, .12);
+}
+
+.search-field svg {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+}
+
+.search-field input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: .9rem;
+}
+
+.search-field input::placeholder {
+    color: #8a968f;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+}
+
+.avatar {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: var(--clay-dark);
+    font-family: var(--font-display);
+    font-size: .95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.user-meta strong {
+    font-size: .8rem;
+}
+
+.user-meta small {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: .64rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+.icon-button,
+.mobile-toggle,
+.menu-trigger {
+    display: inline-grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--green-900);
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.icon-button:hover,
+.mobile-toggle:hover,
+.menu-trigger:hover {
+    border-color: var(--line-strong);
+    background: var(--green-100);
+    color: var(--green-950);
+}
+
+.icon-button svg,
+.mobile-toggle svg,
+.menu-trigger svg {
+    width: 18px;
+    height: 18px;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.menu-wrap {
+    position: relative;
+}
+
+.actions-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    display: none;
+    width: 250px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.actions-menu.is-open {
+    display: block;
+    animation: menu-in .16s ease both;
+}
+
+.actions-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 11px;
+    border-radius: 9px;
+    color: var(--ink);
+    font-size: .89rem;
+    font-weight: 600;
+}
+
+.actions-menu a:hover {
+    color: var(--green-950);
+    background: var(--green-50);
+}
+
+.actions-menu svg {
+    width: 16px;
+    height: 16px;
+    color: var(--green-700);
+}
+
+.actions-menu .menu-divider {
+    height: 1px;
+    margin: 6px 8px;
+    background: var(--line);
+}
+
+.mobile-toggle {
+    display: none;
+}
+
+@keyframes menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.app-main {
+    width: min(100%, 1220px);
+    margin: 0 auto;
+    padding: 34px 24px 72px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.row {
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.row:last-child {
+    margin-bottom: 0;
+}
+
+.row > h1:first-child,
+.row > h2:first-child,
+.row > .page-head:first-child {
+    margin-top: 0;
+}
+
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.page-head .eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--clay);
+    font-family: var(--font-body);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.page-head h1 {
+    margin-bottom: 6px;
+}
+
+.page-head p {
+    max-width: 58ch;
+    margin: 0;
+    color: var(--muted);
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.eyebrow {
+    color: var(--clay);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 18px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--green-950);
+    font-family: var(--font-body);
+    font-size: .88rem;
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.btn:hover {
+    color: var(--green-950);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-success,
+.btn-primary {
+    background: var(--green-800);
+    color: #fff;
+    box-shadow: 0 12px 24px -16px rgba(23, 59, 48, .9);
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    background: var(--green-950);
+    color: #fff;
+}
+
+.btn-default {
+    border-color: var(--line);
+    background: var(--surface);
+    color: var(--green-900);
+}
+
+.btn-default:hover {
+    border-color: var(--line-strong);
+    background: var(--surface-soft);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #8f1b12;
+    color: #fff;
+}
+
+.btn-ghost {
+    border-color: var(--line);
+    background: transparent;
+    color: var(--green-900);
+}
+
+.btn-ghost:hover {
+    background: var(--green-50);
+}
+
+.btn-sm {
+    min-height: 34px;
+    padding: 7px 13px;
+    font-size: .8rem;
+}
+
+.alert {
+    margin: 0 0 18px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: .91rem;
+    font-weight: 600;
+}
+
+.alert-danger {
+    border-color: #f2c9c4;
+    background: var(--danger-soft);
+    color: #8f1b12;
+}
+
+.alert-success {
+    border-color: #c7e4d6;
+    background: var(--green-50);
+    color: var(--green-800);
+}
+
+.flash-stack {
+    margin-bottom: 20px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    -webkit-overflow-scrolling: touch;
+}
+
+.table,
+.striped {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+}
+
+.table thead,
+.striped thead {
+    background: var(--surface-soft);
+}
+
+.table th,
+.striped th,
+.striped tr th {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: .69rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.table td,
+.striped td,
+.striped tr td {
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(225, 219, 207, .7);
+    color: var(--ink);
+    font-size: .9rem;
+    vertical-align: middle;
+}
+
+.table tbody tr:last-child td,
+.striped tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table tbody tr,
+.striped tbody tr {
+    transition: background .15s ease;
+}
+
+.table tbody tr:hover,
+.striped tbody tr:hover {
+    background: var(--green-50);
+    color: var(--ink);
+}
+
+.striped tbody tr:nth-child(even) {
+    background: rgba(248, 244, 236, .7);
+}
+
+.striped tbody tr:nth-child(even):hover {
+    background: var(--green-50);
+}
+
+.striped td a,
+.table td a {
+    color: var(--green-800);
+    font-weight: 600;
+}
+
+.striped td a:hover,
+.table td a:hover {
+    color: var(--clay);
+}
+
+.table th.sorters,
+.striped th.sorters {
+    cursor: pointer;
+    user-select: none;
+}
+
+.table th.sorters:hover,
+.striped th.sorters:hover {
+    color: var(--green-800);
+}
+
+.table th.active,
+.striped th.active {
+    color: var(--green-800);
+}
+
+.table th .sort-icon,
+.striped th .sort-icon {
+    display: inline-block;
+    width: 10px;
+    margin-left: 6px;
+    opacity: .7;
+}
+
+.table th .sort-icon.desc,
+.striped th .sort-icon.desc {
+    transform: rotate(180deg);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--surface-strong);
+    color: var(--green-900);
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.badge-green {
+    background: var(--green-100);
+    color: var(--green-800);
+}
+
+.badge-clay {
+    background: var(--clay-soft);
+    color: var(--clay-dark);
+}
+
+.badge-gold {
+    background: var(--gold-soft);
+    color: #7b5a16;
+}
+
+.badge-muted {
+    background: var(--surface-soft);
+    color: var(--muted);
+}
+
+.badge-warning {
+    background: var(--gold-soft);
+    color: #8a4b08;
+    box-shadow: inset 0 0 0 1px rgba(138, 75, 8, .18);
+}
+
+.descendance-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-soft);
+}
+
+.descendance-summary p {
+    flex: 1 1 240px;
+    margin: 0;
+    color: var(--muted);
+    font-size: .88rem;
+}
+
+.descendance-form {
+    margin: 18px 0 0;
+    padding: 16px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+}
+
+.descendance-form h3 {
+    margin: 0 0 12px;
+    font-size: .95rem;
+}
+
+.descendance-note {
+    margin: 10px 0 0;
+    padding: 9px 12px;
+    border-left: 3px solid var(--gold);
+    background: var(--gold-soft);
+    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    font-size: .86rem;
+}
+
+.descendance-list {
+    display: grid;
+    gap: 12px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.descendance-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+}
+
+.descendance-list .descendance-person {
+    flex: 1 1 220px;
+    font-weight: 700;
+}
+
+.descendance-list .descendance-note {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.descendance-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 24px;
+}
+
+.descendance-stats .stat-card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+}
+
+.descendance-stats .stat-card span {
+    color: var(--muted);
+}
+
+.descendance-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 8px;
+}
+
+.descendance-filter .btn.is-active {
+    border-color: var(--green-700);
+    background: var(--green-100);
+    color: var(--green-900);
+}
+
+.person-tree .tree-attention {
+    margin-left: 4px;
+}
+
+.table-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.table-actions .icon-button {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+}
+
+.table-actions .icon-button svg {
+    width: 15px;
+    height: 15px;
+}
+
+.icon-button.danger {
+    color: var(--danger);
+}
+
+.icon-button.danger:hover {
+    border-color: #f2c9c4;
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+.edite,
+.delete {
+    cursor: pointer;
+}
+
+.edite img,
+.delete img {
+    width: 15px;
+    height: 15px;
+    opacity: .7;
+    transition: opacity .16s ease, transform .16s ease;
+}
+
+.edite:hover img,
+.delete:hover img {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.element {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    margin: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    box-shadow: var(--shadow-xs);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.element::before {
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--gold);
+    content: "";
+    opacity: .65;
+}
+
+.element:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+.element > span {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: .98rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.element > span a {
+    color: var(--green-950);
+}
+
+.element > span a:hover {
+    color: var(--clay);
+}
+
+.element ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.element ul li {
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--muted);
+    font-size: .7rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.element ul li abbr {
+    text-decoration: none;
+}
+
+.element.target {
+    border-color: var(--gold);
+    background: var(--gold-soft);
+    box-shadow: 0 0 0 3px rgba(201, 154, 61, .18);
+    transform: none;
+}
+
+.element.target:hover {
+    transform: translateY(-2px);
+}
+
+.element.target::before {
+    background: var(--clay);
+}
+
+.content > strong {
+    display: block;
+    padding: 16px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: .85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.panel {
+    margin-bottom: 20px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.panel > h2,
+.panel > h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel > select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+}
+
+.panel > strong {
+    display: block;
+    padding: 16px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: .85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.panel > h2::before,
+.panel > h3::before {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    content: "";
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.detail-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+    padding: 26px;
+    border-radius: var(--radius-lg);
+    background:
+        radial-gradient(500px 220px at 100% 0, rgba(201, 154, 61, .2), transparent 70%),
+        linear-gradient(135deg, var(--green-950), var(--green-800));
+    color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.detail-hero h1 {
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.detail-hero h1 .person-surname {
+    display: block;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, .72);
+    font-family: var(--font-body);
+    font-size: .38em;
+    font-weight: 500;
+    letter-spacing: .01em;
+    white-space: normal;
+}
+
+.detail-hero h1 .person-surname::before,
+.detail-hero h1 .person-surname::after {
+    content: none;
+}
+
+.detail-hero p {
+    margin: 0;
+    color: rgba(255, 255, 255, .72);
+}
+
+.detail-hero .badge {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+}
+
+.detail-hero .avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 26px;
+    padding: clamp(30px, 5vw, 58px);
+    border-radius: var(--radius-lg);
+    background:
+        radial-gradient(720px 380px at 92% 8%, rgba(201, 154, 61, .34), transparent 62%),
+        radial-gradient(520px 300px at 8% 100%, rgba(58, 125, 102, .5), transparent 66%),
+        linear-gradient(135deg, var(--green-950), var(--green-800));
+    box-shadow: var(--shadow-lg);
+    color: #fff;
+}
+
+.hero::after {
+    position: absolute;
+    right: -80px;
+    bottom: -120px;
+    width: 360px;
+    height: 360px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 50%;
+    content: "";
+    box-shadow: 0 0 0 40px rgba(255, 255, 255, .03), 0 0 0 90px rgba(255, 255, 255, .025);
+}
+
+.hero .eyebrow,
+.detail-hero .eyebrow,
+.auth-visual .eyebrow {
+    color: var(--gold);
+}
+
+.hero h1 {
+    max-width: 14ch;
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+}
+
+.hero p {
+    max-width: 56ch;
+    margin-bottom: 26px;
+    color: rgba(255, 255, 255, .74);
+    font-size: 1.02rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hero .btn-success {
+    background: var(--gold);
+    color: var(--green-950);
+}
+
+.hero .btn-success:hover {
+    background: #ddb05a;
+    color: var(--green-950);
+}
+
+.hero .btn-ghost {
+    border-color: rgba(255, 255, 255, .3);
+    color: #fff;
+}
+
+.hero .btn-ghost:hover {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}
+
+.hero-stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.hero-stats a.stat-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.hero-stats a.stat-card:hover {
+    background: rgba(255, 255, 255, .13);
+    transform: translateY(-2px);
+}
+
+.stat-card {
+    min-width: 142px;
+    padding: 14px 18px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, .07);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.stat-card strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.stat-card span {
+    display: block;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, .64);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.feature-card:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-3px);
+}
+
+.feature-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 4px;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--green-100);
+    color: var(--green-800);
+}
+
+.feature-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.feature-card h3 {
+    margin-bottom: 2px;
+    font-size: 1.15rem;
+}
+
+.feature-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .86rem;
+}
+
+.feature-card span {
+    margin-top: auto;
+    padding-top: 8px;
+    color: var(--clay);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.form {
+    display: grid;
+    gap: 18px;
+}
+
+.control {
+    display: grid;
+    gap: 7px;
+    margin: 0;
+}
+
+.control > div {
+    position: relative;
+}
+
+label {
+    color: var(--green-900);
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.control input[type="text"],
+.control input[type="password"],
+.control input[type="number"],
+.control input[type="search"],
+.control select,
+.form-block input[type="text"],
+.form-block select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    outline: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: .91rem;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.control input:focus,
+.control select:focus,
+.form-block input:focus,
+.form-block select:focus {
+    border-color: var(--green-600);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px rgba(58, 125, 102, .12);
+    transform: none;
+}
+
+.control .field,
+.form-block .field {
+    width: 100%;
+    margin: 0;
+}
+
+.form-block {
+    display: grid;
+    gap: 7px;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 22px;
+    align-items: start;
+}
+
+.form.panel {
+    margin-bottom: 0;
+}
+
+.form-intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+.form-intro h2,
+.form-aside h2 {
+    margin: 3px 0 4px;
+    font-size: 1.2rem;
+}
+
+.form-intro p {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--muted);
+    font-size: .85rem;
+    line-height: 1.55;
+}
+
+.form-intro > .badge {
+    flex: 0 0 auto;
+    margin-top: 3px;
+}
+
+.form-table-head {
+    display: none;
+}
+
+.person-rows {
+    display: grid;
+    gap: 16px;
+}
+
+.person-row {
+    min-width: 0;
+    margin: 0;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+}
+
+.person-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+
+.person-row-head > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+}
+
+.person-row-head strong {
+    color: var(--green-900);
+    font-family: var(--font-display);
+    font-size: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.control-wide {
+    grid-column: 1 / -1;
+}
+
+.required-mark {
+    color: var(--clay);
+}
+
+.field-help {
+    margin: 0;
+    color: var(--muted);
+    font-size: .74rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.fieldset-reset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.fieldset-reset legend {
+    margin-bottom: 7px;
+    padding: 0;
+    color: var(--green-900);
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.choice-chip {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: .88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.choice-chip:hover {
+    border-color: var(--green-600);
+    background: var(--green-50);
+}
+
+.choice-chip:has(input:checked) {
+    border-color: var(--green-600);
+    background: var(--green-50);
+    box-shadow: 0 0 0 3px rgba(58, 125, 102, .1);
+}
+
+.choice-chip input {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: var(--green-700);
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.form-actions [data-add-row] {
+    margin-right: auto;
+}
+
+.btn.is-loading {
+    cursor: wait;
+    opacity: .78;
+    pointer-events: none;
+}
+
+.btn.is-loading::before {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, .38);
+    border-top-color: #fff;
+    border-radius: 50%;
+    content: "";
+    animation: form-spin .7s linear infinite;
+}
+
+@keyframes form-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.form-aside {
+    position: sticky;
+    top: calc(var(--header-height) + 18px);
+    display: grid;
+    gap: 18px;
+    margin-bottom: 0;
+}
+
+.form-aside-block {
+    display: grid;
+    gap: 14px;
+}
+
+.form-aside .control select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+}
+
+.form-aside-note {
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .78rem;
+    line-height: 1.55;
+}
+
+.form-dialog .dialog-body {
+    padding: 22px;
+}
+
+.form-dialog .form {
+    gap: 16px;
+}
+
+.form-dialog .form-actions {
+    margin-top: 2px;
+}
+
+@media (min-width: 1081px) {
+    .form-table-head {
+        display: grid;
+        grid-template-columns: 42px minmax(160px, 2fr) minmax(110px, 1.1fr) minmax(150px, 1.4fr) 130px 34px;
+        gap: 10px;
+        padding: 0 10px 4px;
+        color: var(--muted);
+        font-size: .67rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    .form-table-head[hidden] {
+        display: none;
+    }
+
+    .form[data-mode="table"] .person-rows {
+        gap: 8px;
+    }
+
+    .form[data-mode="table"] .person-row {
+        display: grid;
+        grid-template-columns: 42px minmax(160px, 2fr) minmax(110px, 1.1fr) minmax(150px, 1.4fr) 130px 34px;
+        gap: 10px;
+        align-items: start;
+        padding: 10px;
+        background: var(--surface);
+    }
+
+    .form[data-mode="table"] .person-row-head,
+    .form[data-mode="table"] .form-grid {
+        display: contents;
+    }
+
+    .form[data-mode="table"] .person-row-head > div {
+        order: 1;
+        align-self: center;
+        padding: 0 2px;
+    }
+
+    .form[data-mode="table"] .person-row-head strong {
+        font-size: 0;
+    }
+
+    .form[data-mode="table"] .person-row-head strong span {
+        color: var(--muted);
+        font-size: .8rem;
+    }
+
+    .form[data-mode="table"] .person-row-head strong span::before {
+        content: "#";
+    }
+
+    .form[data-mode="table"] .person-row-head .badge {
+        display: none;
+    }
+
+    .form[data-mode="table"] .form-grid > .control {
+        grid-column: auto;
+    }
+
+    .form[data-mode="table"] .form-grid > .control:nth-child(1) {
+        order: 2;
+    }
+
+    .form[data-mode="table"] .form-grid > .control:nth-child(2) {
+        order: 3;
+    }
+
+    .form[data-mode="table"] .form-grid > .control:nth-child(3) {
+        order: 4;
+    }
+
+    .form[data-mode="table"] .form-grid > .control:nth-child(4) {
+        order: 5;
+    }
+
+    .form[data-mode="table"] [data-remove-row] {
+        order: 6;
+        align-self: center;
+        justify-self: end;
+    }
+
+    .form[data-mode="table"] .control {
+        gap: 0;
+    }
+
+    .form[data-mode="table"] .control > label,
+    .form[data-mode="table"] .fieldset-reset > legend {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .form[data-mode="table"] .field-help {
+        display: none;
+    }
+
+    .form[data-mode="table"] .control input,
+    .form[data-mode="table"] .control select {
+        min-height: 40px;
+    }
+
+    .form[data-mode="table"] .choice-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .form[data-mode="table"] .choice-chip {
+        min-height: 18px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        font-size: .78rem;
+        font-weight: 600;
+    }
+
+    .form[data-mode="table"] .choice-chip:hover {
+        background: transparent;
+    }
+}
+
+.check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xs);
+    background: var(--surface-soft);
+    color: var(--ink);
+    font-size: .82rem;
+    font-weight: 600;
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.check-row input {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    margin-top: 1px;
+    accent-color: var(--green-700);
+}
+
+.radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+    padding: 8px 0;
+}
+
+.radio input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: var(--green-700);
+}
+
+.radio label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: .86rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.radio span {
+    color: var(--muted);
+    font-size: .86rem;
+}
+
+.action {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    width: auto;
+    margin: 4px 0 0;
+    padding: 0;
+}
+
+.action .btn,
+.action input[type="submit"],
+.action input[type="reset"] {
+    width: auto;
+    min-width: 110px;
+}
+
+input[type="submit"].btn,
+input[type="reset"].btn,
+button.btn {
+    border: 0;
+    font-family: var(--font-body);
+}
+
+.groupe {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 22px;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.groupe form {
+    flex: 1 1 420px;
+    width: auto;
+    margin: 0;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.corner {
+    position: sticky;
+    top: calc(var(--header-height) + 18px);
+    display: grid;
+    flex: 0 0 260px;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+}
+
+.corner select,
+.corner input[type="number"] {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+}
+
+.corner input[type="number"] {
+    width: 74px !important;
+}
+
+.corner label {
+    margin-top: 4px;
+}
+
+.corner input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--green-700);
+}
+
+.listes {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 30;
+    width: 100%;
+    max-height: 240px;
+    margin: 0;
+    padding: 6px;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.listes ul {
+    margin: 0;
+    padding: 0;
+    border-radius: var(--radius-xs);
+    background: transparent !important;
+    list-style: none;
+}
+
+.item {
+    padding: 9px 11px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 7px;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: .86rem;
+}
+
+.item:last-child {
+    border-bottom: 0;
+}
+
+.item:hover,
+.item.actived {
+    background: var(--green-50);
+    color: var(--green-900);
+}
+
+.auth-shell {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    min-height: min(640px, calc(100vh - 190px));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(28px, 5vw, 52px);
+    overflow: hidden;
+    background:
+        radial-gradient(500px 300px at 90% 0, rgba(201, 154, 61, .38), transparent 65%),
+        radial-gradient(500px 360px at 0 100%, rgba(58, 125, 102, .5), transparent 65%),
+        linear-gradient(145deg, var(--green-950), var(--green-800));
+    color: #fff;
+}
+
+.auth-visual::after {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 190px;
+    height: 190px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 50%;
+    content: "";
+    box-shadow: 0 0 0 28px rgba(255, 255, 255, .03);
+}
+
+.auth-visual h2 {
+    position: relative;
+    z-index: 1;
+    max-width: 13ch;
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+}
+
+.auth-visual p {
+    position: relative;
+    z-index: 1;
+    max-width: 38ch;
+    margin: 0;
+    color: rgba(255, 255, 255, .68);
+    font-size: .92rem;
+}
+
+.auth-form-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 5vw, 54px);
+}
+
+.auth-form-panel h1 {
+    margin-bottom: 4px;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.auth-form-panel > p {
+    margin-bottom: 26px;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.auth-form-panel .form {
+    max-width: 100%;
+}
+
+.auth-form-panel .btn {
+    width: 100%;
+}
+
+.auth-back {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: .82rem;
+    text-align: center;
+}
+
+.link-result {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+}
+
+.link-result p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.link-result b,
+.link-result strong {
+    color: var(--green-950);
+}
+
+.branch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.branch span {
+    color: var(--muted);
+}
+
+.branch strong {
+    color: var(--green-900);
+}
+
+.search-container {
+    position: fixed !important;
+    top: calc(var(--header-height) + 14px) !important;
+    left: 50% !important;
+    z-index: 90 !important;
+    display: none;
+    width: min(900px, calc(100vw - 32px)) !important;
+    max-height: 72vh;
+    padding: 8px;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-50%);
+}
+
+.search-container .table {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.matched {
+    padding: 0 3px;
+    border-radius: 4px;
+    background: var(--gold-soft);
+    color: var(--clay-dark);
+}
+
+.dialog {
+    width: min(620px, calc(100vw - 32px));
+    max-height: 86vh;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    color: var(--ink);
+}
+
+.dialog::backdrop {
+    background: rgba(16, 42, 34, .48);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.dialog[open] {
+    animation: dialog-in .2s ease both;
+}
+
+@keyframes dialog-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-soft);
+}
+
+.dialog-head strong {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+}
+
+.dialog-body {
+    width: auto;
+    min-height: 0;
+    max-height: 66vh;
+    max-width: none;
+    padding: 24px;
+    overflow: auto;
+}
+
+.dialog-body ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dialog-body ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: .92rem;
+}
+
+.dialog-body ul li:last-child {
+    border-bottom: 0;
+}
+
+.dialog-foot {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    padding: 14px 24px;
+    border-top: 1px solid var(--line);
+    background: var(--surface-soft);
+}
+
+.fixeur,
+.toggle-list {
+    display: none;
+}
+
+.formes {
+    display: grid;
+    gap: 12px;
+}
+
+.frms {
+    display: grid;
+    gap: 8px;
+    max-width: none;
+}
+
+.frms input[type="text"],
+.frms select {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 11px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    font: inherit;
+}
+
+.tree-display-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 18px;
+    margin: 0 0 14px;
+}
+
+.tree-view-switch {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-soft);
+}
+
+.tree-view-switch button {
+    min-width: 74px;
+    padding: 8px 17px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.tree-view-switch button:hover {
+    color: var(--green-800);
+    background: var(--surface);
+}
+
+.tree-view-switch button.is-active {
+    color: #fff;
+    background: var(--green-800);
+    box-shadow: var(--shadow-xs);
+}
+
+.tree-hint {
+    margin: 0;
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+.tree-graph-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 0 10px;
+}
+
+.tree-graph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tree-graph-toolbar[hidden],
+.tree-hint[hidden],
+.tree-view[hidden] {
+    display: none !important;
+}
+
+.tree-view {
+    display: block;
+}
+
+.tree-graph {
+    position: relative;
+    width: 100%;
+    height: clamp(480px, 66vh, 760px);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+        radial-gradient(circle at 1px 1px, rgba(23, 59, 48, .1) 1px, transparent 1.4px) 0 0 / 24px 24px,
+        radial-gradient(620px 380px at 90% 0, rgba(201, 154, 61, .08), transparent 72%),
+        var(--surface);
+    box-shadow: var(--shadow-sm);
+    touch-action: none;
+}
+
+.tree-graph-3d {
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(58, 125, 102, .13), transparent 58%),
+        radial-gradient(720px 460px at 90% 8%, rgba(201, 154, 61, .1), transparent 70%),
+        var(--surface);
+}
+
+.tree-graph::after {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    z-index: 3;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 253, 249, .94);
+    box-shadow: var(--shadow-xs);
+    color: var(--muted);
+    font-size: .74rem;
+    font-weight: 600;
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    transition: opacity .18s ease;
+}
+
+.tree-graph.is-zoomed-out::after {
+    content: 'Zoomez pour lire les noms';
+    opacity: 1;
+}
+
+.tree-graph-3d::after {
+    display: none;
+}
+
+.tree-svg,
+.tree-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+}
+
+.tree-svg.is-dragging,
+.tree-canvas.is-dragging {
+    cursor: grabbing;
+}
+
+.tree-graph-link {
+    fill: none;
+    stroke: rgba(58, 125, 102, .42);
+    stroke-width: 1.6;
+    vector-effect: non-scaling-stroke;
+}
+
+.tree-graph-box {
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+    transition: stroke .16s ease, stroke-width .16s ease;
+}
+
+.tree-graph-node {
+    cursor: pointer;
+    outline: none;
+}
+
+.tree-graph-node:hover .tree-graph-box,
+.tree-graph-node:focus-visible .tree-graph-box {
+    stroke: var(--green-700);
+    stroke-width: 3;
+}
+
+.tree-graph-node:focus-visible .tree-graph-box {
+    stroke: var(--gold);
+}
+
+.tree-graph-name {
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.tree-graph-surname {
+    fill: var(--muted);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-style: italic;
+    pointer-events: none;
+}
+
+.tree-graph-meta {
+    fill: var(--muted);
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    pointer-events: none;
+}
+
+.tree-graph-attention {
+    fill: var(--clay);
+    pointer-events: none;
+}
+
+.tree-svg.is-zoomed-out .tree-graph-name,
+.tree-svg.is-zoomed-out .tree-graph-surname,
+.tree-svg.is-zoomed-out .tree-graph-meta {
+    display: none;
+}
+
+.tree-tooltip {
+    position: absolute;
+    z-index: 4;
+    max-width: min(280px, calc(100% - 24px));
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xs);
+    background: rgba(255, 253, 249, .97);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+    font-size: .78rem;
+    font-weight: 600;
+    line-height: 1.35;
+    pointer-events: none;
+}
+
+.tree-tooltip[hidden] {
+    display: none;
+}
+
+.tree-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0 0 14px;
+}
+
+.person-tree {
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+        radial-gradient(500px 260px at 100% 0, rgba(201, 154, 61, .08), transparent 70%),
+        var(--surface);
+    overflow-x: auto;
+}
+
+.person-tree dd {
+    margin: 0;
+}
+
+.person-tree details {
+    margin: 0;
+    border: 0;
+    background: transparent;
+}
+
+.person-tree summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 9px;
+    color: var(--ink);
+    font-size: .88rem;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+    transition: background .18s ease, color .18s ease;
+}
+
+.person-tree summary::-webkit-details-marker {
+    display: none;
+}
+
+.person-tree summary::marker {
+    content: '';
+}
+
+.person-tree summary::before {
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 5px solid var(--muted);
+    content: '';
+    transition: transform .18s ease;
+}
+
+.person-tree details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.person-tree summary:hover {
+    background: var(--surface-soft);
+}
+
+.person-tree details[open] > summary {
+    color: var(--green-800);
+}
+
+.person-tree .tree-name {
+    min-width: 0;
+}
+
+.person-tree .tree-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.person-tree .tree-name a:hover {
+    text-decoration: underline;
+}
+
+.person-tree .tree-id {
+    color: var(--muted);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    white-space: nowrap;
+}
+
+.person-tree .tree-count {
+    min-width: 22px;
+    margin-left: auto;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--muted);
+    font-size: .66rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.person-tree .tree-count-empty {
+    opacity: .5;
+}
+
+.person-tree .tree-count-unknown {
+    border: 1px dashed var(--line-strong);
+    background: transparent;
+}
+
+.person-tree .tree-count-attention {
+    background: var(--gold-soft);
+    color: #8a4b08;
+}
+
+.person-tree dl {
+    margin: 2px 0 4px 16px;
+    padding: 2px 0 2px 14px;
+    border-left: 1px solid var(--line-strong);
+}
+
+.person-tree dt {
+    margin: 4px 0 2px;
+    color: var(--clay);
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.person-tree > dl {
+    min-width: max-content;
+    margin: 0;
+    padding: 0;
+    border-left: 0;
+}
+
+.person-tree dl[class^="G"] {
+    border-left-color: rgba(31, 77, 62, .24);
+}
+
+.person-tree dl[class$="5"],
+.person-tree dl[class$="0"] {
+    border-left-color: rgba(58, 125, 102, .45);
+}
+
+.person-tree dl[class$="6"],
+.person-tree dl[class$="1"] {
+    border-left-color: rgba(160, 75, 48, .38);
+}
+
+.person-tree dl[class$="7"],
+.person-tree dl[class$="2"] {
+    border-left-color: rgba(201, 154, 61, .55);
+}
+
+.person-tree dl[class$="8"],
+.person-tree dl[class$="3"] {
+    border-left-color: rgba(83, 103, 96, .38);
+}
+
+.person-tree dl[class$="9"],
+.person-tree dl[class$="4"] {
+    border-left-color: rgba(111, 71, 128, .34);
+}
+
+.empty {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: var(--surface-soft);
+    color: var(--muted);
+    font-size: .78rem;
+    font-style: normal;
+}
+
+.page {
+    min-height: 0;
+}
+
+.lineage-card {
+    margin: 0 0 20px;
+    padding: 16px 18px;
+    border: 1px solid rgba(201, 154, 61, .38);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: linear-gradient(135deg, var(--gold-soft), var(--surface-soft));
+}
+
+.lineage-title {
+    margin: 0 0 8px;
+    color: var(--green-900);
+    font-family: var(--font-body);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+.lineage-person {
+    color: var(--green-950);
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.lineage-chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.lineage-chain a {
+    text-decoration: underline;
+    text-decoration-color: rgba(43, 102, 82, .35);
+    text-underline-offset: 3px;
+}
+
+.lineage-chain a:hover {
+    color: var(--clay);
+    text-decoration-color: currentColor;
+}
+
+.lineage-arrow {
+    color: var(--gold);
+    font-size: .82rem;
+}
+
+.lineage-chain strong {
+    padding: 1px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.lineage-id {
+    color: var(--muted);
+    font-size: .78rem;
+}
+
+.elements {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+}
+
+.elements:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.preface {
+    margin: 0 0 18px;
+    padding: 18px;
+    border-left: 3px solid var(--gold);
+    background: var(--surface-soft);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    line-height: 1.7;
+}
+
+.preface p {
+    margin: 0 0 8px;
+}
+
+.preface p:last-child {
+    margin-bottom: 0;
+}
+
+.app-footer {
+    width: min(100%, 1220px);
+    margin: 0 auto;
+    padding: 0 24px 34px;
+    color: var(--muted);
+    font-size: .75rem;
+    text-align: center;
+}
+
+.app-footer span {
+    color: var(--clay);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 1080px) {
+    .primary-nav a {
+        padding: 8px 10px;
+        font-size: .84rem;
+    }
+
+    .search-field {
+        width: 190px;
+    }
+
+    .user-meta {
+        display: none;
+    }
+
+    .user-chip {
+        padding: 3px;
+    }
+
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .form-aside {
+        position: static;
+    }
+}
+
+@media (max-width: 900px) {
+    .header-inner {
+        gap: 12px;
+        padding: 9px 16px;
+    }
+
+    .primary-nav {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 16px;
+        left: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    .primary-nav.is-open {
+        display: flex;
+    }
+
+    .primary-nav a {
+        padding: 11px 13px;
+        border-radius: 9px;
+        font-size: .92rem;
+    }
+
+    .search-field {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: inline-grid;
+    }
+
+    .app-main {
+        padding: 24px 16px 56px;
+    }
+
+    .row {
+        padding: 20px;
+        border-radius: var(--radius);
+    }
+
+    .page-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .detail-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .auth-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-visual {
+        min-height: 240px;
+        padding: 30px;
+    }
+
+    .auth-visual::after {
+        display: none;
+    }
+
+    .corner {
+        position: static;
+        flex-basis: 100%;
+    }
+
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .form-aside {
+        position: static;
+    }
+
+    .tree-graph {
+        height: clamp(420px, 58vh, 640px);
+    }
+
+    .tree-graph-toolbar {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 620px) {
+    .brand-name {
+        display: none;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .user-chip .avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .app-main {
+        padding: 18px 12px 46px;
+    }
+
+    .row,
+    .panel {
+        padding: 16px;
+    }
+
+    .hero {
+        padding: 26px 20px;
+        border-radius: var(--radius);
+    }
+
+    .hero-stats {
+        gap: 8px;
+    }
+
+    .stat-card {
+        flex: 1 1 120px;
+        min-width: 0;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .groupe form {
+        flex-basis: 100%;
+        padding: 20px;
+    }
+
+    .action {
+        justify-content: stretch;
+    }
+
+    .action .btn,
+    .action input {
+        flex: 1;
+    }
+
+    .form-grid,
+    .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-intro {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .person-row {
+        padding: 14px;
+    }
+
+    .form-actions {
+        align-items: stretch;
+    }
+
+    .form-actions .btn {
+        flex: 1 1 100%;
+    }
+
+    .form-actions [data-add-row] {
+        margin-right: 0;
+    }
+
+    .dialog {
+        width: calc(100vw - 20px);
+    }
+
+    .dialog-body {
+        padding: 18px;
+        max-height: calc(100vh - 130px);
+    }
+
+    .table th,
+    .table td,
+    .striped th,
+    .striped td {
+        padding: 10px 12px;
+        font-size: .82rem;
+    }
+
+    .tree-display-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tree-view-switch {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tree-view-switch button {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 9px 12px;
+    }
+
+    .tree-hint {
+        font-size: .76rem;
+    }
+
+    .tree-graph-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tree-graph-actions {
+        justify-content: space-between;
+    }
+
+    .tree-graph-actions .btn {
+        flex: 1;
+    }
+
+    .tree-graph {
+        height: clamp(360px, 58vh, 560px);
+        border-radius: var(--radius-sm);
+    }
+
+    .tree-toolbar {
+        justify-content: stretch;
+    }
+
+    .tree-toolbar .btn {
+        flex: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+@media print {
+    body {
+        background: #fff;
+    }
+
+    body::before,
+    .app-header,
+    .app-footer,
+    .menu-wrap,
+    .mobile-toggle,
+    .search-field,
+    .account,
+    .page-actions,
+    .table-actions,
+    .dialog,
+    .fixeur {
+        display: none !important;
+    }
+
+    .app-main {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+    }
+
+    .row,
+    .panel,
+    .element {
+        border-color: #ddd;
+        box-shadow: none;
+    }
+
+    .elements {
+        page-break-inside: avoid;
+    }
+}
+
+</style>
+<script>
+const menu = document.getElementById('menu');
+const menuBar = document.getElementById('menu-bar');
+const primaryNav = document.getElementById('link');
+const mobileToggle = document.getElementById('list-link');
+
+function closeActions() {
+    menu?.classList.remove('is-open');
+    menuBar?.setAttribute('aria-expanded', 'false');
+}
+
+function closeNavigation() {
+    primaryNav?.classList.remove('is-open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+}
+
+menuBar?.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeNavigation();
+    const open = menu.classList.toggle('is-open');
+    menuBar.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+mobileToggle?.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeActions();
+    const open = primaryNav.classList.toggle('is-open');
+    mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+document.addEventListener('click', function (event) {
+    if (!menu?.contains(event.target) && !menuBar?.contains(event.target)) {
+        closeActions();
+    }
+    if (!primaryNav?.contains(event.target) && !mobileToggle?.contains(event.target)) {
+        closeNavigation();
+    }
+});
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeActions();
+        closeNavigation();
+    }
+});
+
+</script>
+<script>
+(function () {
+    'use strict'
+
+    document.querySelectorAll('[data-tree-action]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const open = button.dataset.treeAction === 'expand'
+            document.querySelectorAll('.person-tree details').forEach(function (details) {
+                details.open = open
+            })
+        })
+    })
+
+    const dataElement = document.getElementById('tree-data')
+    const switchButtons = Array.from(document.querySelectorAll('[data-tree-view-button]'))
+    if (!dataElement || switchButtons.length === 0) return
+
+    let graph
+    try {
+        graph = JSON.parse(dataElement.textContent || '{}')
+    } catch (error) {
+        return
+    }
+
+    if (!Array.isArray(graph.nodes) || graph.nodes.length === 0) return
+
+    const panels = Array.from(document.querySelectorAll('[data-tree-view-panel]'))
+    const graphToolbar = document.querySelector('[data-graph-toolbar]')
+    const graphHint = document.querySelector('[data-graph-hint]')
+    const graphCaption = document.querySelector('[data-graph-caption]')
+    const zoomButtons = Array.from(document.querySelectorAll('[data-tree-zoom]'))
+    const rotateButton = document.querySelector('[data-tree-rotate]')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    const layout = buildLayout(graph)
+    const renderers = {}
+    let activeView = 'standard'
+    let activeRenderer = null
+
+    function buildLayout(source) {
+        const width = 166
+        const height = 52
+        const gapX = 20
+        const gapY = 76
+        const nodes = source.nodes.map(function (node) {
+            return Object.assign({}, node, { childrenIds: [] })
+        })
+        const byId = new Map(nodes.map(function (node) { return [String(node.id), node] }))
+        const childrenByParent = new Map()
+
+        source.edges.forEach(function (edge) {
+            const sourceId = String(edge.source)
+            const targetId = String(edge.target)
+            if (!byId.has(sourceId) || !byId.has(targetId)) return
+            if (!childrenByParent.has(sourceId)) childrenByParent.set(sourceId, [])
+            childrenByParent.get(sourceId).push(targetId)
+            byId.get(sourceId).childrenIds.push(targetId)
+        })
+
+        childrenByParent.forEach(function (children) {
+            children.sort(function (a, b) {
+                const nodeA = byId.get(a)
+                const nodeB = byId.get(b)
+                if (nodeA.generation !== nodeB.generation) return nodeA.generation - nodeB.generation
+                return a.localeCompare(b, undefined, { numeric: true })
+            })
+        })
+
+        const positions = new Map()
+        let cursor = 0
+
+        function place(id, depth, seen) {
+            if (!byId.has(id) || seen.has(id)) return null
+            seen.add(id)
+
+            const node = byId.get(id)
+            const children = node.childrenIds.filter(function (childId) { return !seen.has(childId) })
+            let centerX
+
+            if (children.length === 0) {
+                centerX = cursor + width / 2
+                cursor += width + gapX
+            } else {
+                const childCenters = []
+                children.forEach(function (childId) {
+                    const childCenter = place(childId, depth + 1, seen)
+                    if (childCenter !== null) childCenters.push(childCenter)
+                })
+
+                if (childCenters.length === 0) {
+                    centerX = cursor + width / 2
+                    cursor += width + gapX
+                } else {
+                    centerX = (childCenters[0] + childCenters[childCenters.length - 1]) / 2
+                }
+            }
+
+            positions.set(id, {
+                x: centerX,
+                y: depth * (height + gapY) + height / 2,
+                depth: depth
+            })
+
+            return centerX
+        }
+
+        const rootId = source.root !== null && byId.has(String(source.root))
+            ? String(source.root)
+            : String(nodes[0].id)
+        place(rootId, 0, new Set())
+
+        nodes.forEach(function (node) {
+            if (!positions.has(String(node.id))) {
+                place(String(node.id), 0, new Set())
+            }
+        })
+
+        nodes.forEach(function (node) {
+            const position = positions.get(String(node.id))
+            node.x = position.x - width / 2
+            node.y = position.y
+            node.centerX = position.x
+            node.depth = position.depth
+            node.width = width
+            node.height = height
+        })
+
+        let minX = Infinity
+        let minY = Infinity
+        let maxX = -Infinity
+        let maxY = -Infinity
+
+        nodes.forEach(function (node) {
+            minX = Math.min(minX, node.x)
+            maxX = Math.max(maxX, node.x + node.width)
+            minY = Math.min(minY, node.y - node.height / 2)
+            maxY = Math.max(maxY, node.y + node.height / 2)
+        })
+
+        return {
+            nodes: nodes,
+            byId: byId,
+            edges: source.edges,
+            root: rootId,
+            bounds: { minX: minX, minY: minY, maxX: maxX, maxY: maxY },
+            width: maxX - minX,
+            height: maxY - minY
+        }
+    }
+
+    function displayName(node) {
+        return node.surnom ? node.nom + ' ' + node.surnom : node.nom
+    }
+
+    function shortName(node, maxLength) {
+        const name = displayName(node)
+        return name.length > maxLength ? name.slice(0, maxLength - 1) + '…' : name
+    }
+
+    function colors(node) {
+        let stroke = '#b7ad9d'
+        if (node.sexe === 'M') stroke = '#6f96c4'
+        if (node.sexe === 'F') stroke = '#bd7d98'
+        return {
+            fill: node.attention ? '#fff6e4' : '#fffdf9',
+            stroke: stroke,
+            ink: '#1b2b26',
+            muted: '#66746d',
+            accent: node.attention ? '#b85c38' : '#3a7d66'
+        }
+    }
+
+    function clamp(value, minimum, maximum) {
+        return Math.max(minimum, Math.min(maximum, value))
+    }
+
+    function roundedRect(context, x, y, width, height, radius) {
+        const r = Math.min(radius, width / 2, height / 2)
+        context.beginPath()
+        context.moveTo(x + r, y)
+        context.arcTo(x + width, y, x + width, y + height, r)
+        context.arcTo(x + width, y + height, x, y + height, r)
+        context.arcTo(x, y + height, x, y, r)
+        context.arcTo(x, y, x + width, y, r)
+        context.closePath()
+    }
+
+    function openNode(node) {
+        if (node && node.href) window.location.href = node.href
+    }
+
+    class SvgRenderer {
+        constructor(svg) {
+            this.svg = svg
+            this.namespace = 'http://www.w3.org/2000/svg'
+            this.scale = 1
+            this.tx = 0
+            this.ty = 0
+            this.dragged = false
+            this.dragState = null
+            this.padding = 54
+            this.fullViewBox = {
+                x: layout.bounds.minX - this.padding,
+                y: layout.bounds.minY - this.padding,
+                width: layout.width + this.padding * 2,
+                height: layout.height + this.padding * 2
+            }
+            this.viewBox = Object.assign({}, this.fullViewBox)
+            this.build()
+            this.bind()
+            this.applyTransform()
+        }
+
+        build() {
+            const svg = this.svg
+            svg.setAttribute('viewBox', [
+                this.viewBox.x,
+                this.viewBox.y,
+                this.viewBox.width,
+                this.viewBox.height
+            ].join(' '))
+            svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+            svg.replaceChildren()
+
+            this.group = document.createElementNS(this.namespace, 'g')
+            this.group.setAttribute('class', 'tree-graph-pan')
+            svg.appendChild(this.group)
+
+            const edgeGroup = document.createElementNS(this.namespace, 'g')
+            edgeGroup.setAttribute('class', 'tree-graph-edges')
+            this.group.appendChild(edgeGroup)
+
+            const nodeGroup = document.createElementNS(this.namespace, 'g')
+            nodeGroup.setAttribute('class', 'tree-graph-nodes')
+            this.group.appendChild(nodeGroup)
+
+            layout.edges.forEach((edge) => {
+                const source = layout.byId.get(String(edge.source))
+                const target = layout.byId.get(String(edge.target))
+                if (!source || !target) return
+
+                const startX = source.centerX
+                const startY = source.y + source.height / 2
+                const endX = target.centerX
+                const endY = target.y - target.height / 2
+                const curve = Math.max(30, (endY - startY) * 0.48)
+                const path = document.createElementNS(this.namespace, 'path')
+                path.setAttribute('d', [
+                    'M', startX, startY,
+                    'C', startX, startY + curve,
+                    endX, endY - curve,
+                    endX, endY
+                ].join(' '))
+                path.setAttribute('class', 'tree-graph-link')
+                edgeGroup.appendChild(path)
+            })
+
+            layout.nodes.forEach((node) => {
+                const palette = colors(node)
+                const group = document.createElementNS(this.namespace, 'g')
+                group.setAttribute('class', 'tree-graph-node sex-' + String(node.sexe || 'x').toLowerCase())
+                group.setAttribute('tabindex', '0')
+                group.setAttribute('role', 'link')
+                group.setAttribute('aria-label', displayName(node) + ', ' + node.generationLabel + ', ' + node.statusLabel)
+                group.dataset.id = String(node.id)
+
+                const title = document.createElementNS(this.namespace, 'title')
+                title.textContent = displayName(node) + ' · ' + node.generationLabel + ' · ' + node.statusLabel
+                group.appendChild(title)
+
+                const box = document.createElementNS(this.namespace, 'rect')
+                box.setAttribute('x', node.x)
+                box.setAttribute('y', node.y - node.height / 2)
+                box.setAttribute('width', node.width)
+                box.setAttribute('height', node.height)
+                box.setAttribute('rx', '14')
+                box.setAttribute('fill', palette.fill)
+                box.setAttribute('stroke', palette.stroke)
+                box.setAttribute('class', 'tree-graph-box')
+                if (node.attention) box.classList.add('is-attention')
+                group.appendChild(box)
+
+                const meta = document.createElementNS(this.namespace, 'text')
+                meta.setAttribute('x', node.x + node.width - 11)
+                meta.setAttribute('y', node.y - node.height / 2 + 15)
+                meta.setAttribute('text-anchor', 'end')
+                meta.setAttribute('class', 'tree-graph-meta')
+                meta.textContent = node.generationLabel
+                group.appendChild(meta)
+
+                const name = document.createElementNS(this.namespace, 'text')
+                name.setAttribute('x', node.x + 12)
+                name.setAttribute('y', node.y + (node.surnom ? -3 : 5))
+                name.setAttribute('class', 'tree-graph-name')
+                name.textContent = shortName({ nom: node.nom, surnom: null }, 23)
+                group.appendChild(name)
+
+                if (node.surnom) {
+                    const surname = document.createElementNS(this.namespace, 'text')
+                    surname.setAttribute('x', node.x + 12)
+                    surname.setAttribute('y', node.y + 14)
+                    surname.setAttribute('class', 'tree-graph-surname')
+                    surname.textContent = shortName({ nom: node.surnom, surnom: null }, 26)
+                    group.appendChild(surname)
+                }
+
+                if (node.attention) {
+                    const dot = document.createElementNS(this.namespace, 'circle')
+                    dot.setAttribute('cx', node.x + node.width - 12)
+                    dot.setAttribute('cy', node.y + node.height / 2 - 10)
+                    dot.setAttribute('r', '4')
+                    dot.setAttribute('class', 'tree-graph-attention')
+                    group.appendChild(dot)
+                }
+
+                group.addEventListener('click', (event) => {
+                    event.stopPropagation()
+                    if (!this.dragged) openNode(node)
+                })
+                group.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        openNode(node)
+                    }
+                })
+
+                nodeGroup.appendChild(group)
+            })
+        }
+
+        bind() {
+            this.svg.addEventListener('pointerdown', (event) => {
+                if (event.button !== 0) return
+                this.dragged = false
+                this.dragState = {
+                    pointerId: event.pointerId,
+                    x: event.clientX,
+                    y: event.clientY,
+                    tx: this.tx,
+                    ty: this.ty
+                }
+                this.svg.setPointerCapture(event.pointerId)
+                this.svg.classList.add('is-dragging')
+            })
+
+            this.svg.addEventListener('pointermove', (event) => {
+                if (!this.dragState) return
+                const rect = this.svg.getBoundingClientRect()
+                const factorX = this.viewBox.width / Math.max(rect.width, 1)
+                const factorY = this.viewBox.height / Math.max(rect.height, 1)
+                const dx = (event.clientX - this.dragState.x) * factorX
+                const dy = (event.clientY - this.dragState.y) * factorY
+                if (Math.abs(dx) > 2 || Math.abs(dy) > 2) this.dragged = true
+                this.tx = this.dragState.tx + dx
+                this.ty = this.dragState.ty + dy
+                this.applyTransform()
+            })
+
+            const stopDrag = () => {
+                this.dragState = null
+                this.svg.classList.remove('is-dragging')
+            }
+            this.svg.addEventListener('pointerup', stopDrag)
+            this.svg.addEventListener('pointercancel', stopDrag)
+
+            this.svg.addEventListener('wheel', (event) => {
+                event.preventDefault()
+                const point = this.toViewBox(event.clientX, event.clientY)
+                this.zoomAt(point.x, point.y, Math.exp(-event.deltaY * 0.0015))
+            }, { passive: false })
+        }
+
+        toViewBox(clientX, clientY) {
+            const point = this.svg.createSVGPoint()
+            point.x = clientX
+            point.y = clientY
+            return point.matrixTransform(this.svg.getScreenCTM().inverse())
+        }
+
+        applyTransform() {
+            this.group.setAttribute('transform', 'translate(' + this.tx + ' ' + this.ty + ') scale(' + this.scale + ')')
+            const matrix = this.group.getScreenCTM()
+            const effectiveScale = matrix ? Math.abs(matrix.a) : this.scale
+            const zoomedOut = effectiveScale < 0.6
+            this.svg.classList.toggle('is-zoomed-out', zoomedOut)
+            if (this.svg.parentElement) this.svg.parentElement.classList.toggle('is-zoomed-out', zoomedOut)
+        }
+
+        zoomAt(x, y, factor) {
+            const nextScale = clamp(this.scale * factor, 0.35, 24)
+            const ratio = nextScale / this.scale
+            this.tx = x - (x - this.tx) * ratio
+            this.ty = y - (y - this.ty) * ratio
+            this.scale = nextScale
+            this.applyTransform()
+        }
+
+        zoom(factor) {
+            const rect = this.svg.getBoundingClientRect()
+            const point = this.toViewBox(rect.left + rect.width / 2, rect.top + rect.height / 2)
+            this.zoomAt(point.x, point.y, factor)
+        }
+
+        setViewBox(box) {
+            this.viewBox = box
+            this.svg.setAttribute('viewBox', [box.x, box.y, box.width, box.height].join(' '))
+        }
+
+        focus() {
+            const rect = this.svg.getBoundingClientRect()
+            const root = layout.byId.get(String(layout.root)) || layout.nodes[0]
+            const aspect = rect.width > 0 && rect.height > 0 ? rect.width / rect.height : 2
+            let width = clamp((rect.width || this.fullViewBox.width) / 0.8, 720, this.fullViewBox.width)
+            let height = width / Math.max(aspect, 0.6)
+
+            if (height > this.fullViewBox.height) {
+                height = this.fullViewBox.height
+                width = height * Math.max(aspect, 0.6)
+            }
+
+            const x = clamp(
+                root.centerX - width / 2,
+                this.fullViewBox.x,
+                this.fullViewBox.x + this.fullViewBox.width - width
+            )
+            const y = clamp(
+                root.y - 64,
+                this.fullViewBox.y,
+                this.fullViewBox.y + this.fullViewBox.height - height
+            )
+
+            this.scale = 1
+            this.tx = 0
+            this.ty = 0
+            this.setViewBox({ x: x, y: y, width: width, height: height })
+            this.applyTransform()
+        }
+
+        reset() {
+            this.scale = 1
+            this.tx = 0
+            this.ty = 0
+            this.setViewBox(Object.assign({}, this.fullViewBox))
+            this.applyTransform()
+        }
+
+        activate() {
+            this.focus()
+            window.requestAnimationFrame(() => this.applyTransform())
+        }
+
+        deactivate() {}
+    }
+
+    class ThreeRenderer {
+        constructor(canvas, container, tooltip) {
+            this.canvas = canvas
+            this.context = canvas.getContext('2d')
+            this.container = container
+            this.tooltip = tooltip
+            this.width = 0
+            this.height = 0
+            this.ratio = 1
+            this.zoom = 1
+            this.centerX = 0
+            this.centerY = 0
+            this.yaw = -0.4
+            this.pitch = 0.18
+            this.dragged = false
+            this.dragState = null
+            this.hoverId = null
+            this.frame = null
+            this.running = false
+            this.hasFitted = false
+            this.autoRotate = false
+            this.onAutoRotateChange = syncRotateButton
+            this.defaultYaw = this.yaw
+            this.defaultPitch = this.pitch
+            this.fontFamily = getComputedStyle(document.body).fontFamily
+            this.nodes = this.buildNodes()
+            this.bind()
+            this.observer = new ResizeObserver(() => this.resize())
+            this.observer.observe(container)
+        }
+
+        buildNodes() {
+            const centerWorldX = (layout.bounds.minX + layout.bounds.maxX) / 2
+            const centerWorldY = (layout.bounds.minY + layout.bounds.maxY) / 2
+            const halfWidth = Math.max(layout.width / 2, 1)
+            const ringStep = 120
+
+            return layout.nodes.map(function (node) {
+                const normalizedX = clamp((node.centerX - centerWorldX) / halfWidth, -1, 1)
+                const angle = normalizedX * 1.8
+                const radius = node.depth * ringStep
+
+                return Object.assign({}, node, {
+                    x3: Math.sin(angle) * radius,
+                    y3: node.y - centerWorldY,
+                    z3: -Math.cos(angle) * radius
+                })
+            })
+        }
+
+        resize() {
+            const rect = this.container.getBoundingClientRect()
+            if (rect.width < 10 || rect.height < 10) return
+            const previousWidth = this.width
+            const previousHeight = this.height
+            this.ratio = window.devicePixelRatio || 1
+            this.width = rect.width
+            this.height = rect.height
+            this.canvas.width = Math.round(rect.width * this.ratio)
+            this.canvas.height = Math.round(rect.height * this.ratio)
+            this.canvas.style.width = rect.width + 'px'
+            this.canvas.style.height = rect.height + 'px'
+
+            if (!this.hasFitted) {
+                this.fit()
+                this.hasFitted = true
+            } else {
+                this.centerX += (this.width - previousWidth) / 2
+                this.centerY += (this.height - previousHeight) / 2
+            }
+
+            if (this.running) this.draw()
+        }
+
+        project(node) {
+            const cosYaw = Math.cos(this.yaw)
+            const sinYaw = Math.sin(this.yaw)
+            const cosPitch = Math.cos(this.pitch)
+            const sinPitch = Math.sin(this.pitch)
+
+            const x1 = node.x3 * cosYaw + node.z3 * sinYaw
+            const z1 = -node.x3 * sinYaw + node.z3 * cosYaw
+            const y1 = node.y3 * cosPitch - z1 * sinPitch
+            const z2 = node.y3 * sinPitch + z1 * cosPitch
+            const perspective = 2600 / (2600 + z2)
+            const scale = perspective * this.zoom
+
+            return {
+                x: this.centerX + x1 * scale,
+                y: this.centerY + y1 * scale,
+                z: z2,
+                scale: scale
+            }
+        }
+
+        fit() {
+            const padding = 54
+            const projected = this.nodes.map((node) => {
+                const savedZoom = this.zoom
+                const savedCenterX = this.centerX
+                const savedCenterY = this.centerY
+                this.zoom = 1
+                this.centerX = 0
+                this.centerY = 0
+                const point = this.project(node)
+                this.zoom = savedZoom
+                this.centerX = savedCenterX
+                this.centerY = savedCenterY
+                return point
+            })
+
+            let minX = Infinity
+            let minY = Infinity
+            let maxX = -Infinity
+            let maxY = -Infinity
+            projected.forEach(function (point) {
+                minX = Math.min(minX, point.x)
+                minY = Math.min(minY, point.y)
+                maxX = Math.max(maxX, point.x)
+                maxY = Math.max(maxY, point.y)
+            })
+
+            const width = Math.max(maxX - minX, 1)
+            const height = Math.max(maxY - minY, 1)
+            this.zoom = clamp(
+                Math.min((this.width - padding * 2) / width, (this.height - padding * 2) / height),
+                0.02,
+                2
+            )
+            this.centerX = this.width / 2 - ((minX + maxX) / 2) * this.zoom
+            this.centerY = this.height / 2 - ((minY + maxY) / 2) * this.zoom
+        }
+
+        draw() {
+            if (!this.width || !this.height) return
+            const context = this.context
+            context.setTransform(this.ratio, 0, 0, this.ratio, 0, 0)
+            context.clearRect(0, 0, this.width, this.height)
+
+            const projected = new Map()
+            let minDepth = Infinity
+            let maxDepth = -Infinity
+
+            this.nodes.forEach((node) => {
+                const point = this.project(node)
+                projected.set(String(node.id), point)
+                minDepth = Math.min(minDepth, point.z)
+                maxDepth = Math.max(maxDepth, point.z)
+            })
+
+            const depthSpan = Math.max(maxDepth - minDepth, 1)
+            const depthRatio = (depth) => clamp((depth - minDepth) / depthSpan, 0, 1)
+
+            const edgeList = []
+            layout.edges.forEach((edge) => {
+                const source = projected.get(String(edge.source))
+                const target = projected.get(String(edge.target))
+                if (!source || !target) return
+                edgeList.push({
+                    source: source,
+                    target: target,
+                    depth: (source.z + target.z) / 2
+                })
+            })
+            edgeList.sort(function (a, b) { return b.depth - a.depth })
+
+            edgeList.forEach((edge) => {
+                const near = 1 - depthRatio(edge.depth)
+                context.strokeStyle = 'rgba(58, 125, 102, ' + (0.1 + near * 0.5) + ')'
+                context.lineWidth = 0.55 + near * 1.45
+                context.beginPath()
+                context.moveTo(edge.source.x, edge.source.y)
+                context.lineTo(edge.target.x, edge.target.y)
+                context.stroke()
+            })
+
+            const sorted = this.nodes.slice().sort(function (a, b) {
+                return projected.get(String(b.id)).z - projected.get(String(a.id)).z
+            })
+
+            sorted.forEach((node) => {
+                const point = projected.get(String(node.id))
+                const palette = colors(node)
+                const near = 1 - depthRatio(point.z)
+                const radius = clamp(3.2 + point.scale * 6.8, 2.8, 11)
+                const hovered = this.hoverId === String(node.id)
+
+                context.globalAlpha = 0.45 + near * 0.55
+
+                if (String(node.id) === String(layout.root)) {
+                    context.beginPath()
+                    context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
+                    context.fillStyle = 'rgba(201, 154, 61, .15)'
+                    context.fill()
+                }
+
+                context.beginPath()
+                context.arc(point.x, point.y, hovered ? radius + 3 : radius, 0, Math.PI * 2)
+                context.fillStyle = palette.fill
+                context.fill()
+                context.lineWidth = hovered ? 2.8 : 1.5
+                context.strokeStyle = hovered ? '#1f4d3e' : palette.stroke
+                context.stroke()
+
+                if (node.attention) {
+                    context.beginPath()
+                    context.arc(
+                        point.x + radius * 0.78,
+                        point.y - radius * 0.78,
+                        Math.max(2.1, radius * 0.28),
+                        0,
+                        Math.PI * 2
+                    )
+                    context.fillStyle = palette.accent
+                    context.fill()
+                }
+            })
+
+            context.globalAlpha = 1
+
+            const placed = []
+            const labelOrder = this.nodes.slice().sort(function (a, b) {
+                return projected.get(String(a.id)).z - projected.get(String(b.id)).z
+            })
+
+            labelOrder.forEach((node) => {
+                if (this.hoverId === String(node.id)) return
+                const point = projected.get(String(node.id))
+                const palette = colors(node)
+                this.drawLabel(context, node, point, palette, false, placed)
+            })
+
+            if (this.hoverId !== null) {
+                const hoveredNode = layout.byId.get(String(this.hoverId))
+                const hoveredPoint = projected.get(String(this.hoverId))
+                if (hoveredNode && hoveredPoint) {
+                    this.drawLabel(context, hoveredNode, hoveredPoint, colors(hoveredNode), true, placed)
+                }
+            }
+        }
+
+        drawLabel(context, node, point, palette, hovered, placed) {
+            const text = shortName(node, hovered ? 38 : 22)
+            const fontSize = hovered ? 12 : 11
+            const radius = clamp(3.2 + point.scale * 6.8, 2.8, 11)
+            context.font = (hovered ? '700 ' : '600 ') + fontSize + 'px ' + this.fontFamily
+            context.textAlign = 'left'
+            context.textBaseline = 'middle'
+
+            const textWidth = context.measureText(text).width
+            const boxWidth = textWidth + (hovered ? 14 : 0)
+            const boxHeight = hovered ? 22 : 16
+            const gap = hovered ? 9 : 6
+
+            const candidates = [
+                { x: point.x + radius + gap, y: point.y - boxHeight / 2 },
+                { x: point.x - radius - gap - boxWidth, y: point.y - boxHeight / 2 },
+                { x: point.x - boxWidth / 2, y: point.y + radius + gap },
+                { x: point.x - boxWidth / 2, y: point.y - radius - gap - boxHeight }
+            ]
+
+            let chosen = null
+            for (let index = 0; index < candidates.length; index += 1) {
+                const candidate = candidates[index]
+                const rect = {
+                    x: candidate.x - 3,
+                    y: candidate.y - 2,
+                    width: boxWidth + 6,
+                    height: boxHeight + 4
+                }
+                if (rect.x < 6 || rect.y < 6 || rect.x + rect.width > this.width - 6 || rect.y + rect.height > this.height - 6) {
+                    continue
+                }
+                const overlaps = placed.some(function (other) {
+                    return !(
+                        rect.x + rect.width < other.x
+                        || other.x + other.width < rect.x
+                        || rect.y + rect.height < other.y
+                        || other.y + other.height < rect.y
+                    )
+                })
+                if (!overlaps) {
+                    chosen = { candidate: candidate, rect: rect }
+                    break
+                }
+            }
+
+            if (!chosen && hovered) {
+                const candidate = candidates[0]
+                chosen = {
+                    candidate: candidate,
+                    rect: { x: candidate.x - 3, y: candidate.y - 2, width: boxWidth + 6, height: boxHeight + 4 }
+                }
+            }
+
+            if (!chosen) return
+            placed.push(chosen.rect)
+
+            if (hovered) {
+                roundedRect(context, chosen.rect.x, chosen.rect.y, chosen.rect.width, chosen.rect.height, 7)
+                context.fillStyle = 'rgba(255, 253, 249, .98)'
+                context.fill()
+                context.lineWidth = 1
+                context.strokeStyle = 'rgba(207, 198, 182, .9)'
+                context.stroke()
+                context.fillStyle = palette.ink
+                context.fillText(text, chosen.candidate.x + 7, chosen.candidate.y + boxHeight / 2)
+                return
+            }
+
+            context.lineWidth = 3
+            context.lineJoin = 'round'
+            context.strokeStyle = 'rgba(255, 253, 249, .92)'
+            context.strokeText(text, chosen.candidate.x, chosen.candidate.y + boxHeight / 2)
+            context.fillStyle = palette.ink
+            context.fillText(text, chosen.candidate.x, chosen.candidate.y + boxHeight / 2)
+        }
+
+        nearest(clientX, clientY) {
+            const rect = this.canvas.getBoundingClientRect()
+            const x = clientX - rect.left
+            const y = clientY - rect.top
+            let best = null
+            let bestDistance = 18
+
+            this.nodes.forEach((node) => {
+                const point = this.project(node)
+                const distance = Math.hypot(point.x - x, point.y - y)
+                if (distance < bestDistance) {
+                    bestDistance = distance
+                    best = node
+                }
+            })
+
+            return best
+        }
+
+        updateTooltip(node, clientX, clientY) {
+            if (!node) {
+                this.tooltip.hidden = true
+                return
+            }
+
+            const rect = this.container.getBoundingClientRect()
+            this.tooltip.textContent = displayName(node) + ' · ' + node.generationLabel + ' · ' + node.statusLabel
+            this.tooltip.hidden = false
+
+            const maxLeft = Math.max(8, rect.width - this.tooltip.offsetWidth - 8)
+            const maxTop = Math.max(8, rect.height - this.tooltip.offsetHeight - 8)
+            this.tooltip.style.left = clamp(clientX - rect.left + 14, 8, maxLeft) + 'px'
+            this.tooltip.style.top = clamp(clientY - rect.top + 14, 8, maxTop) + 'px'
+        }
+
+        bind() {
+            this.canvas.addEventListener('pointerdown', (event) => {
+                if (event.button !== 0) return
+                this.dragged = false
+                this.setAutoRotate(false)
+                this.dragState = {
+                    pointerId: event.pointerId,
+                    x: event.clientX,
+                    y: event.clientY,
+                    yaw: this.yaw,
+                    pitch: this.pitch
+                }
+                this.canvas.setPointerCapture(event.pointerId)
+                this.canvas.classList.add('is-dragging')
+            })
+
+            this.canvas.addEventListener('pointermove', (event) => {
+                if (this.dragState) {
+                    const dx = event.clientX - this.dragState.x
+                    const dy = event.clientY - this.dragState.y
+                    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) this.dragged = true
+                    this.yaw = this.dragState.yaw + dx * 0.007
+                    this.pitch = clamp(this.dragState.pitch + dy * 0.005, -1.1, 1.1)
+                    this.draw()
+                    return
+                }
+
+                const node = this.nearest(event.clientX, event.clientY)
+                this.hoverId = node ? String(node.id) : null
+                this.canvas.style.cursor = node ? 'pointer' : 'grab'
+                this.updateTooltip(node, event.clientX, event.clientY)
+                this.draw()
+            })
+
+            const stopDrag = (event) => {
+                const hadMoved = this.dragged
+                this.dragState = null
+                this.canvas.classList.remove('is-dragging')
+                if (!hadMoved && event.type === 'pointerup') {
+                    const node = this.nearest(event.clientX, event.clientY)
+                    if (node) openNode(node)
+                }
+                this.draw()
+            }
+            this.canvas.addEventListener('pointerup', stopDrag)
+            this.canvas.addEventListener('pointercancel', stopDrag)
+            this.canvas.addEventListener('pointerleave', () => {
+                this.hoverId = null
+                this.updateTooltip(null)
+                this.draw()
+            })
+
+            this.canvas.addEventListener('wheel', (event) => {
+                event.preventDefault()
+                this.setAutoRotate(false)
+                this.zoom = clamp(this.zoom * Math.exp(-event.deltaY * 0.0014), 0.02, 8)
+                this.draw()
+            }, { passive: false })
+        }
+
+        startAnimation() {
+            if (!this.running || !this.autoRotate || this.frame !== null) return
+
+            const loop = () => {
+                if (!this.running || !this.autoRotate) {
+                    this.frame = null
+                    return
+                }
+                this.yaw += 0.0022
+                this.draw()
+                this.frame = window.requestAnimationFrame(loop)
+            }
+
+            this.frame = window.requestAnimationFrame(loop)
+        }
+
+        stopAnimation() {
+            if (this.frame !== null) window.cancelAnimationFrame(this.frame)
+            this.frame = null
+        }
+
+        setAutoRotate(value) {
+            const next = Boolean(value) && !reduceMotion.matches
+            this.autoRotate = next
+
+            if (next) {
+                this.startAnimation()
+            } else {
+                this.stopAnimation()
+            }
+
+            if (typeof this.onAutoRotateChange === 'function') this.onAutoRotateChange()
+        }
+
+        toggleAutoRotate() {
+            if (reduceMotion.matches) return
+            this.setAutoRotate(!this.autoRotate)
+        }
+
+        zoomIn(factor) {
+            this.setAutoRotate(false)
+            this.zoom = clamp(this.zoom * factor, 0.02, 8)
+            this.draw()
+        }
+
+        zoom(factor) {
+            this.zoomIn(factor)
+        }
+
+        reset() {
+            this.setAutoRotate(false)
+            this.yaw = this.defaultYaw
+            this.pitch = this.defaultPitch
+            this.centerX = 0
+            this.centerY = 0
+            this.fit()
+            this.hasFitted = true
+            this.draw()
+        }
+
+        activate() {
+            this.running = true
+            this.resize()
+            if (!this.hasFitted) {
+                this.fit()
+                this.hasFitted = true
+            }
+            this.draw()
+            if (this.autoRotate) this.startAnimation()
+        }
+
+        deactivate() {
+            this.running = false
+            this.stopAnimation()
+            this.updateTooltip(null)
+        }
+    }
+
+    function rendererFor(view) {
+        if (renderers[view]) return renderers[view]
+
+        try {
+            if (view === '2d') {
+                const svg = document.querySelector('[data-tree-graph="2d"] svg')
+                renderers[view] = new SvgRenderer(svg)
+            } else if (view === '3d') {
+                const container = document.querySelector('[data-tree-graph="3d"]')
+                const canvas = container.querySelector('canvas')
+                const tooltip = container.querySelector('[data-tree-tooltip]')
+                renderers[view] = new ThreeRenderer(canvas, container, tooltip)
+            }
+        } catch (error) {
+            console.warn('Vue indisponible:', view, error)
+            return null
+        }
+
+        return renderers[view]
+    }
+
+    function syncRotateButton() {
+        if (!rotateButton) return
+        const active = activeView === '3d' && activeRenderer !== null && activeRenderer.autoRotate === true
+        rotateButton.hidden = activeView !== '3d'
+        rotateButton.textContent = active ? 'Pause rotation' : 'Rotation auto'
+        rotateButton.setAttribute('aria-pressed', active ? 'true' : 'false')
+    }
+
+    function setView(view, updateUrl) {
+        if (view === 'canvas') view = '2d'
+        if (!['standard', '2d', '3d'].includes(view)) view = 'standard'
+
+        if (activeRenderer) {
+            activeRenderer.deactivate()
+            activeRenderer = null
+        }
+
+        panels.forEach(function (panel) {
+            const active = panel.dataset.treeViewPanel === view
+            panel.hidden = !active
+            panel.classList.toggle('is-active', active)
+        })
+
+        switchButtons.forEach(function (button) {
+            const active = button.dataset.treeViewButton === view
+            button.classList.toggle('is-active', active)
+            button.setAttribute('aria-pressed', active ? 'true' : 'false')
+        })
+
+        const graphical = view !== 'standard'
+        if (graphToolbar) graphToolbar.hidden = !graphical
+        if (graphHint) graphHint.hidden = !graphical
+
+        if (graphical) {
+            activeRenderer = rendererFor(view)
+            if (!activeRenderer) {
+                setView('standard', updateUrl)
+                return
+            }
+            activeRenderer.activate()
+            if (graphCaption) {
+                const label = view === '2d' ? 'Vue 2D' : 'Vue 3D'
+                graphCaption.textContent = label + ' · ' + layout.nodes.length + ' personnes'
+            }
+            if (graphHint) {
+                graphHint.textContent = view === '3d'
+                    ? 'Glissez pour tourner · molette pour zoomer · cliquez sur une fiche.'
+                    : 'Cliquez sur une fiche pour l’ouvrir. Molette : zoom · glisser : déplacer.'
+            }
+        }
+
+        activeView = view
+        syncRotateButton()
+
+        if (updateUrl) {
+            try {
+                const url = new URL(window.location.href)
+                if (view === 'standard') {
+                    url.searchParams.delete('view')
+                } else {
+                    url.searchParams.set('view', view)
+                }
+                window.history.replaceState(null, '', url)
+            } catch (error) {
+                // Les URL file:// de l’export statique peuvent refuser l’historique.
+            }
+        }
+    }
+
+    switchButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            setView(button.dataset.treeViewButton, true)
+        })
+    })
+
+    if (rotateButton) {
+        rotateButton.addEventListener('click', function () {
+            if (!activeRenderer || typeof activeRenderer.toggleAutoRotate !== 'function') return
+            activeRenderer.toggleAutoRotate()
+        })
+    }
+
+    zoomButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            if (!activeRenderer) return
+            if (button.dataset.treeZoom === 'reset') {
+                activeRenderer.reset()
+            } else {
+                activeRenderer.zoom(button.dataset.treeZoom === 'in' ? 1.25 : 0.8)
+            }
+        })
+    })
+
+    window.addEventListener('popstate', function () {
+        const view = new URL(window.location.href).searchParams.get('view') || 'standard'
+        setView(view, false)
+    })
+
+    const initialView = new URL(window.location.href).searchParams.get('view') || 'standard'
+    setView(initialView, false)
+})()
+
+</script>
+<script>
+(function () {
+    function normalize(value) {
+        return String(value ?? '')
+            .normalize('NFD')
+            .replace(/\p{Diacritic}/gu, '')
+            .toLowerCase()
+    }
+
+    function filter(input) {
+        const selector = input.dataset.staticSearch
+        if (!selector) return
+
+        const rows = Array.from(document.querySelectorAll(selector))
+        const empty = document.querySelector(input.dataset.staticSearchEmpty || '')
+
+        input.addEventListener('input', function () {
+            const term = normalize(input.value).trim()
+            let visible = 0
+
+            rows.forEach(function (row) {
+                const match = term === '' || normalize(row.textContent).includes(term)
+                row.hidden = !match
+                if (match) visible++
+            })
+
+            if (empty) empty.hidden = visible !== 0
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-static-search]').forEach(filter)
+    })
+})()
+
+</script>
+</head>
+<body>
+<header class="app-header"><div class="header-inner"><a class="brand" href="famille-livre.html"><span class="brand-mark">FHT</span><span class="brand-name">Famille Hamet Tenguella</span></a><nav class="primary-nav" id="link" aria-label="Navigation principale"><a class="nav-link" href="famille-livre.html">Accueil</a><a class="nav-link" href="famille-livre.html">Sommaire</a><a class="nav-link is-active" href="famille-arbre.html">Arbre</a><a class="nav-link" href="famille-livre.html">Livre</a><a class="nav-link" href="descendances.html">Descendances</a></nav><div class="header-actions"><button type="button" class="mobile-toggle" id="list-link" aria-label="Ouvrir la navigation" aria-expanded="false" aria-controls="link"><span aria-hidden="true">☰</span></button></div></div></header><main class="app-main"><div class="container"><div class="page-head"><div><span class="eyebrow">Généalogie</span><h1>Arbre des générations</h1><p>Explorez la descendance de <strong>Hamet teguela <span class="person-surname" title="Surnom">Diadji teguela</span></strong> avec l’affichage de votre choix.</p></div></div>
+<div class="tree-display-head">
+    <div class="tree-view-switch" role="group" aria-label="Affichage de l’arbre">
+                    <button type="button" data-tree-view-button="standard" class="is-active" aria-pressed="true">
+                Standard            </button>
+                    <button type="button" data-tree-view-button="2d" class="" aria-pressed="false">
+                2D            </button>
+                    <button type="button" data-tree-view-button="3d" class="" aria-pressed="false">
+                3D            </button>
+            </div>
+    <p class="tree-hint" data-graph-hint hidden>Cliquez sur une fiche pour l’ouvrir. Molette : zoom · glisser : déplacer.</p>
+</div>
+
+<div class="tree-graph-toolbar" data-graph-toolbar hidden>
+    <span class="badge badge-muted" data-graph-caption>Vue graphique</span>
+    <div class="tree-graph-actions">
+        <button type="button" class="btn btn-default btn-sm" data-tree-zoom="out" aria-label="Réduire">−</button>
+        <button type="button" class="btn btn-default btn-sm" data-tree-zoom="reset">Recentrer</button>
+        <button type="button" class="btn btn-default btn-sm" data-tree-zoom="in" aria-label="Agrandir">+</button>
+        <button type="button" class="btn btn-default btn-sm" data-tree-rotate hidden aria-pressed="false">Rotation auto</button>
+    </div>
+</div>
+
+<section class="tree-view is-active" data-tree-view-panel="standard" aria-label="Arbre standard">
+    <div class="tree-toolbar">
+        <button type="button" class="btn btn-default btn-sm" data-tree-action="expand">Tout déplier</button>
+        <button type="button" class="btn btn-default btn-sm" data-tree-action="collapse">Tout plier</button>
+    </div>
+
+    <div class="person-tree">
+        <dl class="tree-root"><dd class="tree-node" data-generation="1"><details id="node-45" open><summary><span class="tree-name"><a href="famille-livre.html#45">Hamet teguela <span class="person-surname" title="Surnom">Diadji teguela</span> <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#45</span></summary><dl class="G2"><dt>G2</dt><dd class="tree-node" data-generation="2"><details id="node-46"><summary><span class="tree-name"><a href="famille-livre.html#46">Djogni Diadji <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#46</span></summary><dl class="G3"><dt>G3</dt><dd class="tree-node" data-generation="3"><details id="node-47"><summary><span class="tree-name"><a href="famille-livre.html#47">Yama Djogni <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#47</span></summary><dl class="G4"><dt>G4</dt><dd class="tree-node" data-generation="4"><details id="node-48"><summary><span class="tree-name"><a href="famille-livre.html#48">Malouma Yama <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#48</span></summary><dl class="G5"><dt>G5</dt><dd class="tree-node" data-generation="5"><details id="node-49"><summary><span class="tree-name"><a href="famille-livre.html#49">Ali Malouma <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#49</span></summary></details></dd><dd class="tree-node" data-generation="5"><details id="node-50"><summary><span class="tree-name"><a href="famille-livre.html#50">Samba Malouma <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#50</span></summary></details></dd><dd class="tree-node" data-generation="5"><details id="node-51"><summary><span class="tree-name"><a href="famille-livre.html#51">Demba Malouma <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#51</span></summary><dl class="G6"><dt>G6</dt><dd class="tree-node" data-generation="6"><details id="node-53"><summary><span class="tree-name"><a href="famille-livre.html#53">Siley Demba <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#53</span></summary><dl class="G7"><dt>G7</dt><dd class="tree-node" data-generation="7"><details id="node-56"><summary><span class="tree-name"><a href="famille-livre.html#56">Mamadou Siley <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#56</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-76"><summary><span class="tree-name"><a href="famille-livre.html#76">Bocar Mamadou <span class="person-surname" title="Surnom">bocarel Dialade</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#76</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-77"><summary><span class="tree-name"><a href="famille-livre.html#77">Aissata Mamadou <span class="person-surname" title="Surnom">Astel Dialade</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#77</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-78"><summary><span class="tree-name"><a href="famille-livre.html#78">Khadidjata Mamadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#78</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-57"><summary><span class="tree-name"><a href="famille-livre.html#57">Amadou Siley <span class="tree-count" title="2 enfants · Descendance complète">(2)</span></a></span><span class="tree-id">#57</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-79"><summary><span class="tree-name"><a href="famille-livre.html#79">Moussa Amadou <span class="person-surname" title="Surnom">Moussa Matal</span> <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#79</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-130"><summary><span class="tree-name"><a href="famille-livre.html#130">Fatimata Moussa <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#130</span></summary><dl class="G10"><dt>G10</dt><dd class="tree-node" data-generation="10"><details id="node-134"><summary><span class="tree-name"><a href="famille-livre.html#134">Mamadel Fatimata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#134</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-135"><summary><span class="tree-name"><a href="famille-livre.html#135">Ciré Fatimata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#135</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-136"><summary><span class="tree-name"><a href="famille-livre.html#136">Mayramel Fatimata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#136</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-137"><summary><span class="tree-name"><a href="famille-livre.html#137">Dieiniyel Fatimata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#137</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="9"><details id="node-131"><summary><span class="tree-name"><a href="famille-livre.html#131">Ciré Moussa <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#131</span></summary><dl class="G10"><dt>G10</dt><dd class="tree-node" data-generation="10"><details id="node-142"><summary><span class="tree-name"><a href="famille-livre.html#142">Abou Demba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#142</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="9"><details id="node-132"><summary><span class="tree-name"><a href="famille-livre.html#132">Mamadou Moussa <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#132</span></summary><dl class="G10"><dt>G10</dt><dd class="tree-node" data-generation="10"><details id="node-138"><summary><span class="tree-name"><a href="famille-livre.html#138">Bocar Mamadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#138</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-139"><summary><span class="tree-name"><a href="famille-livre.html#139">Ciré Mamadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#139</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-140"><summary><span class="tree-name"><a href="famille-livre.html#140">Habi Mamadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#140</span></summary></details></dd><dd class="tree-node" data-generation="10"><details id="node-141"><summary><span class="tree-name"><a href="famille-livre.html#141">Hadjirata Mamadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#141</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="9"><details id="node-133"><summary><span class="tree-name"><a href="famille-livre.html#133">Aminata Moussa <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#133</span></summary><dl class="G10"><dt>G10</dt><dd class="tree-node" data-generation="10"><details id="node-143"><summary><span class="tree-name"><a href="famille-livre.html#143">Demba Dieini <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#143</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-80"><summary><span class="tree-name"><a href="famille-livre.html#80">Mamadou Amadou <span class="person-surname" title="Surnom">Nacko Matal</span> <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#80</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-129"><summary><span class="tree-name"><a href="famille-livre.html#129">Bocar Mamadou <span class="person-surname" title="Surnom">bocar Mayi</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#129</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-58"><summary><span class="tree-name"><a href="famille-livre.html#58">Khadidjata Siley <span class="person-surname" title="Surnom">Hawo Siley</span> <span class="tree-count" title="2 enfants · Descendance complète">(2)</span></a></span><span class="tree-id">#58</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-81"><summary><span class="tree-name"><a href="famille-livre.html#81">Siley Khadidjata <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#81</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-103"><summary><span class="tree-name"><a href="famille-livre.html#103">Bocar Siley <span class="person-surname" title="Surnom">Ndiaye Raki</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#103</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-82"><summary><span class="tree-name"><a href="famille-livre.html#82">Yero Khadidjata <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#82</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-102"><summary><span class="tree-name"><a href="famille-livre.html#102">Bocar Yero <span class="person-surname" title="Surnom">Mallal Djeba</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#102</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-59"><summary><span class="tree-name"><a href="famille-livre.html#59">Mariem Siley <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#59</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-83"><summary><span class="tree-name"><a href="famille-livre.html#83">Djeba Mariem <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#83</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-100"><summary><span class="tree-name"><a href="famille-livre.html#100">Malal Djeba <span class="person-surname" title="Surnom">bocar Yero</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#100</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-84"><summary><span class="tree-name"><a href="famille-livre.html#84">Ali Mariem <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#84</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-97"><summary><span class="tree-name"><a href="famille-livre.html#97">Abdoulaye Ali <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#97</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-98"><summary><span class="tree-name"><a href="famille-livre.html#98">Hawo Ali <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#98</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-99"><summary><span class="tree-name"><a href="famille-livre.html#99">Khadidjata Ali <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#99</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-85"><summary><span class="tree-name"><a href="famille-livre.html#85">Hawo Mariem <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#85</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-101"><summary><span class="tree-name"><a href="famille-livre.html#101">Mellel Hawo <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#101</span></summary></details></dd></dl></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="6"><details id="node-54"><summary><span class="tree-name"><a href="famille-livre.html#54">Yougourou Demba <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#54</span></summary><dl class="G7"><dt>G7</dt><dd class="tree-node" data-generation="7"><details id="node-64"><summary><span class="tree-name"><a href="famille-livre.html#64">Abdoulaye Yougourou <span class="person-surname" title="Surnom">Abdoulaye Matal</span> <span class="tree-count" title="4 enfants · Descendance complète">(4)</span></a></span><span class="tree-id">#64</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-86"><summary><span class="tree-name"><a href="famille-livre.html#86">Amadou Abdoulaye <span class="person-surname" title="Surnom">Amadou Dialade</span> <span class="tree-count" title="7 enfants · Descendance complète">(7)</span></a></span><span class="tree-id">#86</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-104"><summary><span class="tree-name"><a href="famille-livre.html#104">Moussa Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#104</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-105"><summary><span class="tree-name"><a href="famille-livre.html#105">Dieinaba Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#105</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-106"><summary><span class="tree-name"><a href="famille-livre.html#106">Mariem Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#106</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-107"><summary><span class="tree-name"><a href="famille-livre.html#107">Aissata Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#107</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-108"><summary><span class="tree-name"><a href="famille-livre.html#108">Abdoulaye Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#108</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-109"><summary><span class="tree-name"><a href="famille-livre.html#109">Hawa Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#109</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-110"><summary><span class="tree-name"><a href="famille-livre.html#110">Mariete Amadou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#110</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-87"><summary><span class="tree-name"><a href="famille-livre.html#87">Fatimata Abdoulaye <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#87</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-112"><summary><span class="tree-name"><a href="famille-livre.html#112">Aissé Egoude <span class="person-surname" title="Surnom">sinthiou Dangdé</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#112</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-88"><summary><span class="tree-name"><a href="famille-livre.html#88">Dieinaba Abdoulaye <span class="person-surname" title="Surnom">Bakaw</span> <span class="tree-count" title="5 enfants · Descendance complète">(5)</span></a></span><span class="tree-id">#88</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-113"><summary><span class="tree-name"><a href="famille-livre.html#113">Amadou Seidou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#113</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-114"><summary><span class="tree-name"><a href="famille-livre.html#114">Siley Seidou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#114</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-115"><summary><span class="tree-name"><a href="famille-livre.html#115">Fatimata Seidou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#115</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-116"><summary><span class="tree-name"><a href="famille-livre.html#116">Oumou Diallel <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#116</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-117"><summary><span class="tree-name"><a href="famille-livre.html#117">Pollel Seidou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#117</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-89"><summary><span class="tree-name"><a href="famille-livre.html#89">Mariem Abdoulaye <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#89</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-118"><summary><span class="tree-name"><a href="famille-livre.html#118">Aissata Lorou <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#118</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-65"><summary><span class="tree-name"><a href="famille-livre.html#65">Hamet Yougourou <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#65</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-90"><summary><span class="tree-name"><a href="famille-livre.html#90">Samba Hamet <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#90</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-119"><summary><span class="tree-name"><a href="famille-livre.html#119">Dieinaba Sadio <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#119</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-120"><summary><span class="tree-name"><a href="famille-livre.html#120">Fadiima Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#120</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-121"><summary><span class="tree-name"><a href="famille-livre.html#121">Woyssi Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#121</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-91"><summary><span class="tree-name"><a href="famille-livre.html#91">Demba Hamet <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#91</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-122"><summary><span class="tree-name"><a href="famille-livre.html#122">Ciré Demba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#122</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-123"><summary><span class="tree-name"><a href="famille-livre.html#123">Hawo Demba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#123</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-124"><summary><span class="tree-name"><a href="famille-livre.html#124">Dieinaba Demba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#124</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="8"><details id="node-92"><summary><span class="tree-name"><a href="famille-livre.html#92">Hamad Hamet <span class="person-surname" title="Surnom">Samba</span> <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#92</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-126"><summary><span class="tree-name"><a href="famille-livre.html#126">Mamadou Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#126</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-127"><summary><span class="tree-name"><a href="famille-livre.html#127">Amadou Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#127</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-128"><summary><span class="tree-name"><a href="famille-livre.html#128">Youma Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#128</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-66"><summary><span class="tree-name"><a href="famille-livre.html#66">Bocar Yougourou <span class="tree-count" title="1 enfant · Descendance complète">(1)</span></a></span><span class="tree-id">#66</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-93"><summary><span class="tree-name"><a href="famille-livre.html#93">Aissata Bocar <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#93</span></summary><dl class="G9"><dt>G9</dt><dd class="tree-node" data-generation="9"><details id="node-94"><summary><span class="tree-name"><a href="famille-livre.html#94">Sadio Aissata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#94</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-95"><summary><span class="tree-name"><a href="famille-livre.html#95">Coumba Aissata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#95</span></summary></details></dd><dd class="tree-node" data-generation="9"><details id="node-96"><summary><span class="tree-name"><a href="famille-livre.html#96">Debel Aissata <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#96</span></summary></details></dd></dl></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="6"><details id="node-55"><summary><span class="tree-name"><a href="famille-livre.html#55">Hamet Demba <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#55</span></summary><dl class="G7"><dt>G7</dt><dd class="tree-node" data-generation="7"><details id="node-67"><summary><span class="tree-name"><a href="famille-livre.html#67">Nango Hamet <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#67</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-70"><summary><span class="tree-name"><a href="famille-livre.html#70">Samba Nango <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#70</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-71"><summary><span class="tree-name"><a href="famille-livre.html#71">Booyi Nango <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#71</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-72"><summary><span class="tree-name"><a href="famille-livre.html#72">Aissata Nango <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#72</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-68"><summary><span class="tree-name"><a href="famille-livre.html#68">Samba Hamet <span class="tree-count" title="3 enfants · Descendance complète">(3)</span></a></span><span class="tree-id">#68</span></summary><dl class="G8"><dt>G8</dt><dd class="tree-node" data-generation="8"><details id="node-73"><summary><span class="tree-name"><a href="famille-livre.html#73">Aissata Samba <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#73</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-74"><summary><span class="tree-name"><a href="famille-livre.html#74">Ibrahima Samba <span class="person-surname" title="Surnom">ibrahima lam</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#74</span></summary></details></dd><dd class="tree-node" data-generation="8"><details id="node-75"><summary><span class="tree-name"><a href="famille-livre.html#75">Mamadou Samba <span class="person-surname" title="Surnom">bocar bonko</span> <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#75</span></summary></details></dd></dl></details></dd><dd class="tree-node" data-generation="7"><details id="node-69"><summary><span class="tree-name"><a href="famille-livre.html#69">Ciré Hamet <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#69</span></summary></details></dd></dl></details></dd></dl></details></dd><dd class="tree-node" data-generation="5"><details id="node-52"><summary><span class="tree-name"><a href="famille-livre.html#52">Pathé Malouma <span class="tree-count tree-count-empty" title="0 enfant · Aucun enfant">(0)</span></a></span><span class="tree-id">#52</span></summary></details></dd></dl></details></dd></dl></details></dd></dl></details></dd></dl></details></dd></dl>    </div>
+</section>
+
+<section class="tree-view" data-tree-view-panel="2d" aria-label="Arbre en 2D" hidden>
+    <div class="tree-graph" data-tree-graph="2d">
+        <svg class="tree-svg" role="group" aria-label="Arbre généalogique interactif en deux dimensions"></svg>
+    </div>
+</section>
+
+<section class="tree-view" data-tree-view-panel="3d" aria-label="Arbre en 3D" hidden>
+    <div class="tree-graph tree-graph-3d" data-tree-graph="3d">
+        <canvas class="tree-canvas" aria-label="Arbre généalogique interactif en trois dimensions"></canvas>
+        <div class="tree-tooltip" data-tree-tooltip hidden></div>
+    </div>
+</section>
+
+<script type="application/json" id="tree-data">{"root":"45","rootName":"Hamet teguela","rootSurname":"Diadji teguela","nodes":[{"id":"45","nom":"Hamet teguela","surnom":"Diadji teguela","generation":1,"generationLabel":"G1","sexe":"M","parent":null,"children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/45.html"},{"id":"46","nom":"Djogni Diadji","surnom":null,"generation":2,"generationLabel":"G2","sexe":"M","parent":"45","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/46.html"},{"id":"47","nom":"Yama Djogni","surnom":null,"generation":3,"generationLabel":"G3","sexe":"M","parent":"46","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/47.html"},{"id":"48","nom":"Malouma Yama","surnom":null,"generation":4,"generationLabel":"G4","sexe":"M","parent":"47","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/48.html"},{"id":"49","nom":"Ali Malouma","surnom":null,"generation":5,"generationLabel":"G5","sexe":"M","parent":"48","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/49.html"},{"id":"50","nom":"Samba Malouma","surnom":null,"generation":5,"generationLabel":"G5","sexe":"M","parent":"48","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/50.html"},{"id":"51","nom":"Demba Malouma","surnom":null,"generation":5,"generationLabel":"G5","sexe":"M","parent":"48","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/51.html"},{"id":"53","nom":"Siley Demba","surnom":null,"generation":6,"generationLabel":"G6","sexe":"M","parent":"51","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/53.html"},{"id":"56","nom":"Mamadou Siley","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"53","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/56.html"},{"id":"76","nom":"Bocar Mamadou","surnom":"bocarel Dialade","generation":8,"generationLabel":"G8","sexe":"M","parent":"56","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/76.html"},{"id":"77","nom":"Aissata Mamadou","surnom":"Astel Dialade","generation":8,"generationLabel":"G8","sexe":"F","parent":"56","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/77.html"},{"id":"78","nom":"Khadidjata Mamadou","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"56","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/78.html"},{"id":"57","nom":"Amadou Siley","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"53","children":2,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/57.html"},{"id":"79","nom":"Moussa Amadou","surnom":"Moussa Matal","generation":8,"generationLabel":"G8","sexe":"M","parent":"57","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/79.html"},{"id":"130","nom":"Fatimata Moussa","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"79","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/130.html"},{"id":"134","nom":"Mamadel Fatimata","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"130","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/134.html"},{"id":"135","nom":"Cir\u00e9 Fatimata","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"130","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/135.html"},{"id":"136","nom":"Mayramel Fatimata","surnom":null,"generation":10,"generationLabel":"G10","sexe":"F","parent":"130","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/136.html"},{"id":"137","nom":"Dieiniyel Fatimata","surnom":null,"generation":10,"generationLabel":"G10","sexe":"F","parent":"130","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/137.html"},{"id":"131","nom":"Cir\u00e9 Moussa","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"79","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/131.html"},{"id":"142","nom":"Abou Demba","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"131","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/142.html"},{"id":"132","nom":"Mamadou Moussa","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"79","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/132.html"},{"id":"138","nom":"Bocar Mamadou","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"132","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/138.html"},{"id":"139","nom":"Cir\u00e9 Mamadou","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"132","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/139.html"},{"id":"140","nom":"Habi Mamadou","surnom":null,"generation":10,"generationLabel":"G10","sexe":"F","parent":"132","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/140.html"},{"id":"141","nom":"Hadjirata Mamadou","surnom":null,"generation":10,"generationLabel":"G10","sexe":"F","parent":"132","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/141.html"},{"id":"133","nom":"Aminata Moussa","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"79","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/133.html"},{"id":"143","nom":"Demba Dieini","surnom":null,"generation":10,"generationLabel":"G10","sexe":"M","parent":"133","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/143.html"},{"id":"80","nom":"Mamadou Amadou","surnom":"Nacko Matal","generation":8,"generationLabel":"G8","sexe":"M","parent":"57","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/80.html"},{"id":"129","nom":"Bocar Mamadou","surnom":"bocar Mayi","generation":9,"generationLabel":"G9","sexe":"M","parent":"80","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/129.html"},{"id":"58","nom":"Khadidjata Siley","surnom":"Hawo Siley","generation":7,"generationLabel":"G7","sexe":"F","parent":"53","children":2,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/58.html"},{"id":"81","nom":"Siley Khadidjata","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"58","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/81.html"},{"id":"103","nom":"Bocar Siley","surnom":"Ndiaye Raki","generation":9,"generationLabel":"G9","sexe":"M","parent":"81","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/103.html"},{"id":"82","nom":"Yero Khadidjata","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"58","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/82.html"},{"id":"102","nom":"Bocar Yero","surnom":"Mallal Djeba","generation":9,"generationLabel":"G9","sexe":"M","parent":"82","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/102.html"},{"id":"59","nom":"Mariem Siley","surnom":null,"generation":7,"generationLabel":"G7","sexe":"F","parent":"53","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/59.html"},{"id":"83","nom":"Djeba Mariem","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"59","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/83.html"},{"id":"100","nom":"Malal Djeba","surnom":"bocar Yero","generation":9,"generationLabel":"G9","sexe":"M","parent":"83","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/100.html"},{"id":"84","nom":"Ali Mariem","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"59","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/84.html"},{"id":"97","nom":"Abdoulaye Ali","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"84","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/97.html"},{"id":"98","nom":"Hawo Ali","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"84","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/98.html"},{"id":"99","nom":"Khadidjata Ali","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"84","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/99.html"},{"id":"85","nom":"Hawo Mariem","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"59","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/85.html"},{"id":"101","nom":"Mellel Hawo","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"85","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/101.html"},{"id":"54","nom":"Yougourou Demba","surnom":null,"generation":6,"generationLabel":"G6","sexe":"M","parent":"51","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/54.html"},{"id":"64","nom":"Abdoulaye Yougourou","surnom":"Abdoulaye Matal","generation":7,"generationLabel":"G7","sexe":"M","parent":"54","children":4,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/64.html"},{"id":"86","nom":"Amadou Abdoulaye","surnom":"Amadou Dialade","generation":8,"generationLabel":"G8","sexe":"M","parent":"64","children":7,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/86.html"},{"id":"104","nom":"Moussa Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/104.html"},{"id":"105","nom":"Dieinaba Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/105.html"},{"id":"106","nom":"Mariem Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/106.html"},{"id":"107","nom":"Aissata Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/107.html"},{"id":"108","nom":"Abdoulaye Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/108.html"},{"id":"109","nom":"Hawa Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/109.html"},{"id":"110","nom":"Mariete Amadou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"86","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/110.html"},{"id":"87","nom":"Fatimata Abdoulaye","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"64","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/87.html"},{"id":"112","nom":"Aiss\u00e9 Egoude","surnom":"sinthiou Dangd\u00e9","generation":9,"generationLabel":"G9","sexe":"F","parent":"87","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/112.html"},{"id":"88","nom":"Dieinaba Abdoulaye","surnom":"Bakaw","generation":8,"generationLabel":"G8","sexe":"F","parent":"64","children":5,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/88.html"},{"id":"113","nom":"Amadou Seidou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"88","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/113.html"},{"id":"114","nom":"Siley Seidou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"88","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/114.html"},{"id":"115","nom":"Fatimata Seidou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"88","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/115.html"},{"id":"116","nom":"Oumou Diallel","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"88","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/116.html"},{"id":"117","nom":"Pollel Seidou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"88","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/117.html"},{"id":"89","nom":"Mariem Abdoulaye","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"64","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/89.html"},{"id":"118","nom":"Aissata Lorou","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"89","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/118.html"},{"id":"65","nom":"Hamet Yougourou","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"54","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/65.html"},{"id":"90","nom":"Samba Hamet","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"65","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/90.html"},{"id":"119","nom":"Dieinaba Sadio","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"90","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/119.html"},{"id":"120","nom":"Fadiima Samba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"90","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/120.html"},{"id":"121","nom":"Woyssi Samba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"90","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/121.html"},{"id":"91","nom":"Demba Hamet","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"65","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/91.html"},{"id":"122","nom":"Cir\u00e9 Demba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"91","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/122.html"},{"id":"123","nom":"Hawo Demba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"91","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/123.html"},{"id":"124","nom":"Dieinaba Demba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"91","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/124.html"},{"id":"92","nom":"Hamad Hamet","surnom":"Samba","generation":8,"generationLabel":"G8","sexe":"M","parent":"65","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/92.html"},{"id":"126","nom":"Mamadou Samba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"92","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/126.html"},{"id":"127","nom":"Amadou Samba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"M","parent":"92","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/127.html"},{"id":"128","nom":"Youma Samba","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"92","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/128.html"},{"id":"66","nom":"Bocar Yougourou","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"54","children":1,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/66.html"},{"id":"93","nom":"Aissata Bocar","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"66","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/93.html"},{"id":"94","nom":"Sadio Aissata","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"93","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/94.html"},{"id":"95","nom":"Coumba Aissata","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"93","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/95.html"},{"id":"96","nom":"Debel Aissata","surnom":null,"generation":9,"generationLabel":"G9","sexe":"F","parent":"93","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/96.html"},{"id":"55","nom":"Hamet Demba","surnom":null,"generation":6,"generationLabel":"G6","sexe":"M","parent":"51","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/55.html"},{"id":"67","nom":"Nango Hamet","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"55","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/67.html"},{"id":"70","nom":"Samba Nango","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"67","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/70.html"},{"id":"71","nom":"Booyi Nango","surnom":null,"generation":8,"generationLabel":"G8","sexe":"M","parent":"67","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/71.html"},{"id":"72","nom":"Aissata Nango","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"67","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/72.html"},{"id":"68","nom":"Samba Hamet","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"55","children":3,"status":"complet","statusLabel":"Descendance compl\u00e8te","missing":0,"attention":false,"href":"personne\/68.html"},{"id":"73","nom":"Aissata Samba","surnom":null,"generation":8,"generationLabel":"G8","sexe":"F","parent":"68","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/73.html"},{"id":"74","nom":"Ibrahima Samba","surnom":"ibrahima lam","generation":8,"generationLabel":"G8","sexe":"M","parent":"68","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/74.html"},{"id":"75","nom":"Mamadou Samba","surnom":"bocar bonko","generation":8,"generationLabel":"G8","sexe":"M","parent":"68","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/75.html"},{"id":"69","nom":"Cir\u00e9 Hamet","surnom":null,"generation":7,"generationLabel":"G7","sexe":"M","parent":"55","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/69.html"},{"id":"52","nom":"Path\u00e9 Malouma","surnom":null,"generation":5,"generationLabel":"G5","sexe":"M","parent":"48","children":0,"status":"aucun","statusLabel":"Aucun enfant","missing":0,"attention":false,"href":"personne\/52.html"}],"edges":[{"source":"45","target":"46"},{"source":"46","target":"47"},{"source":"47","target":"48"},{"source":"48","target":"49"},{"source":"48","target":"50"},{"source":"48","target":"51"},{"source":"51","target":"53"},{"source":"53","target":"56"},{"source":"56","target":"76"},{"source":"56","target":"77"},{"source":"56","target":"78"},{"source":"53","target":"57"},{"source":"57","target":"79"},{"source":"79","target":"130"},{"source":"130","target":"134"},{"source":"130","target":"135"},{"source":"130","target":"136"},{"source":"130","target":"137"},{"source":"79","target":"131"},{"source":"131","target":"142"},{"source":"79","target":"132"},{"source":"132","target":"138"},{"source":"132","target":"139"},{"source":"132","target":"140"},{"source":"132","target":"141"},{"source":"79","target":"133"},{"source":"133","target":"143"},{"source":"57","target":"80"},{"source":"80","target":"129"},{"source":"53","target":"58"},{"source":"58","target":"81"},{"source":"81","target":"103"},{"source":"58","target":"82"},{"source":"82","target":"102"},{"source":"53","target":"59"},{"source":"59","target":"83"},{"source":"83","target":"100"},{"source":"59","target":"84"},{"source":"84","target":"97"},{"source":"84","target":"98"},{"source":"84","target":"99"},{"source":"59","target":"85"},{"source":"85","target":"101"},{"source":"51","target":"54"},{"source":"54","target":"64"},{"source":"64","target":"86"},{"source":"86","target":"104"},{"source":"86","target":"105"},{"source":"86","target":"106"},{"source":"86","target":"107"},{"source":"86","target":"108"},{"source":"86","target":"109"},{"source":"86","target":"110"},{"source":"64","target":"87"},{"source":"87","target":"112"},{"source":"64","target":"88"},{"source":"88","target":"113"},{"source":"88","target":"114"},{"source":"88","target":"115"},{"source":"88","target":"116"},{"source":"88","target":"117"},{"source":"64","target":"89"},{"source":"89","target":"118"},{"source":"54","target":"65"},{"source":"65","target":"90"},{"source":"90","target":"119"},{"source":"90","target":"120"},{"source":"90","target":"121"},{"source":"65","target":"91"},{"source":"91","target":"122"},{"source":"91","target":"123"},{"source":"91","target":"124"},{"source":"65","target":"92"},{"source":"92","target":"126"},{"source":"92","target":"127"},{"source":"92","target":"128"},{"source":"54","target":"66"},{"source":"66","target":"93"},{"source":"93","target":"94"},{"source":"93","target":"95"},{"source":"93","target":"96"},{"source":"51","target":"55"},{"source":"55","target":"67"},{"source":"67","target":"70"},{"source":"67","target":"71"},{"source":"67","target":"72"},{"source":"55","target":"68"},{"source":"68","target":"73"},{"source":"68","target":"74"},{"source":"68","target":"75"},{"source":"55","target":"69"},{"source":"48","target":"52"}]}</script>
+</div></main><footer class="app-footer">Famille Hamet Tenguella <span>·</span> site statique généré le 01/11/2026 15:21</footer></body></html>

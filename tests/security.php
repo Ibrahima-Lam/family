@@ -97,8 +97,11 @@ $person = $model->findOne('64');
 check($person !== false && $person->nomPersonne === 'Abdoulaye Yougourou' && $person->surnom === 'Abdoulaye Matal', 'Un nom avec surnom est séparé');
 $person = $model->findOne('88');
 check($person !== false && $person->nomPersonne === 'Dieinaba Abdoulaye' && $person->surnom === 'Bakaw', 'Un surnom séparé par un antislash est reconnu');
-$descendance = $model->getDescendance('45');
+$defaultPersonId = $model->addPersonne('Test Descendance Defaut', 'F', null);
+check(is_int($defaultPersonId) && $defaultPersonId > 0, 'Une personne peut être ajoutée pour tester le défaut de descendance');
+$descendance = $model->getDescendance((string) $defaultPersonId);
 check($descendance['statut'] === Descendance::INCONNU, 'La descendance est inconnue par défaut');
+check($model->delete((string) $defaultPersonId), 'La personne de test est supprimée');
 check($model->saveDescendance(45, Descendance::INCOMPLET, 2, 'Deux enfants non ajoutés'), 'La descendance peut être mise à jour');
 $person = $model->findOne('45');
 check(

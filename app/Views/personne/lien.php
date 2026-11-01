@@ -13,8 +13,14 @@ $hasSelection = !empty($id1) && !empty($id2);
     </div>
 
     <div class="panel">
-        <form action="?p=personne/lien" method="post" class="form">
+        <form action="?p=personne/lien" method="post" class="form" id="link-form">
             <?= csrf_field() ?>
+            <input type="hidden" name="tri" value="<?= $triAZ ? 'az' : '' ?>">
+            <div class="action">
+                <button type="submit" name="toggle_sort" value="1" class="btn btn-success">
+                    <?= $triAZ ? 'Ordre habituel' : 'Trier A–Z' ?>
+                </button>
+            </div>
             <div class="details-grid">
                 <div class="control">
                     <label for="id1">Première personne</label>
@@ -82,3 +88,4 @@ $hasSelection = !empty($id1) && !empty($id2);
         </div>
     <?php endif ?>
 </div>
+

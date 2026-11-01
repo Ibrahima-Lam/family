@@ -17,9 +17,17 @@ class PersonneController extends Controller
 
     public function index(): void
     {
-
+        $sortAZ = ($_GET['tri'] ?? '') === 'az';
         $data = $this->loadModel('personne')->findAll();
-        $this->render('personne/liste', compact('data'));
+        if ($sortAZ) {
+            usort($data, static function ($a, $b): int {
+                return strcoll(
+                    mb_strtolower((string) ($a->nomPersonne ?? ''), 'UTF-8'),
+                    mb_strtolower((string) ($b->nomPersonne ?? ''), 'UTF-8')
+                ) ?: ((int) ($a->idPersonne ?? 0) <=> (int) ($b->idPersonne ?? 0));
+            });
+        }
+        $this->render('personne/liste', compact('data', 'sortAZ'));
     }
 
     public function details($id = null): void
@@ -118,8 +126,13 @@ class PersonneController extends Controller
     }
     public function lien(): void
     {
+        $updatingSort = isset($_POST['toggle_sort']);
         $id1 = isset($_POST['id1']) ? (string) $_POST['id1'] : null;
         $id2 = isset($_POST['id2']) ? (string) $_POST['id2'] : null;
+        $triAZ = ($_POST['tri'] ?? '') === 'az';
+        if (isset($_POST['toggle_sort'])) {
+            $triAZ = !$triAZ;
+        }
 
         $element1 = ($id1 && ctype_digit($id1))
             ? $this->loadModel('personne')->findOne($id1)
@@ -128,7 +141,7 @@ class PersonneController extends Controller
             ? $this->loadModel('personne')->findOne($id2)
             : null;
 
-        if ($id1 && $id2 && $id1 !== $id2 && $element1 && $element2) {
+        if (!$updatingSort && $id1 && $id2 && $id1 !== $id2 && $element1 && $element2) {
             $person = new Altoperson($id1);
 
             $links = $person->getLink($id1, $id2);
@@ -144,9 +157,17 @@ class PersonneController extends Controller
         }
 
         $tab = $this->loadModel('personne')->findAllIdandNom();
-        $options1 = Html::option($tab, "idPersonne", "nomPersonne", $id1);
-        $options2 = Html::option($tab, "idPersonne", "nomPersonne", $id2);
-        $this->render('personne/lien', compact('options1', 'options2', 'parents1', 'parents2', 'element1', 'element2', 'links', 'id1', 'id2'));
+        $tabAZ = $tab;
+        usort($tabAZ, static function (array $a, array $b): int {
+            return strcoll(
+                mb_strtolower((string) ($a['nomPersonne'] ?? ''), 'UTF-8'),
+                mb_strtolower((string) ($b['nomPersonne'] ?? ''), 'UTF-8')
+            ) ?: ((int) ($a['idPersonne'] ?? 0) <=> (int) ($b['idPersonne'] ?? 0));
+        });
+        $orderedTab = $triAZ ? $tabAZ : $tab;
+        $options1 = Html::option($orderedTab, "idPersonne", "nomPersonne", $id1);
+        $options2 = Html::option($orderedTab, "idPersonne", "nomPersonne", $id2);
+        $this->render('personne/lien', compact('options1', 'options2', 'parents1', 'parents2', 'element1', 'element2', 'links', 'id1', 'id2', 'triAZ'));
     }
     public function livre(): void
     {

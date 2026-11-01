@@ -27,6 +27,7 @@
         ],
         "migrate": "@php bin/migrate.php",
         "export:static": "@php bin/export-static.php",
+        "export:family-pages": "@php bin/export-family-pages.php",
         "lint": "find app bin bootstrap config core public routes src tests -name '*.php' -print0 | xargs -0 -n1 php -l"
     },
     "config": {
